@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cxcc-code.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="gitlab 安装管理教程前言安装环境：Ubuntu 22.04 一、安装参考文档:https:&#x2F;&#x2F;gitlab.cn&#x2F;install&#x2F; 123456789# 更新安装源sudo apt update# 安装基本依赖（安装过程中出现选项都默认即可，使用TAB按键切换到OK选项，然后回车）sudo apt-get install -y curl openssh-server ca-certifica">
+<meta property="og:type" content="website">
+<meta property="og:title" content="cxcc BLOG">
+<meta property="og:url" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.html">
+<meta property="og:site_name" content="cxcc BLOG">
+<meta property="og:description" content="gitlab 安装管理教程前言安装环境：Ubuntu 22.04 一、安装参考文档:https:&#x2F;&#x2F;gitlab.cn&#x2F;install&#x2F; 123456789# 更新安装源sudo apt update# 安装基本依赖（安装过程中出现选项都默认即可，使用TAB按键切换到OK选项，然后回车）sudo apt-get install -y curl openssh-server ca-certifica">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240204102903986.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240204103012745.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240204103949129.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240204104020750.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240204104532789.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240204104932504.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240204124633451.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240205110400712.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240205110512156.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240205110758922.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240205111110545.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240205111600787.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240205112005005.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240205112144902.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240205112341124.png">
+<meta property="article:published_time" content="2024-02-26T01:09:58.612Z">
+<meta property="article:modified_time" content="2024-02-26T01:09:58.612Z">
+<meta property="article:author" content="cxcc">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240204102903986.png">
+
+
+<link rel="canonical" href="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.html","path":"docs/开发工具/gitlab 安装管理教程.html","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title> | cxcc BLOG
+</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">cxcc BLOG</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/custom-logo.png" alt="cxcc BLOG">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-docs"><a href="/docs/" rel="section"><i class="fa fa-archive fa-fw"></i>docs</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#gitlab-%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">gitlab 安装管理教程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AE%89%E8%A3%85"><span class="nav-number">1.2.</span> <span class="nav-text">一、安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%B3%BB%E7%BB%9F%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="nav-number">1.3.</span> <span class="nav-text">二、系统基本配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BF%AE%E6%94%B9%E4%BB%93%E5%BA%93%E5%AD%98%E5%82%A8%E4%BD%8D%E7%BD%AE"><span class="nav-number">1.3.1.</span> <span class="nav-text">1) 修改仓库存储位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BF%AE%E6%94%B9%E8%AE%BF%E9%97%AE%E7%AB%AF%E5%8F%A3%E5%8F%B7"><span class="nav-number">1.3.2.</span> <span class="nav-text">2) 修改访问端口号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E9%85%8D%E7%BD%AEURL"><span class="nav-number">1.3.3.</span> <span class="nav-text">3) 配置URL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-gitlab%E6%95%B4%E4%BD%93%E8%BF%81%E7%A7%BB"><span class="nav-number">1.3.4.</span> <span class="nav-text">4) gitlab整体迁移</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81gitlab%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE-%E7%BD%91%E9%A1%B5%E7%AB%AF"><span class="nav-number">1.4.</span> <span class="nav-text">三、gitlab系统配置-网页端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BF%AE%E6%94%B9%E7%B3%BB%E7%BB%9F%E8%AF%AD%E8%A8%80"><span class="nav-number">1.4.1.</span> <span class="nav-text">1) 修改系统语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%B3%A8%E5%86%8C%E9%99%90%E5%88%B6"><span class="nav-number">1.4.2.</span> <span class="nav-text">2) 注册限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%AE%A1%E7%90%86%E5%91%98%E6%B3%A8%E5%86%8C%E5%AE%A1%E6%A0%B8"><span class="nav-number">1.4.3.</span> <span class="nav-text">3) 管理员注册审核</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E4%BB%93%E5%BA%93%E9%85%8D%E7%BD%AE"><span class="nav-number">1.5.</span> <span class="nav-text">四、仓库配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BB%93%E5%BA%93%E6%9D%83%E9%99%90"><span class="nav-number">1.5.1.</span> <span class="nav-text">1) 仓库权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9E%84%E5%BB%BA"><span class="nav-number">1.5.2.</span> <span class="nav-text">2) 自动化构建</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E7%94%A8%E6%88%B7%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF%E9%85%8D%E7%BD%AE"><span class="nav-number">1.6.</span> <span class="nav-text">五、用户个人信息配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%85%B6%E5%AE%83%E9%97%AE%E9%A2%98"><span class="nav-number">1.7.</span> <span class="nav-text">六、其它问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="nav-number">1.8.</span> <span class="nav-text">参考文档</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">cxcc</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/cxcc_code" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;cxcc_code" rel="noopener me" target="_blank"><i class="fab user-gitee fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xiaolong.cxcc@qq.com" title="E-Mail → mailto:xiaolong.cxcc@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner page posts-expand">
+
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN"><header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">
+</h1>
+
+<div class="post-meta-container">
+  <ul class="breadcrumb">
+            <li><a href="/docs/">DOCS</a></li>
+            <li><a href="/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a></li>
+            <li>GITLAB 安装管理教程</li>
+  </ul>
+</div>
+
+</header>
+
+      
+      
+      <div class="post-body">
+          <h1 id="gitlab-安装管理教程"><a href="#gitlab-安装管理教程" class="headerlink" title="gitlab 安装管理教程"></a>gitlab 安装管理教程</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>安装环境：Ubuntu 22.04</p>
+<h2 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h2><p>参考文档:<a target="_blank" rel="noopener" href="https://gitlab.cn/install/">https://gitlab.cn/install/</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">更新安装源</span></span><br><span class="line">sudo apt update</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装基本依赖（安装过程中出现选项都默认即可，使用TAB按键切换到OK选项，然后回车）</span></span><br><span class="line">sudo apt-get install -y curl openssh-server ca-certificates tzdata perl</span><br><span class="line">sudo apt-get install -y postfix</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">添加 GitLab 存储库</span></span><br><span class="line">curl -fsSL https://packages.gitlab.cn/repository/raw/scripts/setup.sh | /bin/bash</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装Gitlab（执行成功后会出现狐狸头logo）</span></span><br><span class="line">sudo EXTERNAL_URL=&quot;https://gitlab.example.com&quot; apt-get install gitlab-jh</span><br></pre></td></tr></table></figure>
+
+<p>安装完成后使用root用户进行登录，root用户的初始密码在<code>/etc/gitlab/initial_root_password</code>文件中，进系统后尽快修改root密码，初始密码会在24小时后失效</p>
+<h2 id="二、系统基本配置"><a href="#二、系统基本配置" class="headerlink" title="二、系统基本配置"></a>二、系统基本配置</h2><p>以下配置通过修改系统配置文件进行修改，需要有root权限，在修改完成后执行<code>gitlab-ctl reconfigure</code>命令生效修改。</p>
+<h3 id="1-修改仓库存储位置"><a href="#1-修改仓库存储位置" class="headerlink" title="1) 修改仓库存储位置"></a>1) 修改仓库存储位置</h3><p>在gitlab中创建仓库，默认仓库存储在<code>/var/opt/gitlab/git-data/repositories</code>路径下。可能该目录下存储空间并不足以存储大量的仓库数据。这时就需要更改仓库的存储位置，尽量在安装后修改存储位置，否则还涉及到旧仓库迁移的问题。</p>
+<p>配置文件位置<code>/etc/gitlab/gitlab.rb</code>，按照以下参数配置，可搜索<code>git_data_dirs</code>找到配置</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git_data_dirs(&#123;</span><br><span class="line">  &quot;default&quot; =&gt; &#123;</span><br><span class="line">    &quot;path&quot; =&gt; &quot;/home/gitlab&quot;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2-修改访问端口号"><a href="#2-修改访问端口号" class="headerlink" title="2) 修改访问端口号"></a>2) 修改访问端口号</h3><p>默认端口号为80端口，如果与系统其它应用的端口号冲突或其它原因需要修改端口。修改配置文件<code>/etc/gitlab/gitlab.rb</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx[&#x27;listen_port&#x27;] = 7654</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-配置URL"><a href="#3-配置URL" class="headerlink" title="3) 配置URL"></a>3) 配置URL</h3><p>URL会用在系统发送邮件的链接、仓库克隆的http地址等，不进行配置会导致系统生成的链接不可用。</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">external_url &#x27;http://192.168.5.10:7654&#x27;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-gitlab整体迁移"><a href="#4-gitlab整体迁移" class="headerlink" title="4) gitlab整体迁移"></a>4) gitlab整体迁移</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_52369979/article/details/131521169">Gitlab旧服务器迁移新服务器</a></p>
+<h2 id="三、gitlab系统配置-网页端"><a href="#三、gitlab系统配置-网页端" class="headerlink" title="三、gitlab系统配置-网页端"></a>三、gitlab系统配置-网页端</h2><p>网页端的主要跳转窗口在左上角<code>搜索或转到</code>，如果不明白我的意思，可以点击看一下，是个比较重要的操作跳转点</p>
+<img src="./gitlab 安装管理教程.assets/image-20240204102903986.png" alt="image-20240204102903986">
+
+<p>点击后出现以下窗口，以下是root用户登录后可选的菜单，其它用户可能会少一些。配置主要在管理中心，后续说明的<code>管理中心</code>如无特殊说明，均指此处的管理中心。</p>
+<img src="./gitlab 安装管理教程.assets/image-20240204103012745.png" alt="image-20240204103012745">
+
+<h3 id="1-修改系统语言"><a href="#1-修改系统语言" class="headerlink" title="1) 修改系统语言"></a>1) 修改系统语言</h3><p>root用户登录，右上角头像，Settings -&gt; Preferences -&gt; Localization -&gt; Language，选择“简体中文”即可。</p>
+<img src="./gitlab 安装管理教程.assets/image-20240204103949129.png" alt="image-20240204103949129">
+
+<p>选择简体中文，保存配置</p>
+<img src="./gitlab 安装管理教程.assets/image-20240204104020750.png" alt="image-20240204104020750">
+
+<h3 id="2-注册限制"><a href="#2-注册限制" class="headerlink" title="2) 注册限制"></a>2) 注册限制</h3><p>转到<code>管理中心--&gt;设置--&gt;通用</code></p>
+<img src="./gitlab 安装管理教程.assets/image-20240204104532789.png" alt="image-20240204104532789">
+
+<p>选择注册限制选项，包括以下配置。</p>
+<img src="./gitlab 安装管理教程.assets/image-20240204104932504.png" alt="image-20240204104932504">
+
+<p>建议默认配置即可，对代码提交邮箱有限制的可以限制可注册的域</p>
+<h3 id="3-管理员注册审核"><a href="#3-管理员注册审核" class="headerlink" title="3) 管理员注册审核"></a>3) 管理员注册审核</h3><p>转到<code>管理中心--&gt;概览--&gt;用户--&gt;等待批准</code></p>
+<img src="./gitlab 安装管理教程.assets/image-20240204124633451.png" alt="image-20240204124633451">
+
+<h2 id="四、仓库配置"><a href="#四、仓库配置" class="headerlink" title="四、仓库配置"></a>四、仓库配置</h2><h3 id="1-仓库权限"><a href="#1-仓库权限" class="headerlink" title="1) 仓库权限"></a>1) 仓库权限</h3><p>GitLab用户在组中有五种权限：<strong>Guest、Reporter、Developer、Maintainer、Owner</strong>。</p>
+<p>Guest：可以创建issue、发表评论，不能读写版本库</p>
+<p>Reporter：可以克隆代码，不能提交，QA、PM可以赋予这个权限</p>
+<p>Developer：可以克隆代码、开发、提交、push，RD可以赋予这个权限</p>
+<p>Maintainer：可以创建项目、添加tag、保护分支、添加项目成员、编辑项目，核心RD负责人可以赋予这个权限。</p>
+<p>Owner：可以设置项目访问权限 - Visibility Level、删除项目、迁移项目、管理组成员，开发组leader可以赋予这个权限。</p>
+<p>Gitlab中的组和项目有三种访问权限：<strong>Private、Internal、Public</strong>。</p>
+<p>Private：只有组成员才能看到；Internal：只要登录的用户就能看到；Public：所有人都能看到。开源项目和组设置的是Internal。</p>
+<p>gitlab 官方文档《<a target="_blank" rel="noopener" href="https://docs.gitlab.com/ee/user/permissions.html">Permissions and roles</a>》</p>
+<h3 id="2-自动化构建"><a href="#2-自动化构建" class="headerlink" title="2) 自动化构建"></a>2) 自动化构建</h3><ol>
+<li><p>runner是什么</p>
+<p>runner负责运行自动化构建脚本。runner既可以独属于某个仓库，也可以多个仓库共享。常用的几种runner类型包括<code>shell</code>、<code>ssh</code>、<code>docker</code>。runner可以在这些环境下运行。runner可以在仓库进行提交的时候自动检查构建，在构建出错时可以发送邮件给提交者。</p>
+</li>
+<li><p>创建一个runner</p>
+<ul>
+<li><p>选中需要创建runner的仓库，<code>设置--&gt;CI/CD</code></p>
+<img src="./gitlab 安装管理教程.assets/image-20240205110400712.png" alt="image-20240205110400712">
+</li>
+<li><p>展开Runner选项，可以看到新建项目Runner和其它可用的Runner。可以为当前仓库单独创建runner或者共享其它项目的runner</p>
+<img src="./gitlab 安装管理教程.assets/image-20240205110512156.png" alt="image-20240205110512156">
+</li>
+<li><p>在新建项目Runner中选择操作系统为Linux，填写标签和描述即可。如果需要在每次提交时运行则需要勾选<code>运行未打标签的作业</code>，否则只在创建标签时运行。</p>
+<img src="./gitlab 安装管理教程.assets/image-20240205110758922.png" alt="image-20240205110758922">
+</li>
+<li><p>点击创建Runner，出现以下页面，复制步骤一中的命令到安装gitlab的服务器上并执行</p>
+<img src="./gitlab 安装管理教程.assets/image-20240205111110545.png" alt="image-20240205111110545">
+</li>
+<li><p>如果需要使用ssh连接到runner，则需要提供ssh连接的密钥。还需要注意的是gitlab还需要know_host文件，如果执行注册runner命令的不包含该文件可以先使用ssh连接对应的server创建know_host文件。</p>
+<img src="./gitlab 安装管理教程.assets/image-20240205111600787.png" alt="image-20240205111600787">
+</li>
+<li><p>创建成功后执行<code>gitlab-runner start</code>即可，网页端会提示已经创建一个新的runner</p>
+<img src="./gitlab 安装管理教程.assets/image-20240205112005005.png" alt="image-20240205112005005"></li>
+</ul>
+</li>
+<li><p>为仓库创建流水线</p>
+<ul>
+<li><p>点击流水线编辑器</p>
+<img src="./gitlab 安装管理教程.assets/image-20240205112144902.png" alt="image-20240205112144902">
+</li>
+<li><p>下面是一个简单的helloworld的流水线参考。样例中会通过命令编译helloworld，最终的产物中包含一个main的可执行文件</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">stages:</span>          <span class="comment"># List of stages for jobs, and their order of execution</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">build</span></span><br><span class="line"></span><br><span class="line"><span class="attr">build-job:</span>       <span class="comment"># This job runs in the build stage, which runs first.</span></span><br><span class="line">  <span class="attr">stage:</span> <span class="string">build</span></span><br><span class="line">  <span class="attr">script:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">gcc</span> <span class="string">main.c</span> <span class="string">-o</span> <span class="string">main</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">echo</span> <span class="string">&quot;Compile complete.&quot;</span></span><br><span class="line">  <span class="attr">artifacts:</span></span><br><span class="line">    <span class="attr">paths:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">main</span></span><br></pre></td></tr></table></figure>
+
+<p>详细可参考</p>
+<img src="./gitlab 安装管理教程.assets/image-20240205112341124.png" alt="image-20240205112341124"></li>
+</ul>
+</li>
+</ol>
+<h2 id="五、用户个人信息配置"><a href="#五、用户个人信息配置" class="headerlink" title="五、用户个人信息配置"></a>五、用户个人信息配置</h2><p>登陆后点击头像选择<code>编辑个人资料</code>。左侧的侧边栏有关于用户个人信息的配置。包括密码、密钥、邮件等。</p>
+<h2 id="六、其它问题"><a href="#六、其它问题" class="headerlink" title="六、其它问题"></a>六、其它问题</h2><ol>
+<li><p>删除用户后无法重新注册同用户名的用户，提示用户名已存在</p>
+<p>可以通过<code>gitlab-ctl restart</code>命令解决，暂未找到更优的方案</p>
+</li>
+<li><p>gitlab启动失败<code>fail: alertmanager: runsv not running</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start gitlab-runsvdir</span><br><span class="line">gitlab-ctl restart</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在执行<code>gitlab-ctl reconfigure</code>命令时出现</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">There was an error running gitlab-ctl reconfigure:</span><br><span class="line"></span><br><span class="line">letsencrypt_certificate[192.168.171.142] (letsencrypt::http_authorization line 6) had an error: Acme::Client::Error::RejectedIdentifier: acme_certificate[staging] (letsencrypt::http_authorization line 43) had an error: Acme::Client::Error::RejectedIdentifier: Error creating new order :: Cannot issue for &quot;192.168.171.142&quot;: The ACME server can not issue a certificate for an IP address</span><br></pre></td></tr></table></figure>
+
+<p><code>external_url</code>配置项中将https改为http，使用ip地址时证书无法颁发，无法使用https</p>
+</li>
+<li><p>root用户忘记密码怎么办</p>
+<p>可以在服务器的命令行中进入gitlab控制台修改root密码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进入gitlab终端</span></span><br><span class="line">sudo gitlab-rails console production</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">输入以下命令重置密码，将 new_password 替换为您要设置的新密码</span></span><br><span class="line">user = User.where(id: 1).first</span><br><span class="line">user.password = &#x27;new_password&#x27;</span><br><span class="line">user.password_confirmation = &#x27;new_password&#x27;</span><br><span class="line">user.save!</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">退出控制台</span></span><br><span class="line">exit</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">重启gitlab生效配置</span></span><br><span class="line">sudo gitlab-ctl restart</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://gitlab.cn/install/">官方安装参考</a></li>
+<li>[安装参考] <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/650541864">Ubuntu 22.04 | 20.04 系统中安装 Gitlab</a> </li>
+<li><a target="_blank" rel="noopener" href="https://www.yukx.com/github/article/details/2404.html">修改Gitlab代码仓库存储目录</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_31772441/article/details/112254229">GitLab 设置为中文版</a></li>
+<li>[初始化密码] <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/534072989?utm_id=0&wd=&eqid=d8045075000020790000000364770dfe">gitlab安装及使用教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhaolulu916/article/details/120775466">gitlab 修改访问端口</a></li>
+<li>[gitlab runner] <a target="_blank" rel="noopener" href="https://blog.csdn.net/u013564470/article/details/127223625">GitLab的安装与设置</a></li>
+<li>[gitlab runner] <a target="_blank" rel="noopener" href="https://blog.csdn.net/A642960662/article/details/123089404">Hello Git（九）——GitLab CI持续集成</a></li>
+<li>[gitlab runner] <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45822171/article/details/127283759">.gitlab-ci.yml 配置文件详解</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/a2272062968/article/details/132095781">GitLab不同角色对应的权限</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/arnoldlu/p/16179021.html">GitLab权限设置、分支保护、Issue&#x2F;Merge Request模板</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_25231683/article/details/132537302">GitLab启动失败：fail: alertmanager: runsv not running</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/ljx1528/article/details/130387716">gitlab忘记root密码解决方法</a></li>
+</ol>
+
+      </div>
+      
+      
+      
+    </div>
+  <ul class="breadcrumb">
+            <li><a href="/docs/">DOCS</a></li>
+            <li><a href="/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a></li>
+            <li>GITLAB 安装管理教程</li>
+  </ul>
+
+    
+    
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">cxcc</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

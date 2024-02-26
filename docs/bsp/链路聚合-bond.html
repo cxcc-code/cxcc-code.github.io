@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cxcc-code.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="链路聚合-bond【问题】：用四个网卡，两两一组，做两个负载均衡的虚拟网卡该怎么配置 要使用四个网卡，将其两两分组，然后为每组创建一个负载均衡的虚拟网卡，你可以使用 Linux 中的网络绑定（bonding）功能。这样，你将创建两个虚拟网卡，每个虚拟网卡都由两个物理网卡组成，以实现负载均衡和冗余。 以下是将四个网卡分为两组负载均衡的虚拟网卡的基本步骤：  加载 bonding 模块：确保你的系统已">
+<meta property="og:type" content="website">
+<meta property="og:title" content="cxcc BLOG">
+<meta property="og:url" content="http://cxcc-code.github.io/docs/bsp/%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88-bond.html">
+<meta property="og:site_name" content="cxcc BLOG">
+<meta property="og:description" content="链路聚合-bond【问题】：用四个网卡，两两一组，做两个负载均衡的虚拟网卡该怎么配置 要使用四个网卡，将其两两分组，然后为每组创建一个负载均衡的虚拟网卡，你可以使用 Linux 中的网络绑定（bonding）功能。这样，你将创建两个虚拟网卡，每个虚拟网卡都由两个物理网卡组成，以实现负载均衡和冗余。 以下是将四个网卡分为两组负载均衡的虚拟网卡的基本步骤：  加载 bonding 模块：确保你的系统已">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-02-22T12:35:47.483Z">
+<meta property="article:modified_time" content="2024-02-22T12:35:47.483Z">
+<meta property="article:author" content="cxcc">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://cxcc-code.github.io/docs/bsp/%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88-bond">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"http://cxcc-code.github.io/docs/bsp/%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88-bond.html","path":"docs/bsp/链路聚合-bond.html","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title> | cxcc BLOG
+</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">cxcc BLOG</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/custom-logo.png" alt="cxcc BLOG">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-docs"><a href="/docs/" rel="section"><i class="fa fa-archive fa-fw"></i>docs</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%93%BE%E8%B7%AF%E8%81%9A%E5%90%88-bond"><span class="nav-number">1.</span> <span class="nav-text">链路聚合-bond</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">cxcc</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/cxcc_code" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;cxcc_code" rel="noopener me" target="_blank"><i class="fab user-gitee fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xiaolong.cxcc@qq.com" title="E-Mail → mailto:xiaolong.cxcc@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner page posts-expand">
+
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN"><header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">
+</h1>
+
+<div class="post-meta-container">
+  <ul class="breadcrumb">
+            <li><a href="/docs/">DOCS</a></li>
+            <li><a href="/docs/bsp/">BSP</a></li>
+            <li>链路聚合-BOND</li>
+  </ul>
+</div>
+
+</header>
+
+      
+      
+      <div class="post-body">
+          <h1 id="链路聚合-bond"><a href="#链路聚合-bond" class="headerlink" title="链路聚合-bond"></a>链路聚合-bond</h1><p>【问题】：用四个网卡，两两一组，做两个负载均衡的虚拟网卡该怎么配置</p>
+<p>要使用四个网卡，将其两两分组，然后为每组创建一个负载均衡的虚拟网卡，你可以使用 Linux 中的网络绑定（bonding）功能。这样，你将创建两个虚拟网卡，每个虚拟网卡都由两个物理网卡组成，以实现负载均衡和冗余。</p>
+<p>以下是将四个网卡分为两组负载均衡的虚拟网卡的基本步骤：</p>
+<ol>
+<li><p><strong>加载 bonding 模块：</strong><br>确保你的系统已加载了 bonding 模块。如果没有加载，你可以使用以下命令手动加载它（需要管理员权限）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">modprobe bonding</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>创建网络绑定配置文件：</strong><br>创建两个网络绑定配置文件，每个文件对应一个虚拟网卡。在<code>/etc/sysconfig/network-scripts/</code>目录下创建两个文件，比如<code>ifcfg-bond0</code>和<code>ifcfg-bond1</code>，并分别填写类似以下内容：</p>
+<p>对于 <code>ifcfg-bond0</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DEVICE=bond0</span><br><span class="line">TYPE=Bond</span><br><span class="line">BONDING_MASTER=yes</span><br><span class="line">BOOTPROTO=none</span><br><span class="line">ONBOOT=yes</span><br><span class="line">BONDING_OPTS=&quot;mode=balance-rr miimon=100 updelay=200 downdelay=200&quot;</span><br></pre></td></tr></table></figure>
+
+<p>对于 <code>ifcfg-bond1</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DEVICE=bond1</span><br><span class="line">TYPE=Bond</span><br><span class="line">BONDING_MASTER=yes</span><br><span class="line">BOOTPROTO=none</span><br><span class="line">ONBOOT=yes</span><br><span class="line">BONDING_OPTS=&quot;mode=balance-rr miimon=100 updelay=200 downdelay=200&quot;</span><br></pre></td></tr></table></figure>
+
+<p>在这里，我们使用了负载均衡模式 <code>balance-rr</code>，你可以根据需要选择其他负载均衡模式。</p>
+</li>
+<li><p><strong>配置物理接口：</strong><br>为每个物理接口创建相应的配置文件，将其与适当的虚拟网卡关联，类似以下内容：</p>
+<p>对于 <code>eth0</code> 和 <code>eth1</code>，关联到 <code>bond0</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DEVICE=eth0</span><br><span class="line">TYPE=Ethernet</span><br><span class="line">BOOTPROTO=none</span><br><span class="line">ONBOOT=yes</span><br><span class="line">MASTER=bond0</span><br><span class="line">SLAVE=yes</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DEVICE=eth1</span><br><span class="line">TYPE=Ethernet</span><br><span class="line">BOOTPROTO=none</span><br><span class="line">ONBOOT=yes</span><br><span class="line">MASTER=bond0</span><br><span class="line">SLAVE=yes</span><br></pre></td></tr></table></figure>
+
+<p>对于 <code>eth2</code> 和 <code>eth3</code>，关联到 <code>bond1</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DEVICE=eth2</span><br><span class="line">TYPE=Ethernet</span><br><span class="line">BOOTPROTO=none</span><br><span class="line">ONBOOT=yes</span><br><span class="line">MASTER=bond1</span><br><span class="line">SLAVE=yes</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">DEVICE=eth3</span><br><span class="line">TYPE=Ethernet</span><br><span class="line">BOOTPROTO=none</span><br><span class="line">ONBOOT=yes</span><br><span class="line">MASTER=bond1</span><br><span class="line">SLAVE=yes</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>重启网络服务：</strong><br>完成配置后，重启网络服务以应用更改：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart network   <span class="comment"># 对于systemd</span></span><br><span class="line">/etc/init.d/network restart <span class="comment"># 对于SysV init</span></span><br></pre></td></tr></table></figure>
+
+<p>或者使用适合你系统的命令。</p>
+</li>
+</ol>
+<p>这将会创建两个虚拟网卡，每个虚拟网卡都由两个物理网卡组成。你可以根据需要进一步配置和调整网络绑定的参数，如 <code>BONDING_OPTS</code> 中的设置。</p>
+<p>请注意，在配置网络绑定之前，请确保你已了解你所使用的Linux发行版的具体网络配置方法，并且在配置之前备份重要的网络配置文件，以防配置错误导致网络不可用。</p>
+
+      </div>
+      
+      
+      
+    </div>
+  <ul class="breadcrumb">
+            <li><a href="/docs/">DOCS</a></li>
+            <li><a href="/docs/bsp/">BSP</a></li>
+            <li>链路聚合-BOND</li>
+  </ul>
+
+    
+    
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">cxcc</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

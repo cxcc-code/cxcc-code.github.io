@@ -1,0 +1,30 @@
+.user-gitee {
+  display: inline-block;
+  height: 13px; /* 设置图标高度 */
+  background-image: url("/images/gitee.svg"); /* 设置背景图片 */
+  background-size: cover; /* 确保背景图片填充整个容器 */
+}
+.custom-logo-image {
+  width: 60%;
+  height: auto;
+  display: block;
+  border-radius: 50%; /* 将图片边框半径设置为 50%，使其呈现圆形 */
+  overflow: hidden; /* 隐藏图片超出容器的部分 */
+}
+.user_card {
+  display: inline-block;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin: 20px;
+}
+.user_card img {
+  width: 100%;
+  border-radius: 8px;
+}
+.user_card p {
+  margin-top: 10px;
+  font-size: 16px;
+}
