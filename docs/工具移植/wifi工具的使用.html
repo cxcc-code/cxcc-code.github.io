@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cxcc-code.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="wifi工具的使用一、工具移植一般Linux中进行wifi扫描、连接需要以下工具wpa_supplicant、Wireless Tools、hostapd。具体的移植参考《工具移植.md》 Wireless Tools：进行wifi网卡的基本配置，网络扫描 wpa_supplicant：进行网络连接 hostapd：创建wifi热点 二、工具使用12# 在执行命令前需要先启动网卡ifconfig">
+<meta property="og:type" content="website">
+<meta property="og:title" content="cxcc BLOG">
+<meta property="og:url" content="http://cxcc-code.github.io/docs/%E5%B7%A5%E5%85%B7%E7%A7%BB%E6%A4%8D/wifi%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8.html">
+<meta property="og:site_name" content="cxcc BLOG">
+<meta property="og:description" content="wifi工具的使用一、工具移植一般Linux中进行wifi扫描、连接需要以下工具wpa_supplicant、Wireless Tools、hostapd。具体的移植参考《工具移植.md》 Wireless Tools：进行wifi网卡的基本配置，网络扫描 wpa_supplicant：进行网络连接 hostapd：创建wifi热点 二、工具使用12# 在执行命令前需要先启动网卡ifconfig">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-02-22T12:35:47.490Z">
+<meta property="article:modified_time" content="2024-02-22T12:35:47.490Z">
+<meta property="article:author" content="cxcc">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://cxcc-code.github.io/docs/%E5%B7%A5%E5%85%B7%E7%A7%BB%E6%A4%8D/wifi%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"http://cxcc-code.github.io/docs/%E5%B7%A5%E5%85%B7%E7%A7%BB%E6%A4%8D/wifi%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8.html","path":"docs/工具移植/wifi工具的使用.html","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title> | cxcc BLOG
+</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">cxcc BLOG</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/custom-logo.png" alt="cxcc BLOG">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-docs"><a href="/docs/" rel="section"><i class="fa fa-archive fa-fw"></i>docs</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#wifi%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">wifi工具的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%B7%A5%E5%85%B7%E7%A7%BB%E6%A4%8D"><span class="nav-number">1.1.</span> <span class="nav-text">一、工具移植</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8"><span class="nav-number">1.2.</span> <span class="nav-text">二、工具使用</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">cxcc</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/cxcc_code" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;cxcc_code" rel="noopener me" target="_blank"><i class="fab user-gitee fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xiaolong.cxcc@qq.com" title="E-Mail → mailto:xiaolong.cxcc@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner page posts-expand">
+
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN"><header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">
+</h1>
+
+<div class="post-meta-container">
+  <ul class="breadcrumb">
+            <li><a href="/docs/">DOCS</a></li>
+            <li><a href="/docs/%E5%B7%A5%E5%85%B7%E7%A7%BB%E6%A4%8D/">工具移植</a></li>
+            <li>WIFI工具的使用</li>
+  </ul>
+</div>
+
+</header>
+
+      
+      
+      <div class="post-body">
+          <h1 id="wifi工具的使用"><a href="#wifi工具的使用" class="headerlink" title="wifi工具的使用"></a>wifi工具的使用</h1><h2 id="一、工具移植"><a href="#一、工具移植" class="headerlink" title="一、工具移植"></a>一、工具移植</h2><p>一般Linux中进行wifi扫描、连接需要以下工具wpa_supplicant、Wireless Tools、hostapd。具体的移植参考<a href="../%E5%B7%A5%E5%85%B7%E7%A7%BB%E6%A4%8D.md">《工具移植.md》</a></p>
+<p>Wireless Tools：进行wifi网卡的基本配置，网络扫描</p>
+<p>wpa_supplicant：进行网络连接</p>
+<p>hostapd：创建wifi热点</p>
+<h2 id="二、工具使用"><a href="#二、工具使用" class="headerlink" title="二、工具使用"></a>二、工具使用</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在执行命令前需要先启动网卡</span></span><br><span class="line">ifconfig wlan0 up</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>扫描附近的网络</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iwlist wlan0 scanning</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>连接指定的网络</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建配置文件</span></span><br><span class="line">vi /etc/wpa_supplicant/wpa_supplicant.conf</span><br><span class="line">network=&#123;</span><br><span class="line">    ssid=&quot;YourWiFiNetwork&quot;</span><br><span class="line">    psk=&quot;YourWiFiPassword&quot;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">连接wifi，在后台保持连接</span></span><br><span class="line">sudo wpa_supplicant -B -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建wifi热点</p>
+<ul>
+<li><p>创建配置文件&#x2F;etc&#x2F;hostapd.conf</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">interface=wlan1</span><br><span class="line">ctrl_interface=/var/run/hostapd</span><br><span class="line">ssid=Ebaina-test</span><br><span class="line">channel=6</span><br><span class="line">driver=nl80211</span><br><span class="line">wpa=2</span><br><span class="line">wpa_passphrase=12345678</span><br><span class="line">wpa_key_mgmt=WPA-PSK</span><br><span class="line">beacon_int=100</span><br><span class="line">hw_mode=g</span><br><span class="line">ieee80211n=1</span><br><span class="line">wme_enabled=1</span><br><span class="line">ht_capab=[SHORT-GI-20][SHORT-GI-40][HT40+]</span><br><span class="line">wpa_pairwise=CCMP</span><br><span class="line">#rsn_pairwise=CCMP</span><br><span class="line">max_num_sta=8</span><br><span class="line">wpa_group_rekey=86400</span><br><span class="line">#ignore_broadcast_ssid=0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动热点，后台执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hostapd ./hostapd.config -ddd &amp;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>获取动态IP</p>
+<ul>
+<li><p>创建默认脚本&#x2F;usr&#x2F;share&#x2F;udhcpc&#x2F;default.script&#x2F;default.script</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/sh</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">udhcpc script edited by Tim Riker &lt;Tim@Rikers.org&gt;</span></span><br><span class="line"></span><br><span class="line">RESOLV_CONF=&quot;/etc/resolv.conf&quot;</span><br><span class="line"></span><br><span class="line">[ -n &quot;$1&quot; ] || &#123; echo &quot;Error: should be called from udhcpc&quot;; exit 1; &#125;</span><br><span class="line"></span><br><span class="line">NETMASK=&quot;&quot;</span><br><span class="line">if command -v ip &gt;/dev/null; then</span><br><span class="line">	[ -n &quot;$subnet&quot; ] &amp;&amp; NETMASK=&quot;/$subnet&quot;</span><br><span class="line">else</span><br><span class="line">	[ -n &quot;$subnet&quot; ] &amp;&amp; NETMASK=&quot;netmask $subnet&quot;</span><br><span class="line">fi</span><br><span class="line">BROADCAST=&quot;broadcast +&quot;</span><br><span class="line">[ -n &quot;$broadcast&quot; ] &amp;&amp; BROADCAST=&quot;broadcast $broadcast&quot;</span><br><span class="line"></span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">	deconfig)</span><br><span class="line">		echo &quot;Setting IP address 0.0.0.0 on $interface&quot;</span><br><span class="line">		if command -v ip &gt;/dev/null; then</span><br><span class="line">			ip addr flush dev $interface</span><br><span class="line">		else</span><br><span class="line">			ifconfig $interface 0.0.0.0</span><br><span class="line">		fi</span><br><span class="line">		;;</span><br><span class="line"></span><br><span class="line">	renew|bound)</span><br><span class="line">		echo &quot;Setting IP address $ip on $interface&quot;</span><br><span class="line">		if command -v ip &gt;/dev/null; then</span><br><span class="line">			ip addr add $ip$NETMASK $BROADCAST dev $interface</span><br><span class="line">		else</span><br><span class="line">			ifconfig $interface $ip $NETMASK $BROADCAST</span><br><span class="line">		fi</span><br><span class="line"></span><br><span class="line">		if [ -n &quot;$router&quot; ] ; then</span><br><span class="line">			echo &quot;Deleting routers&quot;</span><br><span class="line">			while route del default gw 0.0.0.0 dev $interface ; do</span><br><span class="line">				:</span><br><span class="line">			done</span><br><span class="line"></span><br><span class="line">			metric=0</span><br><span class="line">			for i in $router ; do</span><br><span class="line">				echo &quot;Adding router $i&quot;</span><br><span class="line">				if [ &quot;$subnet&quot; = &quot;255.255.255.255&quot; ]; then</span><br><span class="line"><span class="meta prompt_">	# </span><span class="language-bash">special <span class="keyword">case</span> <span class="keyword">for</span> /32 subnets:</span></span><br><span class="line"><span class="meta prompt_">	# </span><span class="language-bash">/32 instructs kernel to always use routing <span class="keyword">for</span> all outgoing packets</span></span><br><span class="line"><span class="meta prompt_">	# </span><span class="language-bash">(they can never be sent to <span class="built_in">local</span> subnet - there is no <span class="built_in">local</span> subnet <span class="keyword">for</span> /32).</span></span><br><span class="line"><span class="meta prompt_">	# </span><span class="language-bash">Used <span class="keyword">in</span> datacenters, avoids the need <span class="keyword">for</span> private ip-addresses between two hops.</span></span><br><span class="line">					ip route add $i dev $interface</span><br><span class="line">				fi</span><br><span class="line">				route add default gw $i dev $interface metric $((metric++))</span><br><span class="line">			done</span><br><span class="line">		fi</span><br><span class="line"></span><br><span class="line">		echo &quot;Recreating $RESOLV_CONF&quot;</span><br><span class="line"><span class="meta prompt_">		# </span><span class="language-bash">If the file is a symlink somewhere (like /etc/resolv.conf</span></span><br><span class="line"><span class="meta prompt_">		# </span><span class="language-bash">pointing to /run/resolv.conf), make sure things work.</span></span><br><span class="line">		if test -L &quot;$RESOLV_CONF&quot;; then</span><br><span class="line"><span class="meta prompt_">			# </span><span class="language-bash">If it<span class="string">&#x27;s a dangling symlink, try to create the target.</span></span></span><br><span class="line">			test -e &quot;$RESOLV_CONF&quot; || touch &quot;$RESOLV_CONF&quot;</span><br><span class="line">		fi</span><br><span class="line">		realconf=$(readlink -f &quot;$RESOLV_CONF&quot; 2&gt;/dev/null || echo &quot;$RESOLV_CONF&quot;)</span><br><span class="line">		tmpfile=&quot;$realconf-$$&quot;</span><br><span class="line"><span class="meta prompt_">		&gt; </span><span class="language-bash"><span class="string">&quot;$tmpfile&quot;</span></span></span><br><span class="line">		[ -n &quot;$domain&quot; ] &amp;&amp; echo &quot;search $domain&quot; &gt;&gt; &quot;$tmpfile&quot;</span><br><span class="line">		for i in $dns ; do</span><br><span class="line">			echo &quot; Adding DNS server $i&quot;</span><br><span class="line">			echo &quot;nameserver $i&quot; &gt;&gt; &quot;$tmpfile&quot;</span><br><span class="line">		done</span><br><span class="line">		mv &quot;$tmpfile&quot; &quot;$realconf&quot;</span><br><span class="line">		;;</span><br><span class="line">esac</span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取动态IP</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">udhcpc -i wlan0</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>允许其它设备从热点获取动态IP（开启DHCP服务）</p>
+<ul>
+<li><p>创建配置文件&#x2F;etc&#x2F;udhcpd.conf</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">start           192.168.43.50   </span><br><span class="line">end             192.168.43.100  </span><br><span class="line">interface       wlan1          </span><br><span class="line"></span><br><span class="line">#Examles</span><br><span class="line">opt     dns     192.168.43.2 192.168.43.10</span><br><span class="line">option  subnet   255.255.255.0</span><br><span class="line">opt     router   192.168.43.1</span><br><span class="line">opt     wins     192.168.43.10</span><br><span class="line">option  dns      129.219.13.81  </span><br><span class="line">option  domain   local</span><br><span class="line">option  lease   864000 </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动DHCP服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">udhcpd -S /etc/udhcpd.conf</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+
+      </div>
+      
+      
+      
+    </div>
+  <ul class="breadcrumb">
+            <li><a href="/docs/">DOCS</a></li>
+            <li><a href="/docs/%E5%B7%A5%E5%85%B7%E7%A7%BB%E6%A4%8D/">工具移植</a></li>
+            <li>WIFI工具的使用</li>
+  </ul>
+
+    
+    
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">cxcc</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
