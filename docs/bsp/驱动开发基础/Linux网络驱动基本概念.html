@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cxcc-code.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Linux网络驱动基本概念MAC、MDIO、MII、PHY MAC（Media Access Control） 媒体访问控制，使用硬件实现ISO网络5层网络模型的数据链路层，对数据进行数据链路层的封包和解包。一般MAC位于处理器芯片内部。  PHY（Physical Layer） 物理层，使用硬件实现ISO网络5层网络模型的物理层，一般是单独的芯片  MDIO（Management Data In">
+<meta property="og:type" content="website">
+<meta property="og:title" content="cxcc BLOG">
+<meta property="og:url" content="http://cxcc-code.github.io/docs/bsp/%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80/Linux%E7%BD%91%E7%BB%9C%E9%A9%B1%E5%8A%A8%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.html">
+<meta property="og:site_name" content="cxcc BLOG">
+<meta property="og:description" content="Linux网络驱动基本概念MAC、MDIO、MII、PHY MAC（Media Access Control） 媒体访问控制，使用硬件实现ISO网络5层网络模型的数据链路层，对数据进行数据链路层的封包和解包。一般MAC位于处理器芯片内部。  PHY（Physical Layer） 物理层，使用硬件实现ISO网络5层网络模型的物理层，一般是单独的芯片  MDIO（Management Data In">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-03-04T10:50:20.904Z">
+<meta property="article:modified_time" content="2024-03-04T10:50:20.904Z">
+<meta property="article:author" content="cxcc">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://cxcc-code.github.io/docs/bsp/%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80/Linux%E7%BD%91%E7%BB%9C%E9%A9%B1%E5%8A%A8%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"http://cxcc-code.github.io/docs/bsp/%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80/Linux%E7%BD%91%E7%BB%9C%E9%A9%B1%E5%8A%A8%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.html","path":"docs/bsp/驱动开发基础/Linux网络驱动基本概念.html","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title> | cxcc BLOG
+</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">cxcc BLOG</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/custom-logo.png" alt="cxcc BLOG">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-docs"><a href="/docs/" rel="section"><i class="fa fa-archive fa-fw"></i>docs</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux%E7%BD%91%E7%BB%9C%E9%A9%B1%E5%8A%A8%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">Linux网络驱动基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MAC%E3%80%81MDIO%E3%80%81MII%E3%80%81PHY"><span class="nav-number">1.1.</span> <span class="nav-text">MAC、MDIO、MII、PHY</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux%E8%AE%BE%E5%A4%87%E6%A0%91"><span class="nav-number">1.2.</span> <span class="nav-text">Linux设备树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-%E9%A9%B1%E5%8A%A8%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-number">1.3.</span> <span class="nav-text">Linux 驱动结构体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="nav-number">1.4.</span> <span class="nav-text">参考文档</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">cxcc</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/cxcc_code" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;cxcc_code" rel="noopener me" target="_blank"><i class="fab user-gitee fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xiaolong.cxcc@qq.com" title="E-Mail → mailto:xiaolong.cxcc@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner page posts-expand">
+
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN"><header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">
+</h1>
+
+<div class="post-meta-container">
+  <ul class="breadcrumb">
+            <li><a href="/docs/">DOCS</a></li>
+            <li><a href="/docs/bsp/">BSP</a></li>
+            <li><a href="/docs/bsp/%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80/">驱动开发基础</a></li>
+            <li>LINUX网络驱动基本概念</li>
+  </ul>
+</div>
+
+</header>
+
+      
+      
+      <div class="post-body">
+          <h1 id="Linux网络驱动基本概念"><a href="#Linux网络驱动基本概念" class="headerlink" title="Linux网络驱动基本概念"></a>Linux网络驱动基本概念</h1><h2 id="MAC、MDIO、MII、PHY"><a href="#MAC、MDIO、MII、PHY" class="headerlink" title="MAC、MDIO、MII、PHY"></a>MAC、MDIO、MII、PHY</h2><ul>
+<li><p>MAC（Media Access Control）</p>
+<p>媒体访问控制，使用硬件实现<strong>ISO网络5层网络模型</strong>的<strong>数据链路层</strong>，对数据进行数据链路层的封包和解包。一般MAC位于处理器芯片内部。</p>
+</li>
+<li><p>PHY（Physical Layer）</p>
+<p>物理层，使用硬件实现<strong>ISO网络5层网络模型</strong>的<strong>物理层</strong>，一般是单独的芯片</p>
+</li>
+<li><p>MDIO（Management Data Input&#x2F;Output Interface）</p>
+<p>数据输入输出管理接口，是MAC与PHY之间的控制接口。用于传输控制信息。MDIO是总线式接口，即一个MDIO总线上能挂载多个PHY，多个PHY之间使用addr区分不同的PHY</p>
+</li>
+<li><p>MII（Media Independent Interface）</p>
+<p>介质独立界面，是MAC与PHY之间的数据传输接口，用于传输控制信息。衍生MII接口有GMII、RGMII，RMII。R是简化，G是千兆。RGMII就是简化的千兆MII</p>
+</li>
+</ul>
+<h2 id="Linux设备树"><a href="#Linux设备树" class="headerlink" title="Linux设备树"></a>Linux设备树</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">mdio@<span class="number">102903</span>c0 <span class="punctuation">&#123;</span>								<span class="comment">//MDIO总线</span></span><br><span class="line">    compatible = <span class="string">&quot;vendor,gemac-mdio&quot;</span>;</span><br><span class="line">    reg = &lt;<span class="number">0x102903c0</span> <span class="number">0x20</span>&gt;;</span><br><span class="line">    clocks = &lt;<span class="number">0x5</span> <span class="number">0x65</span>&gt;;</span><br><span class="line">    resets = &lt;<span class="number">0x5</span> <span class="number">0x37cc</span> <span class="number">0x0</span>&gt;;</span><br><span class="line">    reset-names = <span class="string">&quot;phy_reset&quot;</span>;</span><br><span class="line">    #address-cells = &lt;<span class="number">0x1</span>&gt;;</span><br><span class="line">    #size-cells = &lt;<span class="number">0x0</span>&gt;;</span><br><span class="line"></span><br><span class="line">    ethernet-phy@<span class="number">1</span> <span class="punctuation">&#123;</span>						<span class="comment">// PHY芯片  1</span></span><br><span class="line">        reg = &lt;<span class="number">0x1</span>&gt;;</span><br><span class="line">        phandle = &lt;<span class="number">0xa</span>&gt;;</span><br><span class="line">	<span class="punctuation">&#125;</span>;</span><br><span class="line"></span><br><span class="line">	ethernet-phy@<span class="number">2</span> <span class="punctuation">&#123;</span>						<span class="comment">// PHY芯片  2</span></span><br><span class="line">        reg = &lt;<span class="number">0x2</span>&gt;;</span><br><span class="line">        phandle = &lt;<span class="number">0xb</span>&gt;;</span><br><span class="line">	<span class="punctuation">&#125;</span>;</span><br><span class="line"><span class="punctuation">&#125;</span>;</span><br><span class="line"></span><br><span class="line">ethernet@<span class="number">10290000</span> <span class="punctuation">&#123;</span>							<span class="comment">// MAC</span></span><br><span class="line">    compatible = <span class="string">&quot;vendor,gmac-v5&quot;</span>;</span><br><span class="line">    reg = &lt;<span class="number">0x10290000</span> <span class="number">0x1000</span> <span class="number">0x1029300c</span> <span class="number">0x4</span>&gt;;</span><br><span class="line">    interrupts = &lt;<span class="number">0x0</span> <span class="number">0x65</span> <span class="number">0x4</span> <span class="number">0x0</span> <span class="number">0x66</span> <span class="number">0x4</span> <span class="number">0x0</span> <span class="number">0x67</span> <span class="number">0x4</span> <span class="number">0x0</span> <span class="number">0x68</span> <span class="number">0x4</span>&gt;;</span><br><span class="line">    clocks = &lt;<span class="number">0x5</span> <span class="number">0x65</span> <span class="number">0x5</span> <span class="number">0x66</span>&gt;;</span><br><span class="line">    clock-names = <span class="string">&quot;gmac_clk&quot;</span><span class="punctuation">,</span> <span class="string">&quot;macif_clk&quot;</span>;</span><br><span class="line">    resets = &lt;<span class="number">0x5</span> <span class="number">0x37c4</span> <span class="number">0x0</span> <span class="number">0x5</span> <span class="number">0x37c0</span> <span class="number">0x0</span>&gt;;</span><br><span class="line">    reset-names = <span class="string">&quot;port_reset&quot;</span><span class="punctuation">,</span> <span class="string">&quot;macif_reset&quot;</span>;</span><br><span class="line">    mac-address = <span class="punctuation">[</span><span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span><span class="punctuation">]</span>;</span><br><span class="line">    phy-handle = &lt;<span class="number">0xa</span>&gt;;						<span class="comment">// 通过phandle将MAC与phy链接</span></span><br><span class="line">    phy-mode = <span class="string">&quot;rgmii&quot;</span>;						<span class="comment">// 指定phy的模式为rgmii</span></span><br><span class="line"><span class="punctuation">&#125;</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Linux-驱动结构体"><a href="#Linux-驱动结构体" class="headerlink" title="Linux 驱动结构体"></a>Linux 驱动结构体</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line">## 调用堆栈</span><br><span class="line"></span><br><span class="line">```c</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 检查给定的&quot;compat&quot;字符串是否与device的&quot;compatible&quot;属性中的某个字符串匹配</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * @param device 设备树节点结构体</span></span><br><span class="line"><span class="comment"> * @param compat 待匹配的compat属性</span></span><br><span class="line"><span class="comment"> * @return int 没有匹配成功返回0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">of_device_is_compatible</span><span class="params">(<span class="type">const</span> <span class="keyword">struct</span> device_node *device,<span class="type">const</span> <span class="type">char</span> *compat)</span>;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 从device的compatible获取pyh_id，ethernet-phy-idAAAA.BBBB</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * @param device 设备树节点结构体</span></span><br><span class="line"><span class="comment"> * @param phy_id [out]若匹配成功则输出获取的phy_id</span></span><br><span class="line"><span class="comment"> * @return int 匹配成功返回0，否则返回-EINVAL</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">of_get_phy_id</span><span class="params">(<span class="keyword">struct</span> device_node *device, u32 *phy_id)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>mdio初始化流程</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">bsp_gemac_mdio_probe		<span class="comment">// 注册mdio设备</span></span><br><span class="line">    of_mdiobus_register		<span class="comment">// 注册mdio_bus设备</span></span><br><span class="line">        of_mdiobus_register_phy		<span class="comment">// 遍历子phy设备并注册</span></span><br><span class="line">    		get_phy_device[note:<span class="number">1</span>]</span><br><span class="line">    			get_phy_id</span><br><span class="line">    			phy_device_create</span><br><span class="line">    		of_mdiobus_phy_device_register</span><br><span class="line">                phy_device_register		<span class="comment">// PHY device注册</span></span><br><span class="line">                    phy_scan_fixups		<span class="comment">// 扫描可执行的fixup</span></span><br></pre></td></tr></table></figure>
+
+<p>gmac初始化流程</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">gmac_dev_probe			<span class="comment">// 注册 gmac 设备	</span></span><br><span class="line">    gmac_phy_init</span><br><span class="line">    gmac_dev_probe_phy</span><br><span class="line">    	gmac_phy_register_fixups		<span class="comment">// 注册fixup函数</span></span><br><span class="line">    		of_phy_connect</span><br><span class="line">    			phy_connect_direct</span><br><span class="line">    				phy_attach_direct</span><br><span class="line">    					phy_init_hw</span><br><span class="line">    						phy_scan_fixups</span><br></pre></td></tr></table></figure>
+
+
+<p>note:1</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果phy节点包含phy_id，则调用phy_device_create</span></span><br><span class="line"><span class="keyword">if</span> (!is_c45 &amp;&amp; !of_get_phy_id(child, &amp;phy_id))</span><br><span class="line">    phy = phy_device_create(mdio, addr, phy_id, <span class="number">0</span>, <span class="literal">NULL</span>);</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    phy = get_phy_device(mdio, addr, is_c45);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv27721517/">一文搞定以太网PHY、MAC及其通信接口</a></li>
+<li></li>
+</ol>
+
+      </div>
+      
+      
+      
+    </div>
+  <ul class="breadcrumb">
+            <li><a href="/docs/">DOCS</a></li>
+            <li><a href="/docs/bsp/">BSP</a></li>
+            <li><a href="/docs/bsp/%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80/">驱动开发基础</a></li>
+            <li>LINUX网络驱动基本概念</li>
+  </ul>
+
+    
+    
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">cxcc</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
