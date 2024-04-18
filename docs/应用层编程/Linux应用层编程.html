@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"cxcc-code.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cxcc-code.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="Linux应用层编程[TOC] 一、多线程资源分配的最小单位是进程，任务调度的最小单位是线程。进程包含线程集和资源集，进程内的所有线程共享资源集，因此在进行线程间任务调度时开销小，多线程共享数据简单(因为本来就是共享的)。线程占用资源少。在编译时需要链接pthread库。同一个进程的不同线程可以在多核处理器的不同核心执行。 多线程中随进程创建的线程为主线程，主线程退出时会关闭所有线程 1. 线程创">
 <meta property="og:type" content="website">
@@ -26,8 +26,8 @@
 <meta property="og:site_name" content="cxcc BLOG">
 <meta property="og:description" content="Linux应用层编程[TOC] 一、多线程资源分配的最小单位是进程，任务调度的最小单位是线程。进程包含线程集和资源集，进程内的所有线程共享资源集，因此在进行线程间任务调度时开销小，多线程共享数据简单(因为本来就是共享的)。线程占用资源少。在编译时需要链接pthread库。同一个进程的不同线程可以在多核处理器的不同核心执行。 多线程中随进程创建的线程为主线程，主线程退出时会关闭所有线程 1. 线程创">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-02-22T12:35:47.491Z">
-<meta property="article:modified_time" content="2024-02-22T12:35:47.491Z">
+<meta property="article:published_time" content="2024-04-18T08:49:20.921Z">
+<meta property="article:modified_time" content="2024-04-18T08:49:20.921Z">
 <meta property="article:author" content="cxcc">
 <meta name="twitter:card" content="summary">
 
@@ -172,22 +172,67 @@
           <h1 id="Linux应用层编程"><a href="#Linux应用层编程" class="headerlink" title="Linux应用层编程"></a>Linux应用层编程</h1><p>[TOC]</p>
 <h2 id="一、多线程"><a href="#一、多线程" class="headerlink" title="一、多线程"></a>一、多线程</h2><p>资源分配的最小单位是进程，任务调度的最小单位是线程。进程包含线程集和资源集，进程内的所有线程共享资源集，因此在进行线程间任务调度时开销小，多线程共享数据简单(因为本来就是共享的)。线程占用资源少。在编译时需要链接pthread库。同一个进程的不同线程可以在多核处理器的不同核心执行。</p>
 <p>多线程中随进程创建的线程为主线程，主线程退出时会关闭所有线程</p>
-<h3 id="1-线程创建"><a href="#1-线程创建" class="headerlink" title="1. 线程创建"></a>1. 线程创建</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 创建新线程,一般创建即运行</span></span><br><span class="line"><span class="comment"> * @headerfile &lt;pthread.h&gt;</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * @param thread:[OUT]线程ID</span></span><br><span class="line"><span class="comment"> * @param attr:线程特性设置,一般可为空</span></span><br><span class="line"><span class="comment"> * @param start_routine:线程执行函数</span></span><br><span class="line"><span class="comment"> * @param arg:传递给线程执行函数的参数</span></span><br><span class="line"><span class="comment"> * @return 线程创建成功返回0,线程创建失败返回错误码</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">pthread_create</span><span class="params">(</span></span><br><span class="line"><span class="params">    <span class="type">pthread_t</span> *thread,</span></span><br><span class="line"><span class="params">    <span class="type">const</span> <span class="type">pthread_attr_t</span> *attr,</span></span><br><span class="line"><span class="params">    <span class="type">void</span> *(*start_routine) (<span class="type">void</span> *),</span></span><br><span class="line"><span class="params">    <span class="type">void</span> *arg)</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="1-线程创建"><a href="#1-线程创建" class="headerlink" title="1. 线程创建"></a>1. 线程创建</h3><pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;**
+ * @brief 创建新线程,一般创建即运行
+ * @headerfile &lt;pthread.h&gt;
+ * 
+ * @param thread:[OUT]线程ID
+ * @param attr:线程特性设置,一般可为空
+ * @param start_routine:线程执行函数
+ * @param arg:传递给线程执行函数的参数
+ * @return 线程创建成功返回0,线程创建失败返回错误码
+*&#x2F;
+int pthread_create(
+    pthread_t *thread,
+    const pthread_attr_t *attr,
+    void *(*start_routine) (void *),
+    void *arg);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>通过pthread_create函数可创建一个线程,创建即可开始运行。arg参数会传递给start_routine。</p>
-<h3 id="2-等待线程结束"><a href="#2-等待线程结束" class="headerlink" title="2. 等待线程结束"></a>2. 等待线程结束</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 当前线程等待指定的线程结束</span></span><br><span class="line"><span class="comment"> * @headerfile &lt;pthread.h&gt;</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * @param thread:线程ID</span></span><br><span class="line"><span class="comment"> * @param retval:[OUT]用于接收线程执行函数的返回值</span></span><br><span class="line"><span class="comment"> * @return 成功返回0,否则返回错误码</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">pthread_join</span><span class="params">(<span class="type">pthread_t</span> thread, <span class="type">void</span> **retval)</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="2-等待线程结束"><a href="#2-等待线程结束" class="headerlink" title="2. 等待线程结束"></a>2. 等待线程结束</h3><pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;**
+ * @brief 当前线程等待指定的线程结束
+ * @headerfile &lt;pthread.h&gt;
+ * 
+ * @param thread:线程ID
+ * @param retval:[OUT]用于接收线程执行函数的返回值
+ * @return 成功返回0,否则返回错误码
+*&#x2F;
+int pthread_join(pthread_t thread, void **retval);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>pthread_join对某个线程只允许调用一次，在调用后线程的全部资源全部释放。原使用的thread无效，重复调用返回错误码3，不修改retval中的值。</p>
-<h3 id="3-线程自行退出"><a href="#3-线程自行退出" class="headerlink" title="3. 线程自行退出"></a>3. 线程自行退出</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 退出当前线程</span></span><br><span class="line"><span class="comment"> * @headerfile &lt;pthread.h&gt;</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * @param retval:线程返回值</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">pthread_exit</span><span class="params">(<span class="type">void</span> *retval)</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="3-线程自行退出"><a href="#3-线程自行退出" class="headerlink" title="3. 线程自行退出"></a>3. 线程自行退出</h3><pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;**
+ * @brief 退出当前线程
+ * @headerfile &lt;pthread.h&gt;
+ * 
+ * @param retval:线程返回值
+*&#x2F;
+void pthread_exit(void *retval);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>线程执行函数执行结束也会使线程退出，也可以调用pthread_exit退出。两种方式略有区别，使用return退出时仅在线程执行函数完全执行结束时会自行退出，当出现嵌套调用时会逐层退出。使用pthread_exit可以在嵌套调用时直接退出线程。在C++中使用pthread_exit退出不会调用析构函数。一般情况下不适用exit退出，exit用于退出进程，退出进程时杀死当前进程的所有线程。</p>
-<h3 id="4-杀死指定线程"><a href="#4-杀死指定线程" class="headerlink" title="4. 杀死指定线程"></a>4. 杀死指定线程</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 杀死指定线程(不会立即杀死,需等待下一次进程切换)</span></span><br><span class="line"><span class="comment"> * @headerfile &lt;pthread.h&gt;</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * @param thread:线程ID</span></span><br><span class="line"><span class="comment"> * @return 成功返回0,否则返回错误码</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">pthread_cancel</span><span class="params">(<span class="type">pthread_t</span> thread)</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="4-杀死指定线程"><a href="#4-杀死指定线程" class="headerlink" title="4. 杀死指定线程"></a>4. 杀死指定线程</h3><pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;**
+ * @brief 杀死指定线程(不会立即杀死,需等待下一次进程切换)
+ * @headerfile &lt;pthread.h&gt;
+ * 
+ * @param thread:线程ID
+ * @return 成功返回0,否则返回错误码
+*&#x2F;
+int pthread_cancel(pthread_t thread);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="5-线程分离"><a href="#5-线程分离" class="headerlink" title="5. 线程分离"></a>5. 线程分离</h3><p>线程在执行结束后会释放大部分资源，但是仍会保留一部分信息（包括线程退出状态等），直到其他线程调用pthread_join获取线程的退出信息。如果不需要知道线程的退出信息希望线程执行结束后自行释放全部资源。则需要在创建时设置线程分离属性或者在创建完成后调用pthread_detach进行线程分离。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 线程分离</span></span><br><span class="line"><span class="comment"> * @headerfile &lt;pthread.h&gt;</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * @param thread:线程ID</span></span><br><span class="line"><span class="comment"> * @return 成功返回0,否则返回错误码</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">pthread_detach</span><span class="params">(<span class="type">pthread_t</span> thread)</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;**
+ * @brief 线程分离
+ * @headerfile &lt;pthread.h&gt;
+ * 
+ * @param thread:线程ID
+ * @return 成功返回0,否则返回错误码
+*&#x2F;
+int pthread_detach(pthread_t thread);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>使用attr配置线程分离状态</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">pthread_attr_t</span> attr;<span class="comment">//定义attr结构体</span></span><br><span class="line">pthread_attr_init(&amp;attr);<span class="comment">//进行默认初始化</span></span><br><span class="line">pthread_attr_setdetachstate(&amp;attr, PTHREAD_CREATE_DETACHED);<span class="comment">//设置detached特性</span></span><br><span class="line">pthread_create(&amp;tid, &amp;attr, tfn, <span class="literal">NULL</span>);<span class="comment">//创建线程</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">pthread_attr_t attr;&#x2F;&#x2F;定义attr结构体
+pthread_attr_init(&amp;attr);&#x2F;&#x2F;进行默认初始化
+pthread_attr_setdetachstate(&amp;attr, PTHREAD_CREATE_DETACHED);&#x2F;&#x2F;设置detached特性
+pthread_create(&amp;tid, &amp;attr, tfn, NULL);&#x2F;&#x2F;创建线程<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>对已分离的线程调用pthread_join出现错误码22</p>
 <h2 id="二、多进程"><a href="#二、多进程" class="headerlink" title="二、多进程"></a>二、多进程</h2><p>Linux中进程是资源分配的基本单位，不同进程间资源一般不共享(除非只用进程间通信的相关机制)。</p>
@@ -196,30 +241,101 @@
 <p>每个进程有全局唯一的进程号</p>
 <p>1号进程(init进程)是所有进程的直接或间接父进程</p>
 <p>如果子进程结束，父进程不等待子进程结束（等待函数会在子进程结束后释放子进程的全部资源，父进程不等待子进程结束则资源不释放）。在父进程未结束之前子进程结束后，子进程被称为僵尸进程。若父进程先与子进程结束，子进程由init托管称为孤儿进程。init托管孤儿进程后等孤儿进程结束释放孤儿进程资源。init托管到僵尸进程时会直接释放资源。</p>
-<h3 id="1-子进程的创建"><a href="#1-子进程的创建" class="headerlink" title="1. 子进程的创建"></a>1. 子进程的创建</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 创建新进程</span></span><br><span class="line"><span class="comment"> * @headerfile &lt;unistd.h&gt;</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * @return 父进程检测返回值时是PID,子进程检测返回值是0，若返回值为-1则创建失败</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">fork</span><span class="params">(<span class="type">void</span>)</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="1-子进程的创建"><a href="#1-子进程的创建" class="headerlink" title="1. 子进程的创建"></a>1. 子进程的创建</h3><pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;**
+ * @brief 创建新进程
+ * @headerfile &lt;unistd.h&gt;
+ * 
+ * @return 父进程检测返回值时是PID,子进程检测返回值是0，若返回值为-1则创建失败
+*&#x2F;
+pid_t fork(void);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>具体可参看示例</p>
-<h3 id="2-获取进程号"><a href="#2-获取进程号" class="headerlink" title="2. 获取进程号"></a>2. 获取进程号</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 获取当前进程号</span></span><br><span class="line"><span class="comment"> * @headerfile &lt;unistd.h&gt;</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * @return 当前进程号</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">getpid</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 获取父进程号</span></span><br><span class="line"><span class="comment"> * @headerfile &lt;unistd.h&gt;</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * @return 父进程号</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">getppid</span><span class="params">(<span class="type">void</span>)</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="2-获取进程号"><a href="#2-获取进程号" class="headerlink" title="2. 获取进程号"></a>2. 获取进程号</h3><pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;**
+ * @brief 获取当前进程号
+ * @headerfile &lt;unistd.h&gt;
+ * 
+ * @return 当前进程号
+*&#x2F;
+pid_t getpid(void);
+
+&#x2F;**
+ * @brief 获取父进程号
+ * @headerfile &lt;unistd.h&gt;
+ * 
+ * @return 父进程号
+*&#x2F;
+pid_t getppid(void);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="3-等待进程结束"><a href="#3-等待进程结束" class="headerlink" title="3. 等待进程结束"></a>3. 等待进程结束</h3><p>假设有A、B两个进程。A进程等待B进程结束并不只是为了进行不同进程间的同步，A调用wait相关函数时，wait相关函数还会释放B结束后所占用的资源。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 阻塞当前进程，等待任意子进程退出</span></span><br><span class="line"><span class="comment"> * @headerfile &lt;sys/wait.h&gt;</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * @param wstatus:[OUT]进程状态</span></span><br><span class="line"><span class="comment"> * @return 等待到的进程pid</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">wait</span><span class="params">(<span class="type">int</span> *wstatus)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 等待指定进程进程状态改变</span></span><br><span class="line"><span class="comment"> * @headerfile &lt;sys/wait.h&gt;</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * @param pid:需要等待的进程id</span></span><br><span class="line"><span class="comment"> * @param wstatus:[OUT]进程状态</span></span><br><span class="line"><span class="comment"> * @param options:等待操作</span></span><br><span class="line"><span class="comment"> * @return 等待到的进程pid,失败返回-1</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">waitpid</span><span class="params">(<span class="type">pid_t</span> pid, <span class="type">int</span> *wstatus, <span class="type">int</span> options)</span>;</span><br><span class="line"><span class="comment">//waitpid(-1, &amp;wstatus, 0); 等效于 wait(&amp;wstatus)</span></span><br><span class="line"><span class="comment">//WNOHANG 不阻塞,如果进程未结束直接退出</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;**
+ * @brief 阻塞当前进程，等待任意子进程退出
+ * @headerfile &lt;sys&#x2F;wait.h&gt;
+ * 
+ * @param wstatus:[OUT]进程状态
+ * @return 等待到的进程pid
+*&#x2F;
+pid_t wait(int *wstatus);
+
+&#x2F;**
+ * @brief 等待指定进程进程状态改变
+ * @headerfile &lt;sys&#x2F;wait.h&gt;
+ * 
+ * @param pid:需要等待的进程id
+ * @param wstatus:[OUT]进程状态
+ * @param options:等待操作
+ * @return 等待到的进程pid,失败返回-1
+*&#x2F;
+pid_t waitpid(pid_t pid, int *wstatus, int options);
+&#x2F;&#x2F;waitpid(-1, &amp;wstatus, 0); 等效于 wait(&amp;wstatus)
+&#x2F;&#x2F;WNOHANG 不阻塞,如果进程未结束直接退出<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="4-进程退出"><a href="#4-进程退出" class="headerlink" title="4. 进程退出"></a>4. 进程退出</h3><p>进程退出可以使用return、exit、_exit等方式退出进程。不同方式退出操作不同return退出最安全。在C++环境下不使用retrun不会调用析构函数。exit会执行提前注册的退出处理函数，随后清空IO缓冲，即将缓冲区的数据写入磁盘。_exit函数则会直接退出，不调用atexit注册的函数，也不保证数据完整性。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 注册退出处理函数（退出时按注册的逆顺序调用）</span></span><br><span class="line"><span class="comment"> * @headerfile &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * @param function:处理函数</span></span><br><span class="line"><span class="comment"> * @return 成功返回0，否则返回错误码</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">atexit</span><span class="params">(<span class="type">void</span> (*function)(<span class="type">void</span>))</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;**
+ * @brief 注册退出处理函数（退出时按注册的逆顺序调用）
+ * @headerfile &lt;stdlib.h&gt;
+ * 
+ * @param function:处理函数
+ * @return 成功返回0，否则返回错误码
+*&#x2F;
+int atexit(void (*function)(void));<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="5-进程分离"><a href="#5-进程分离" class="headerlink" title="5. 进程分离"></a>5. 进程分离</h3><p>进程其实并没有分离的概念，这里说进程分离只是沿用线程分离的概念，实则是通过异步的方式为子进程释放资源，看起来不影响父进程的执行，也不会产生僵尸进程。子进程结束时会向父进程发送SIGCHLD信号，父进程可以在该信号的处理函数中执行wait操作为子进程释放资源。</p>
 <p>方法一：自己处理</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">reap_zombie</span><span class="params">(<span class="type">int</span> signo)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> errno_old = errno;</span><br><span class="line">	<span class="keyword">while</span> (waitpid(<span class="number">-1</span>, <span class="literal">NULL</span>, WNOHANG) &gt; <span class="number">0</span>);</span><br><span class="line">	errno = errno_old;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    signal(SIGCHLD,reap_zombie);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">void reap_zombie(int signo)
+&#123;
+	int errno_old &#x3D; errno;
+	while (waitpid(-1, NULL, WNOHANG) &gt; 0);
+	errno &#x3D; errno_old;
+&#125;
+
+int main()
+&#123;
+    ...
+    signal(SIGCHLD,reap_zombie);
+    ...
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>方法二：系统处理</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    signal(SIGCHLD,SIG_IGN);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">int main()
+&#123;
+    ...
+    signal(SIGCHLD,SIG_IGN);
+    ...
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="三、进程间通信"><a href="#三、进程间通信" class="headerlink" title="三、进程间通信"></a>三、进程间通信</h2><h3 id="1-管道"><a href="#1-管道" class="headerlink" title="1. 管道"></a>1. 管道</h3><h4 id="（1）管道（无名管道）"><a href="#（1）管道（无名管道）" class="headerlink" title="（1）管道（无名管道）"></a>（1）管道（无名管道）</h4><p>管道：正如其名，就像水管、燃气管一样进行传输，但是它们传输的是水和燃气。Linux中的管道传输的是数据。</p>
 <p>允许在一端写入并在另一端读出。写入端不可读取，读取端不可写入。只能用于父子进程之间。</p>
 <p>使用read和write读写即可。</p>
 <p>多个线程读取同一个管道时，管道中的数据在哪个线程被读出是不确定的</p>
 <p>同一个管道同时只允许读或者写</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 创建一个管道</span></span><br><span class="line"><span class="comment"> * @headerfile &lt;unistd.h&gt;</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * @param pipefd:文件描述符数组,[0]是读取端,[1]是写入端</span></span><br><span class="line"><span class="comment"> * @return 成功返回0，否则返回-1,errno被设置</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">pipe</span><span class="params">(<span class="type">int</span> pipefd[<span class="number">2</span>])</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;**
+ * @brief 创建一个管道
+ * @headerfile &lt;unistd.h&gt;
+ * 
+ * @param pipefd:文件描述符数组,[0]是读取端,[1]是写入端
+ * @return 成功返回0，否则返回-1,errno被设置
+*&#x2F;
+int pipe(int pipefd[2]);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h4 id="（2）命名管道（fifo）"><a href="#（2）命名管道（fifo）" class="headerlink" title="（2）命名管道（fifo）"></a>（2）命名管道（fifo）</h4><p>命名管道可以任何进程间实现通信。在创建命名管道时会在指定的路径创建管道文件，其他进程打开该文件即可进行读写。</p>
 <p>由于管道文件是文件，因此也有读写权限控制。</p>
@@ -230,7 +346,15 @@
 <p>非阻塞读取打开、没人写：打开成功，read阻塞，有人写后反复读取管道，会读取到历史数据</p>
 <p>阻塞读取打开、没人写：等待有人写时打开，正常读取数据、不会读取到历史数据</p>
 <p>若在管道读写过程中，读取端先断开会导致写入端写入到无人读取的管道中，引起管道破裂，在写入端进程中产生SIGPIPE管道终止信号</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief 创建命名管道</span></span><br><span class="line"><span class="comment">  * @headerfile &lt;sys/stat.h&gt;</span></span><br><span class="line"><span class="comment">  * </span></span><br><span class="line"><span class="comment">  * @param pathname:管道文件名</span></span><br><span class="line"><span class="comment">  * @param mode:文件的权限（会和umask相与）</span></span><br><span class="line"><span class="comment">  * @return 若成功则返回0，否则返回-1，错误原因存于errno中</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">mkfifo</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *pathname, <span class="type">mode_t</span> mode)</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-C" data-language="C"><code class="language-C"> &#x2F;**
+  * @brief 创建命名管道
+  * @headerfile &lt;sys&#x2F;stat.h&gt;
+  * 
+  * @param pathname:管道文件名
+  * @param mode:文件的权限（会和umask相与）
+  * @return 若成功则返回0，否则返回-1，错误原因存于errno中
+ *&#x2F;
+int mkfifo(const char *pathname, mode_t mode);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="2-信号"><a href="#2-信号" class="headerlink" title="2. 信号"></a>2. 信号</h3><h3 id="3-消息队列"><a href="#3-消息队列" class="headerlink" title="3. 消息队列"></a>3. 消息队列</h3><h3 id="4-共享内存"><a href="#4-共享内存" class="headerlink" title="4. 共享内存"></a>4. 共享内存</h3><h2 id="四、文件操作"><a href="#四、文件操作" class="headerlink" title="四、文件操作"></a>四、文件操作</h2><h2 id="五、多线程同步"><a href="#五、多线程同步" class="headerlink" title="五、多线程同步"></a>五、多线程同步</h2><h2 id="六、网络编程"><a href="#六、网络编程" class="headerlink" title="六、网络编程"></a>六、网络编程</h2><h3 id="1-互斥锁"><a href="#1-互斥锁" class="headerlink" title="1. 互斥锁"></a>1. 互斥锁</h3><h3 id="2-自旋锁"><a href="#2-自旋锁" class="headerlink" title="2. 自旋锁"></a>2. 自旋锁</h3><h3 id="3-信号量"><a href="#3-信号量" class="headerlink" title="3. 信号量"></a>3. 信号量</h3><h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ol>
 <li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_57908316/article/details/121191733">Linux 线程 Thread</a></p>

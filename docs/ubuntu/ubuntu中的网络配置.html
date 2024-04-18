@@ -17,17 +17,17 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"cxcc-code.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cxcc-code.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="ubuntu中的网络配置在不同版本的ubuntu中有不同的网络配置方式，主要有以下几种配置方式。 ifup&#x2F;ifdown使用ifup&#x2F;ifdown命令管理网络时，对应的配置文件为：&#x2F;etc&#x2F;network&#x2F;interfaces 1234567891011121314# The loopback network interfaceauto loiface lo inet loop">
+    <meta name="description" content="ubuntu中的网络配置在不同版本的ubuntu中有不同的网络配置方式，主要有以下几种配置方式。 ifup&#x2F;ifdown使用ifup&#x2F;ifdown命令管理网络时，对应的配置文件为：&#x2F;etc&#x2F;network&#x2F;interfaces # The loopback network interface auto lo iface lo inet loopback  # The prima">
 <meta property="og:type" content="website">
 <meta property="og:title" content="cxcc BLOG">
 <meta property="og:url" content="http://cxcc-code.github.io/docs/ubuntu/ubuntu%E4%B8%AD%E7%9A%84%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE.html">
 <meta property="og:site_name" content="cxcc BLOG">
-<meta property="og:description" content="ubuntu中的网络配置在不同版本的ubuntu中有不同的网络配置方式，主要有以下几种配置方式。 ifup&#x2F;ifdown使用ifup&#x2F;ifdown命令管理网络时，对应的配置文件为：&#x2F;etc&#x2F;network&#x2F;interfaces 1234567891011121314# The loopback network interfaceauto loiface lo inet loop">
+<meta property="og:description" content="ubuntu中的网络配置在不同版本的ubuntu中有不同的网络配置方式，主要有以下几种配置方式。 ifup&#x2F;ifdown使用ifup&#x2F;ifdown命令管理网络时，对应的配置文件为：&#x2F;etc&#x2F;network&#x2F;interfaces # The loopback network interface auto lo iface lo inet loopback  # The prima">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-02-22T12:35:47.486Z">
-<meta property="article:modified_time" content="2024-02-22T12:35:47.486Z">
+<meta property="article:published_time" content="2024-04-18T08:49:20.914Z">
+<meta property="article:modified_time" content="2024-04-18T08:49:20.914Z">
 <meta property="article:author" content="cxcc">
 <meta name="twitter:card" content="summary">
 
@@ -171,36 +171,94 @@
       <div class="post-body">
           <h1 id="ubuntu中的网络配置"><a href="#ubuntu中的网络配置" class="headerlink" title="ubuntu中的网络配置"></a>ubuntu中的网络配置</h1><p>在不同版本的ubuntu中有不同的网络配置方式，主要有以下几种配置方式。</p>
 <h2 id="ifup-ifdown"><a href="#ifup-ifdown" class="headerlink" title="ifup&#x2F;ifdown"></a>ifup&#x2F;ifdown</h2><p>使用ifup&#x2F;ifdown命令管理网络时，对应的配置文件为：<code>/etc/network/interfaces</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">The loopback network interface</span></span><br><span class="line">auto lo</span><br><span class="line">iface lo inet loopback</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">The primary network interface</span></span><br><span class="line">auto eth0                         # 开机自动开启网卡</span><br><span class="line">iface eth0 inet static			  # 设置eth0静态IP</span><br><span class="line">    address 192.168.1.100         # 设置静态IP为192.168.1.100</span><br><span class="line">    netmask 255.255.255.0         # 设置子网掩码</span><br><span class="line">    gateway 192.168.1.1           # 设置网关</span><br><span class="line">    dns-nameservers 8.8.8.8       # 设置DNS服务器</span><br><span class="line"></span><br><span class="line">auto eth1                         # eth1开机启动</span><br><span class="line">iface eth1 inet dhcp              # eth1配置为DHCP模式</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># The loopback network interface</span>
+auto lo
+iface lo inet loopback
+
+<span class="token comment"># The primary network interface</span>
+auto eth0                         <span class="token comment"># 开机自动开启网卡</span>
+iface eth0 inet static			  <span class="token comment"># 设置eth0静态IP</span>
+    address <span class="token number">192.168</span>.1.100         <span class="token comment"># 设置静态IP为192.168.1.100</span>
+    netmask <span class="token number">255.255</span>.255.0         <span class="token comment"># 设置子网掩码</span>
+    gateway <span class="token number">192.168</span>.1.1           <span class="token comment"># 设置网关</span>
+    dns-nameservers <span class="token number">8.8</span>.8.8       <span class="token comment"># 设置DNS服务器</span>
+
+auto eth1                         <span class="token comment"># eth1开机启动</span>
+iface eth1 inet dhcp              <span class="token comment"># eth1配置为DHCP模式</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>通过以上配置之后就可以使用ifup&#x2F;ifdown管理网络了</p>
 <h2 id="systemd-networkd"><a href="#systemd-networkd" class="headerlink" title="systemd-networkd"></a>systemd-networkd</h2><p>systemd-networkd是systemd提供的网络管理服务，在开机后自动启动，配置系统的网络。只要系统中安装了systemd服务的设备都可以通过systemd-networkd管理系统中的网络.</p>
 <p>通过systemd-networkd管理网络时，对应的配置文件目录为<code>/etc/systemd/network</code>配置文件需以两位数字开头，以<code>network</code> 结尾，例如<code>20-static-eth0.network</code></p>
 <p>配置eth0为静态IP模式</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Match]</span></span><br><span class="line"><span class="attr">Name</span>=eth0</span><br><span class="line"></span><br><span class="line"><span class="section">[Network]</span></span><br><span class="line"><span class="attr">Address</span>=<span class="number">192.168</span>.<span class="number">5.223</span></span><br><span class="line"><span class="attr">Gateway</span>=<span class="number">192.168</span>.<span class="number">5.1</span></span><br><span class="line"><span class="attr">DNS</span>=<span class="number">114.114</span>.<span class="number">114.114</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-ini" data-language="ini"><code class="language-ini"><span class="token section"><span class="token punctuation">[</span><span class="token section-name selector">Match</span><span class="token punctuation">]</span></span>
+<span class="token key attr-name">Name</span><span class="token punctuation">=</span><span class="token value attr-value">eth0</span>
+
+<span class="token section"><span class="token punctuation">[</span><span class="token section-name selector">Network</span><span class="token punctuation">]</span></span>
+<span class="token key attr-name">Address</span><span class="token punctuation">=</span><span class="token value attr-value">192.168.5.223</span>
+<span class="token key attr-name">Gateway</span><span class="token punctuation">=</span><span class="token value attr-value">192.168.5.1</span>
+<span class="token key attr-name">DNS</span><span class="token punctuation">=</span><span class="token value attr-value">114.114.114.114</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>配置eth0为DHCP模式</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Match]</span></span><br><span class="line"><span class="attr">Name</span>=eth0</span><br><span class="line"></span><br><span class="line"><span class="section">[Network]</span></span><br><span class="line"><span class="attr">DHCP</span>=<span class="literal">yes</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-ini" data-language="ini"><code class="language-ini"><span class="token section"><span class="token punctuation">[</span><span class="token section-name selector">Match</span><span class="token punctuation">]</span></span>
+<span class="token key attr-name">Name</span><span class="token punctuation">=</span><span class="token value attr-value">eth0</span>
+
+<span class="token section"><span class="token punctuation">[</span><span class="token section-name selector">Network</span><span class="token punctuation">]</span></span>
+<span class="token key attr-name">DHCP</span><span class="token punctuation">=</span><span class="token value attr-value">yes</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>在上述配置设置完成之后，需要确认systemd-networkd服务是否会开机启动。修改配置文件之后需要通过reload</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置服务开机启动</span></span><br><span class="line">systemctl enable systemd-networkd</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">重启服务</span></span><br><span class="line">systemctl restart systemd-networkd</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">重新加载配置文件</span></span><br><span class="line">systemctl reload systemd-networkd</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 设置服务开机启动</span>
+systemctl <span class="token builtin class-name">enable</span> systemd-networkd
+<span class="token comment"># 重启服务</span>
+systemctl restart systemd-networkd
+<span class="token comment"># 重新加载配置文件</span>
+systemctl reload systemd-networkd<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>参考链接：<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Systemd-networkd">systemd-networkd</a></p>
 <h2 id="netplan"><a href="#netplan" class="headerlink" title="netplan"></a>netplan</h2><p>使用netpaln进行网络管理时，对应的配置文件是：<code>/etc/netplan/00-installer-config.yaml</code></p>
 <ol>
 <li><p>配置eth0为静态IP模式</p>
- <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">network:</span></span><br><span class="line">  <span class="attr">ethernets:</span></span><br><span class="line">    <span class="attr">eth0:</span></span><br><span class="line">      <span class="attr">addresses:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.198</span><span class="string">/24</span>        <span class="comment"># 配置eth0的IP地址及子网掩码</span></span><br><span class="line">      <span class="attr">gateway4:</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span>     <span class="comment"># 配置网关</span></span><br><span class="line">      <span class="attr">nameservers:</span>              <span class="comment"># 配置DNS服务器</span></span><br><span class="line">        <span class="attr">addresses:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="number">114.114</span><span class="number">.114</span><span class="number">.114</span></span><br><span class="line">        <span class="attr">search:</span> []</span><br><span class="line">      <span class="attr">optional:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">version:</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
+ <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">network</span><span class="token punctuation">:</span>
+  <span class="token key atrule">ethernets</span><span class="token punctuation">:</span>
+    <span class="token key atrule">eth0</span><span class="token punctuation">:</span>
+      <span class="token key atrule">addresses</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> 192.168.1.198/24        <span class="token comment"># 配置eth0的IP地址及子网掩码</span>
+      <span class="token key atrule">gateway4</span><span class="token punctuation">:</span> 192.168.1.1     <span class="token comment"># 配置网关</span>
+      <span class="token key atrule">nameservers</span><span class="token punctuation">:</span>              <span class="token comment"># 配置DNS服务器</span>
+        <span class="token key atrule">addresses</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> 114.114.114.114
+        <span class="token key atrule">search</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+      <span class="token key atrule">optional</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token number">2</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p> 其中<code>optional</code>选项为true表示为手动模式，开机并不会自动启动网卡，若配置为false或者不配置则为自动模式，开机自动开启网卡</p>
 </li>
 <li><p>配置eth0为DHCP模式</p>
- <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">network:</span></span><br><span class="line">  <span class="attr">ethernets:</span></span><br><span class="line">    <span class="attr">eth0:</span></span><br><span class="line">      <span class="attr">dhcp4:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">version:</span> <span class="number">2</span></span><br></pre></td></tr></table></figure></li>
+ <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">network</span><span class="token punctuation">:</span>
+  <span class="token key atrule">ethernets</span><span class="token punctuation">:</span>
+    <span class="token key atrule">eth0</span><span class="token punctuation">:</span>
+      <span class="token key atrule">dhcp4</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token number">2</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ol>
 <p>在高版本的<code>netplan</code>中已经禁止使用<code>gateway4</code>来配置网关，新版本的netplan可以配置路由，按以下配置设置默认的路由地址即可</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">network:</span></span><br><span class="line">  <span class="attr">ethernets:</span></span><br><span class="line">    <span class="attr">eth0:</span></span><br><span class="line">      <span class="attr">addresses:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.198</span><span class="string">/24</span>        <span class="comment"># 配置eth0的IP地址及子网掩码</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">to:</span> <span class="string">default</span>             <span class="comment"># 设置默认路由（网关）</span></span><br><span class="line">        <span class="attr">via:</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span>		<span class="comment"># 默认路由的IP地址</span></span><br><span class="line">      <span class="attr">nameservers:</span>              <span class="comment"># 设置DNS服务器</span></span><br><span class="line">        <span class="attr">addresses:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="number">114.114</span><span class="number">.114</span><span class="number">.114</span></span><br><span class="line">        <span class="attr">search:</span> []</span><br><span class="line">  <span class="attr">version:</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">network</span><span class="token punctuation">:</span>
+  <span class="token key atrule">ethernets</span><span class="token punctuation">:</span>
+    <span class="token key atrule">eth0</span><span class="token punctuation">:</span>
+      <span class="token key atrule">addresses</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> 192.168.1.198/24        <span class="token comment"># 配置eth0的IP地址及子网掩码</span>
+      <span class="token key atrule">routes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">to</span><span class="token punctuation">:</span> default             <span class="token comment"># 设置默认路由（网关）</span>
+        <span class="token key atrule">via</span><span class="token punctuation">:</span> 192.168.1.1		<span class="token comment"># 默认路由的IP地址</span>
+      <span class="token key atrule">nameservers</span><span class="token punctuation">:</span>              <span class="token comment"># 设置DNS服务器</span>
+        <span class="token key atrule">addresses</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> 114.114.114.114
+        <span class="token key atrule">search</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+  <span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token number">2</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>在以上配置完成后可以通过以下两条命令应用配置。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">尝试配置网络(在一段时间不确认之后会还原为原来的配置，防止配置服务器出错时直接应用导致无法连接)</span></span><br><span class="line">netplan try</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">直接应用网络配置</span></span><br><span class="line">netplan apply</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 尝试配置网络(在一段时间不确认之后会还原为原来的配置，防止配置服务器出错时直接应用导致无法连接)</span>
+netplan try
+<span class="token comment"># 直接应用网络配置</span>
+netplan apply<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 
       </div>

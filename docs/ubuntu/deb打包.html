@@ -17,17 +17,17 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"cxcc-code.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cxcc-code.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="deb包解析与打包[TOC] 一、deb包结构deb包中有两部分信息：  数据：在安装过程中直接拷贝到系统中的文件 控制：在安装和卸载过程中执行的脚本，为dpkg提供的包信息  以本次打包的openssh为例： 1234567891011.├── DEBIAN│   ├── control│   ├── postinst│   └── prerm├── etc│   └── ssh├── usr│">
+    <meta name="description" content="deb包解析与打包[TOC] 一、deb包结构deb包中有两部分信息：  数据：在安装过程中直接拷贝到系统中的文件 控制：在安装和卸载过程中执行的脚本，为dpkg提供的包信息  以本次打包的openssh为例： . ├── DEBIAN │   ├── control │   ├── postinst │   └── prerm ├── etc │   └── ssh ├── usr │   └─">
 <meta property="og:type" content="website">
 <meta property="og:title" content="cxcc BLOG">
 <meta property="og:url" content="http://cxcc-code.github.io/docs/ubuntu/deb%E6%89%93%E5%8C%85.html">
 <meta property="og:site_name" content="cxcc BLOG">
-<meta property="og:description" content="deb包解析与打包[TOC] 一、deb包结构deb包中有两部分信息：  数据：在安装过程中直接拷贝到系统中的文件 控制：在安装和卸载过程中执行的脚本，为dpkg提供的包信息  以本次打包的openssh为例： 1234567891011.├── DEBIAN│   ├── control│   ├── postinst│   └── prerm├── etc│   └── ssh├── usr│">
+<meta property="og:description" content="deb包解析与打包[TOC] 一、deb包结构deb包中有两部分信息：  数据：在安装过程中直接拷贝到系统中的文件 控制：在安装和卸载过程中执行的脚本，为dpkg提供的包信息  以本次打包的openssh为例： . ├── DEBIAN │   ├── control │   ├── postinst │   └── prerm ├── etc │   └── ssh ├── usr │   └─">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-02-22T12:35:47.486Z">
-<meta property="article:modified_time" content="2024-02-22T12:35:47.486Z">
+<meta property="article:published_time" content="2024-04-18T08:49:20.909Z">
+<meta property="article:modified_time" content="2024-04-18T08:49:20.909Z">
 <meta property="article:author" content="cxcc">
 <meta name="twitter:card" content="summary">
 
@@ -176,11 +176,28 @@
 <li>控制：在安装和卸载过程中执行的脚本，为dpkg提供的包信息</li>
 </ol>
 <p>以本次打包的openssh为例：</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── DEBIAN</span><br><span class="line">│   ├── control</span><br><span class="line">│   ├── postinst</span><br><span class="line">│   └── prerm</span><br><span class="line">├── etc</span><br><span class="line">│   └── ssh</span><br><span class="line">├── usr</span><br><span class="line">│   └── local</span><br><span class="line">└── var</span><br><span class="line">    └── empty</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">.
+├── DEBIAN
+│   ├── control
+│   ├── postinst
+│   └── prerm
+├── etc
+│   └── ssh
+├── usr
+│   └── local
+└── var
+    └── empty<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>包目录中的DEBIAN目录中包含的就是控制信息，其它目录是数据信息，其它目录会被直接拷贝到系统根目录。</p>
 <h3 id="1-control文件"><a href="#1-control文件" class="headerlink" title="1) control文件"></a>1) control文件</h3><p>DEBIAN中的控制信息最重要的是control文件,以下是本次打包的openssh的control文件</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Package: ebaina-openssh</span><br><span class="line">Version: 9.3p1</span><br><span class="line">Architecture: arm64</span><br><span class="line">Maintainer: Ebaina Developers</span><br><span class="line">Installed-Size: 6247</span><br><span class="line">Depends: ebaina-zlib,ebaina-openssl,ebaina-haveged</span><br><span class="line">Priority: optional</span><br><span class="line">Description: build by Ebaina</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">Package: ebaina-openssh
+Version: 9.3p1
+Architecture: arm64
+Maintainer: Ebaina Developers
+Installed-Size: 6247
+Depends: ebaina-zlib,ebaina-openssl,ebaina-haveged
+Priority: optional
+Description: build by Ebaina<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>其中：</p>
 <ol>
@@ -194,24 +211,48 @@
 </ol>
 <h3 id="2-脚本"><a href="#2-脚本" class="headerlink" title="2) 脚本"></a>2) 脚本</h3><p>有四个脚本可以执行：<code>preinst</code> <code>postinst</code> <code>prerm</code> <code>psotrm</code>。分别在安装之前，安装之后，删除之前与删除之后执行。通过这些脚本可以在软件安装和卸载时自动执行一些其它操作，比如配置开机启动等。这些脚本只需添加可执行权限放在DEBIAN目录下即可。</p>
 <h2 id="二、deb打包与解包"><a href="#二、deb打包与解包" class="headerlink" title="二、deb打包与解包"></a>二、deb打包与解包</h2><p>如果对deb包还不够了解，可以下载deb包并解包，有利于进一步分析。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">apt 下载软件包但不安装（不需要管理员权限）</span></span><br><span class="line">apt -d download ssh</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># apt 下载软件包但不安装（不需要管理员权限）</span>
+<span class="token function">apt</span> <span class="token parameter variable">-d</span> download <span class="token function">ssh</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>可以在当前目录看到软件包<code>ssh_1%3a7.6p1-4ubuntu0.7_all.deb</code>（可能版本不同）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建存储解包文件的目录</span></span><br><span class="line">mkdir ssh</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb解包数据文件,解包到ssh目录下</span></span><br><span class="line">dpkg -x ssh_1%3a7.6p1-4ubuntu0.7_all.deb ssh/</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">deb解包控制文件</span></span><br><span class="line">dpkg -e ssh_1%3a7.6p1-4ubuntu0.7_all.deb ssh/DEBIAN</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建存储解包文件的目录</span>
+<span class="token function">mkdir</span> <span class="token function">ssh</span>
+
+<span class="token comment"># deb解包数据文件,解包到ssh目录下</span>
+dpkg <span class="token parameter variable">-x</span> ssh_1%3a7.6p1-4ubuntu0.7_all.deb ssh/
+<span class="token comment"># deb解包控制文件</span>
+dpkg <span class="token parameter variable">-e</span> ssh_1%3a7.6p1-4ubuntu0.7_all.deb ssh/DEBIAN<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>为了详细了解DEBIAN的结构，可以下载不同的包分析共性。</p>
 <p>打deb包</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">pack <span class="built_in">dir</span>：指定打包的目录</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">pack file name：指定包的文件名（与包名无关），若省略则在目录名后加.deb后缀作为文件名</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">dpkg -b &lt;pack <span class="built_in">dir</span>&gt; [pack file name]</span></span><br><span class="line">dpkg -b openssh</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># pack dir：指定打包的目录</span>
+<span class="token comment"># pack file name：指定包的文件名（与包名无关），若省略则在目录名后加.deb后缀作为文件名</span>
+<span class="token comment"># dpkg -b &lt;pack dir> [pack file name]</span>
+dpkg <span class="token parameter variable">-b</span> openssh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="三、deb包的安装与包状态"><a href="#三、deb包的安装与包状态" class="headerlink" title="三、deb包的安装与包状态"></a>三、deb包的安装与包状态</h2><p><strong>安装与卸载软件包</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装软件包</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">dpkg -i &lt;pack file name&gt;</span></span><br><span class="line">dpkg -i openssh.deb</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">卸载软件包</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">dpkg -r &lt;pack name&gt;</span></span><br><span class="line">dpkg -r ebaina-openssh</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">【注】：安装时指定的是包的文件名，卸载时指定包名</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 安装软件包</span>
+<span class="token comment"># dpkg -i &lt;pack file name></span>
+dpkg <span class="token parameter variable">-i</span> openssh.deb
 
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">dpkg 允许同时安装多个软件包，dpkg会自行分析依赖，而不必按依赖顺序逐个安装</span></span><br><span class="line">dpkg -i *.deb</span><br></pre></td></tr></table></figure>
+<span class="token comment"># 卸载软件包</span>
+<span class="token comment"># dpkg -r &lt;pack name></span>
+dpkg <span class="token parameter variable">-r</span> ebaina-openssh
+
+<span class="token comment"># 【注】：安装时指定的是包的文件名，卸载时指定包名</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># dpkg 允许同时安装多个软件包，dpkg会自行分析依赖，而不必按依赖顺序逐个安装</span>
+dpkg <span class="token parameter variable">-i</span> *.deb<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><strong>查看包状态</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpkg -l</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">dpkg <span class="token parameter variable">-l</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">    Name           Version</span><br><span class="line">+++-==============-==============</span><br><span class="line">ii  ebaina-openssh 9.3p1</span><br><span class="line">ii  ebaina-zlib    1.2.13</span><br><span class="line">ii  ebaina-openssl 1.1.1l</span><br><span class="line">ii  ebaina-haveged 1.9.2</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">    Name           Version
++++-==============-==============
+ii  ebaina-openssh 9.3p1
+ii  ebaina-zlib    1.2.13
+ii  ebaina-openssl 1.1.1l
+ii  ebaina-haveged 1.9.2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>第一列表示软件包的状态，格式如下<code>期望状态|当前状态|错误状态</code></p>
 <ol>
@@ -256,14 +297,19 @@
 <h2 id="四、其它问题"><a href="#四、其它问题" class="headerlink" title="四、其它问题"></a>四、其它问题</h2><ol>
 <li><p>无法卸载，提示Terminated</p>
 <p>问题现象：</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Removing ebaina-haveged (1.9.2)...</span><br><span class="line">Terminated</span><br><span class="line">haveged: haveged: Stopping due to signal 15</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">Removing ebaina-haveged (1.9.2)...
+Terminated
+haveged: haveged: Stopping due to signal 15<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>问题分析：在卸载时需要关闭对应的进程，所以在<code>prerm</code>脚本中通过ps加grep的方式查找进程PID，由于dpkg在卸载时的进程名也会包含包名。所以搜索出多个PID一起被杀死。其中包含dpkg卸载软件包的进程：</p>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1750 root      0:00 dpkg -r ebaina-haveged</span><br><span class="line">1751 root      0:00 &#123;ebaina-haveged.&#125; /bin/sh /var/lib/dpkg/info/ebaina-haveged.prerm</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">1750 root      0:00 dpkg -r ebaina-haveged
+1751 root      0:00 &#123;ebaina-haveged.&#125; /bin/sh /var/lib/dpkg/info/ebaina-haveged.prerm<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>因此只需要在使用grep时避免将dpkg的进程包含在内即可</p>
 <p>问题解决：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HAVEGED_PID=`ps -e | grep -v grep | grep &quot;haveged&quot; | awk &#x27;&#123;print $1&#125;&#x27;`</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">改为</span></span><br><span class="line">HAVEGED_PID=`ps -e | grep -v grep | grep &quot;/haveged&quot; | awk &#x27;&#123;print $1&#125;&#x27;`</span><br></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">HAVEGED_PID</span><span class="token operator">=</span><span class="token variable"><span class="token variable">`</span><span class="token function">ps</span> <span class="token parameter variable">-e</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-v</span> <span class="token function">grep</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">"haveged"</span> <span class="token operator">|</span> <span class="token function">awk</span> <span class="token string">'&#123;print $1&#125;'</span><span class="token variable">`</span></span>
+<span class="token comment"># 改为</span>
+<span class="token assign-left variable">HAVEGED_PID</span><span class="token operator">=</span><span class="token variable"><span class="token variable">`</span><span class="token function">ps</span> <span class="token parameter variable">-e</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-v</span> <span class="token function">grep</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">"/haveged"</span> <span class="token operator">|</span> <span class="token function">awk</span> <span class="token string">'&#123;print $1&#125;'</span><span class="token variable">`</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></li>
 </ol>
 <h2 id="五、参考文章"><a href="#五、参考文章" class="headerlink" title="五、参考文章"></a>五、参考文章</h2><ol>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/kunkliu/article/details/122608549">Ubuntu 系统 dpkg 命令使用详解</a></li>

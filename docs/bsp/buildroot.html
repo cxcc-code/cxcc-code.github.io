@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"cxcc-code.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cxcc-code.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="buildroot为了和文件系统区分，本文将根目录中的内容称为根文件结构。 buildroot是一个构造根文件结构的工具，在使用buildroot之前我们可能常常使用busybox构建根文件结构。busybox包含Linux的很多基本工具，但是在开发过程中往往需要移植一些busybox中不包含的其它工具。而buildroot更像增强版的busybox，使原来busybox不包含的工具也能通过men">
 <meta property="og:type" content="website">
@@ -26,8 +26,8 @@
 <meta property="og:site_name" content="cxcc BLOG">
 <meta property="og:description" content="buildroot为了和文件系统区分，本文将根目录中的内容称为根文件结构。 buildroot是一个构造根文件结构的工具，在使用buildroot之前我们可能常常使用busybox构建根文件结构。busybox包含Linux的很多基本工具，但是在开发过程中往往需要移植一些busybox中不包含的其它工具。而buildroot更像增强版的busybox，使原来busybox不包含的工具也能通过men">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-02-22T12:35:47.479Z">
-<meta property="article:modified_time" content="2024-02-22T12:35:47.479Z">
+<meta property="article:published_time" content="2024-04-18T08:49:20.896Z">
+<meta property="article:modified_time" content="2024-04-18T08:49:20.896Z">
 <meta property="article:author" content="cxcc">
 <meta name="twitter:card" content="summary">
 
@@ -215,7 +215,7 @@
 <p>目标选项并不多，如果可以尽量选择更贴近平台的选项。至少选定目标架构</p>
 <p>以上是基本配置，更多配置可以在menuconfig中查看</p>
 <h2 id="三、编译"><a href="#三、编译" class="headerlink" title="三、编译"></a>三、编译</h2><p>由于在配置中已经指定架构、工具链，因此编译时无需重新指定。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make -j 20</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">make -j 20<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>编译后的镜像在output&#x2F;Images目录</p>
 
