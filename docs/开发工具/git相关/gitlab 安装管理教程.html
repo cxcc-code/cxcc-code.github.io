@@ -22,37 +22,37 @@
     <meta name="description" content="gitlab 安装管理教程前言安装环境：Ubuntu 22.04 一、安装参考文档:https:&#x2F;&#x2F;gitlab.cn&#x2F;install&#x2F; 123456789# 更新安装源sudo apt update# 安装基本依赖（安装过程中出现选项都默认即可，使用TAB按键切换到OK选项，然后回车）sudo apt-get install -y curl openssh-server ca-certifica">
 <meta property="og:type" content="website">
 <meta property="og:title" content="cxcc BLOG">
-<meta property="og:url" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.html">
+<meta property="og:url" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.html">
 <meta property="og:site_name" content="cxcc BLOG">
 <meta property="og:description" content="gitlab 安装管理教程前言安装环境：Ubuntu 22.04 一、安装参考文档:https:&#x2F;&#x2F;gitlab.cn&#x2F;install&#x2F; 123456789# 更新安装源sudo apt update# 安装基本依赖（安装过程中出现选项都默认即可，使用TAB按键切换到OK选项，然后回车）sudo apt-get install -y curl openssh-server ca-certifica">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240204102903986.png">
-<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240204103012745.png">
-<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240204103949129.png">
-<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240204104020750.png">
-<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240204104532789.png">
-<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240204104932504.png">
-<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240204124633451.png">
-<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240205110400712.png">
-<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240205110512156.png">
-<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240205110758922.png">
-<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240205111110545.png">
-<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240205111600787.png">
-<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240205112005005.png">
-<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240205112144902.png">
-<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240205112341124.png">
-<meta property="article:published_time" content="2024-02-29T05:30:17.934Z">
-<meta property="article:modified_time" content="2024-02-29T05:30:17.934Z">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240204102903986.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240204103012745.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240204103949129.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240204104020750.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240204104532789.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240204104932504.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240204124633451.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240205110400712.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240205110512156.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240205110758922.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240205111110545.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240205111600787.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240205112005005.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240205112144902.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240205112341124.png">
+<meta property="article:published_time" content="2024-04-18T05:29:53.342Z">
+<meta property="article:modified_time" content="2024-04-18T05:29:53.342Z">
 <meta property="article:author" content="cxcc">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240204102903986.png">
+<meta name="twitter:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.assets/image-20240204102903986.png">
 
 
-<link rel="canonical" href="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B">
+<link rel="canonical" href="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.html","path":"docs/开发工具/gitlab 安装管理教程.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitlab%20%E5%AE%89%E8%A3%85%E7%AE%A1%E7%90%86%E6%95%99%E7%A8%8B.html","path":"docs/开发工具/git相关/gitlab 安装管理教程.html","title":""}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title> | cxcc BLOG
@@ -176,6 +176,7 @@
   <ul class="breadcrumb">
             <li><a href="/docs/">DOCS</a></li>
             <li><a href="/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a></li>
+            <li><a href="/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/">GIT相关</a></li>
             <li>GITLAB 安装管理教程</li>
   </ul>
 </div>
@@ -324,6 +325,7 @@
   <ul class="breadcrumb">
             <li><a href="/docs/">DOCS</a></li>
             <li><a href="/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a></li>
+            <li><a href="/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/">GIT相关</a></li>
             <li>GITLAB 安装管理教程</li>
   </ul>
 

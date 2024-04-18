@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"cxcc-code.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="gitee 创建PR当需要向开源仓库贡献代码时往往没有直接提交到开源仓库的权限，需要通过PR的形式向开源仓库推送代码，再由开源仓库的管理员审核进行合并。 PR(Pull Request)，即推送请求。一般是当前仓库推送到目标仓库的合并请求。 创建PR有以下几个流程：可参考文章的目录 [TOC] 【注】：以下以openeuler的开源仓库为例，欢迎向开源社区贡献代码，但不要用与测试PR给审核人员增加">
+<meta property="og:type" content="website">
+<meta property="og:title" content="cxcc BLOG">
+<meta property="og:url" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitee%E5%88%9B%E5%BB%BAPR.html">
+<meta property="og:site_name" content="cxcc BLOG">
+<meta property="og:description" content="gitee 创建PR当需要向开源仓库贡献代码时往往没有直接提交到开源仓库的权限，需要通过PR的形式向开源仓库推送代码，再由开源仓库的管理员审核进行合并。 PR(Pull Request)，即推送请求。一般是当前仓库推送到目标仓库的合并请求。 创建PR有以下几个流程：可参考文章的目录 [TOC] 【注】：以下以openeuler的开源仓库为例，欢迎向开源社区贡献代码，但不要用与测试PR给审核人员增加">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitee%E5%88%9B%E5%BB%BAPR.assets/image-20240417113154381.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitee%E5%88%9B%E5%BB%BAPR.assets/image-20240417113345876.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitee%E5%88%9B%E5%BB%BAPR.assets/image-20240417113703455.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitee%E5%88%9B%E5%BB%BAPR.assets/image-20240417114525118.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitee%E5%88%9B%E5%BB%BAPR.assets/image-20240417114647213.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitee%E5%88%9B%E5%BB%BAPR.assets/image-20240417115012001.png">
+<meta property="og:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitee%E5%88%9B%E5%BB%BAPR.assets/image-20240417115833189.png">
+<meta property="article:published_time" content="2024-04-18T05:29:53.321Z">
+<meta property="article:modified_time" content="2024-04-18T05:29:53.321Z">
+<meta property="article:author" content="cxcc">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitee%E5%88%9B%E5%BB%BAPR.assets/image-20240417113154381.png">
+
+
+<link rel="canonical" href="http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitee%E5%88%9B%E5%BB%BAPR">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"http://cxcc-code.github.io/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/gitee%E5%88%9B%E5%BB%BAPR.html","path":"docs/开发工具/git相关/gitee创建PR.html","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title> | cxcc BLOG
+</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">cxcc BLOG</p>
+      <i class="logo-line"></i>
+    </a>
+      <img class="custom-logo-image" src="/images/custom-logo.png" alt="cxcc BLOG">
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-docs"><a href="/docs/" rel="section"><i class="fa fa-archive fa-fw"></i>docs</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#gitee-%E5%88%9B%E5%BB%BAPR"><span class="nav-number">1.</span> <span class="nav-text">gitee 创建PR</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BAPR"><span class="nav-number">1.1.</span> <span class="nav-text">如何创建PR</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Fork%E4%BB%93%E5%BA%93"><span class="nav-number">1.1.1.</span> <span class="nav-text">Fork仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%88%86%E6%94%AF%E5%B9%B6%E6%8F%90%E4%BA%A4"><span class="nav-number">1.1.2.</span> <span class="nav-text">创建分支并提交</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAPR"><span class="nav-number">1.1.3.</span> <span class="nav-text">创建PR</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E8%A1%A5%E6%8F%90%E4%BA%A4"><span class="nav-number">1.2.</span> <span class="nav-text">修补提交</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8PR%E4%B8%8A%E8%BF%BD%E5%8A%A0%E6%8F%90%E4%BA%A4"><span class="nav-number">1.3.</span> <span class="nav-text">如何在PR上追加提交</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PR%E5%87%BA%E7%8E%B0%E5%86%B2%E7%AA%81"><span class="nav-number">1.4.</span> <span class="nav-text">PR出现冲突</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="nav-number">1.5.</span> <span class="nav-text">参考文章</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">cxcc</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/cxcc_code" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;cxcc_code" rel="noopener me" target="_blank"><i class="fab user-gitee fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xiaolong.cxcc@qq.com" title="E-Mail → mailto:xiaolong.cxcc@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner page posts-expand">
+
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN"><header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">
+</h1>
+
+<div class="post-meta-container">
+  <ul class="breadcrumb">
+            <li><a href="/docs/">DOCS</a></li>
+            <li><a href="/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a></li>
+            <li><a href="/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/">GIT相关</a></li>
+            <li>GITEE创建PR</li>
+  </ul>
+</div>
+
+</header>
+
+      
+      
+      <div class="post-body">
+          <h1 id="gitee-创建PR"><a href="#gitee-创建PR" class="headerlink" title="gitee 创建PR"></a>gitee 创建PR</h1><p>当需要向开源仓库贡献代码时往往没有直接提交到开源仓库的权限，需要通过PR的形式向开源仓库推送代码，再由开源仓库的管理员审核进行合并。</p>
+<p>PR(Pull Request)，即推送请求。一般是当前仓库推送到目标仓库的合并请求。</p>
+<p>创建PR有以下几个流程：可参考文章的目录</p>
+<p>[TOC]</p>
+<p>【注】：以下以openeuler的开源仓库为例，欢迎向开源社区贡献代码，但不要用与测试PR给审核人员增加负担。</p>
+<h2 id="如何创建PR"><a href="#如何创建PR" class="headerlink" title="如何创建PR"></a>如何创建PR</h2><h3 id="Fork仓库"><a href="#Fork仓库" class="headerlink" title="Fork仓库"></a>Fork仓库</h3><p>Fork仓库是将开源仓库复制到自己的账号下</p>
+<ol>
+<li><p>找到自己想要提交代码的开源仓库，点击右上角的Fork按键</p>
+<img src="./gitee创建PR.assets/image-20240417113154381.png" alt="image-20240417113154381">
+</li>
+<li><p>选择要Fork到哪个空间此处选择Fork到自己的账户下。</p>
+<img src="./gitee创建PR.assets/image-20240417113345876.png" alt="image-20240417113345876">
+</li>
+<li><p>等待处理，Fork完成后会在个人账户下出现一个同名的仓库</p>
+<img src="./gitee创建PR.assets/image-20240417113703455.png" alt="image-20240417113703455"></li>
+</ol>
+<h3 id="创建分支并提交"><a href="#创建分支并提交" class="headerlink" title="创建分支并提交"></a>创建分支并提交</h3><p>将Fork的仓库clone到本地，随后创建分支进行开发</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">克隆仓库</span></span><br><span class="line">git clone https://gitee.com/&lt;user path&gt;/yocto-meta-openeuler.git</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建分支</span></span><br><span class="line">git checkout -b develop</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">修改代码...</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建提交</span></span><br><span class="line">git add -A</span><br><span class="line">git commit -m &quot;test pr&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">推送到自己Fork的仓库,推送之后即可在自己的仓库中看到develop分支</span></span><br><span class="line">git push -u origin develop</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建PR"><a href="#创建PR" class="headerlink" title="创建PR"></a>创建PR</h3><ol>
+<li>点击Pull Requests</li>
+</ol>
+<img src="./gitee创建PR.assets/image-20240417114525118.png" alt="image-20240417114525118">
+
+<ol start="2">
+<li><p>点击新建Pull Request</p>
+<img src="./gitee创建PR.assets/image-20240417114647213.png" alt="image-20240417114647213">
+</li>
+<li><p>填写信息，创建PR</p>
+<p>此处并没有实际创建，仅做内容展示，后续图片以其他以提交的PR为例，可能与此处信息不符。（不要在开源社区测试）</p>
+<img src="./gitee创建PR.assets/image-20240417115012001.png" alt="image-20240417115012001">
+</li>
+<li><p>成功创建PR后会显示，PR的具体信息以及PR的合并进度</p>
+<img src="./gitee创建PR.assets/image-20240417115833189.png" alt="image-20240417115833189">
+</li>
+<li><p>后续等待审核，及时关注评论进行必要的修改，等待合并。</p>
+</li>
+</ol>
+<h2 id="修补提交"><a href="#修补提交" class="headerlink" title="修补提交"></a>修补提交</h2><p>如果PR的审核员提示我们做一些修改时，我们可以使用修补提交的方式。修补提交不会产生额外的提交记录，是对上一次提交的修改</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">首先将文件正常加入缓冲区，就像真正常进行新提交一样</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">修补提交（提交编号会变，后续需要强制推送）</span></span><br><span class="line">git commit --amend</span><br><span class="line"></span><br><span class="line">git push -f origin master</span><br></pre></td></tr></table></figure>
+
+<h2 id="如何在PR上追加提交"><a href="#如何在PR上追加提交" class="headerlink" title="如何在PR上追加提交"></a>如何在PR上追加提交</h2><p>在PR合入之前可进行追加提交，追加提交只需要在创建PR时指定的分支<strong>继续提交并推送</strong>到自己的仓库即可。开源仓库PR会实时更新提交信息。</p>
+<h2 id="PR出现冲突"><a href="#PR出现冲突" class="headerlink" title="PR出现冲突"></a>PR出现冲突</h2><p>例如远端开源仓库分支为master</p>
+<p>个人仓库推送分支为master</p>
+<p>本地修改分支为master</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">开源远程仓库链接</span></span><br><span class="line">git remote add upstream https://gitee.com/openeuler/yocto-meta-openeuler.git</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">fetch开源仓</span></span><br><span class="line">git fetch upstream</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">变基到开源仓（此时会提示冲突）</span></span><br><span class="line">git rebase upstream/master</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在本地合并冲突..</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">添加修改文件到缓冲区</span></span><br><span class="line">git add -A</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">继续变基（此时可能会显示变基提交信息，变基之后Ctrl+o保存，Ctrl+x退出）（执行后会产生一次新提交）</span></span><br><span class="line">git rebase --continue</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">强制推送到Fork的个人仓库（强制推送是因为本地变基了）（此时开源仓库的PR中合并冲突的提示就会消失）</span></span><br><span class="line">git push -f origin master</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/tanwu1/article/details/134890275">什么是git pr</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_48120109/article/details/124232788">git修补历史提交</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42854929/article/details/128218040">如何解决Gitee提交pr冲突</a></li>
+</ol>
+
+      </div>
+      
+      
+      
+    </div>
+  <ul class="breadcrumb">
+            <li><a href="/docs/">DOCS</a></li>
+            <li><a href="/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a></li>
+            <li><a href="/docs/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git%E7%9B%B8%E5%85%B3/">GIT相关</a></li>
+            <li>GITEE创建PR</li>
+  </ul>
+
+    
+    
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">cxcc</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
