@@ -26,8 +26,8 @@
 <meta property="og:site_name" content="cxcc BLOG">
 <meta property="og:description" content="dtb编译与解析一、前言dtb是dts文件编译后的二进制文件。dts文件能够重写节点的配置，也可在当前节点中引用其它节点。这种特性使得dts的不同节点直接可以进行配置的继承和重写，在大量重复配置、固定配置的场景下比json、xml等更适合作为配置文件。本文将基于如何将dts作为一种易于解析的配置文件展开讨论，而不是作为内核设备描述的设备树。 二、DTS的基本语法此处将的基础语法并不是dts属性、值">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-04-18T08:49:20.897Z">
-<meta property="article:modified_time" content="2024-04-18T08:49:20.897Z">
+<meta property="article:published_time" content="2024-02-22T12:35:47.480Z">
+<meta property="article:modified_time" content="2024-02-22T12:35:47.480Z">
 <meta property="article:author" content="cxcc">
 <meta name="twitter:card" content="summary">
 
@@ -171,70 +171,34 @@
       <div class="post-body">
           <h1 id="dtb编译与解析"><a href="#dtb编译与解析" class="headerlink" title="dtb编译与解析"></a>dtb编译与解析</h1><h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>dtb是dts文件编译后的二进制文件。dts文件能够重写节点的配置，也可在当前节点中引用其它节点。这种特性使得dts的不同节点直接可以进行配置的继承和重写，在大量重复配置、固定配置的场景下比json、xml等更适合作为配置文件。本文将基于如何将dts作为一种易于解析的配置文件展开讨论，而不是作为内核设备描述的设备树。</p>
 <h2 id="二、DTS的基本语法"><a href="#二、DTS的基本语法" class="headerlink" title="二、DTS的基本语法"></a>二、DTS的基本语法</h2><p>此处将的基础语法并不是dts属性、值怎么写。而是基础的框架保证编译通过，其它语法可以在网上轻松百度到。</p>
-<h3 id="1-版本号声明"><a href="#1-版本号声明" class="headerlink" title="1) 版本号声明"></a>1) 版本号声明</h3><pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">/dts-v1/;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="1-版本号声明"><a href="#1-版本号声明" class="headerlink" title="1) 版本号声明"></a>1) 版本号声明</h3><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/dts-v1/;</span><br></pre></td></tr></table></figure>
 
 <p>在dts中需要添加版本号声明，否则编译会报错：</p>
-<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">Error: a.dts:3.1-2 syntax error
-FATAL ERROR: Unable to parse input tree<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Error: a.dts:3.1-2 syntax error</span><br><span class="line">FATAL ERROR: Unable to parse input tree</span><br></pre></td></tr></table></figure>
 
-<h3 id="2-如何包含其它dts"><a href="#2-如何包含其它dts" class="headerlink" title="2) 如何包含其它dts"></a>2) 如何包含其它dts</h3><pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">/include/ "xx.dtsi"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="2-如何包含其它dts"><a href="#2-如何包含其它dts" class="headerlink" title="2) 如何包含其它dts"></a>2) 如何包含其它dts</h3><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/include/ &quot;xx.dtsi&quot;</span><br></pre></td></tr></table></figure>
 
 <p>dts只支持使用这种方式进行头文件包含，但是我们往往会见到<code>#include &quot;xxx.dtsi&quot;</code>格式的文件包含，在第二章第二小节<strong>宏定义与预处理</strong>会详细说明。</p>
 <h2 id="二、如何编译DTS"><a href="#二、如何编译DTS" class="headerlink" title="二、如何编译DTS"></a>二、如何编译DTS</h2><h3 id="1-简单编译"><a href="#1-简单编译" class="headerlink" title="1) 简单编译"></a>1) 简单编译</h3><p>使用dtc命令就可以编译dts设备树文件。</p>
 <p><code>a.dts</code></p>
-<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">/dts-v1/;
-/ &#123;
-	test &#123;
-		count = &lt;8>;
-		size = &lt;128>;
-	&#125;;
-&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/dts-v1/;</span><br><span class="line">/ &#123;</span><br><span class="line">	test &#123;</span><br><span class="line">		count = &lt;8&gt;;</span><br><span class="line">		size = &lt;128&gt;;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 编译设备树</span>
-<span class="token comment"># -I:指定输入格式</span>
-<span class="token comment"># -O:指定输出格式</span>
-<span class="token comment"># -o:指定输出文件</span>
-dtc <span class="token parameter variable">-I</span> dts <span class="token parameter variable">-O</span> dtb <span class="token parameter variable">-o</span> a.dtb a.dts<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">编译设备树</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-I:指定输入格式</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-O:指定输出格式</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-o:指定输出文件</span></span><br><span class="line">dtc -I dts -O dtb -o a.dtb a.dts</span><br></pre></td></tr></table></figure>
 
 <p>通过上述命令可以编译出对应的dtb文件</p>
 <h3 id="2-宏定义与预处理"><a href="#2-宏定义与预处理" class="headerlink" title="2) 宏定义与预处理"></a>2) 宏定义与预处理</h3><p>dtc命令本身不支持预处理指令，直接在dts中写<code>#include &quot;xxx.dtsi&quot;</code>在编译时会报语法错，但是我们依然可以在很多设备树中看到include及其它各种预处理指令。要实现这种效果可以使用gcc先对文件进行预处理，再使用dtc命令进行编译。</p>
 <p><code>a.dts</code></p>
-<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">/dts-v1/;
-/ &#123;
-	test:test &#123;
-		count = &lt;8>;
-		size = &lt;128>;
-	&#125;;
-&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/dts-v1/;</span><br><span class="line">/ &#123;</span><br><span class="line">	test:test &#123;</span><br><span class="line">		count = &lt;8&gt;;</span><br><span class="line">		size = &lt;128&gt;;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p><code>b.dts</code></p>
-<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">#include "a.dts"
-&amp;test &#123;
-	size = &lt;256>;
-	string = "hello";
-&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;a.dts&quot;</span><br><span class="line">&amp;test &#123;</span><br><span class="line">	size = &lt;256&gt;;</span><br><span class="line">	string = &quot;hello&quot;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>此时需要使用以下命令进行编译</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># $CC 代表gcc编译器（理论上使用任何平台的都不影响，此处仅进行预处理）</span>
-<span class="token comment"># -x assembler-with-cpp:指定预处理语法（包括#号开头的各种宏命令，以及注释），若使用c则会对#address 等报错</span>
-<span class="token comment"># -E:仅进行预处理，不编译</span>
-<span class="token comment"># -P:不输出#号开头的一些信息</span>
-<span class="token comment"># -o:指定输出文件</span>
-<span class="token variable">$CC</span> <span class="token parameter variable">-x</span> assembler-with-cpp <span class="token parameter variable">-E</span> <span class="token parameter variable">-P</span> b.dts <span class="token parameter variable">-o</span> .b.dts.tmp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="variable">$CC</span> 代表gcc编译器（理论上使用任何平台的都不影响，此处仅进行预处理）</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-x assembler-with-cpp:指定预处理语法（包括<span class="comment">#号开头的各种宏命令，以及注释），若使用c则会对#address 等报错</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-E:仅进行预处理，不编译</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-P:不输出<span class="comment">#号开头的一些信息</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-o:指定输出文件</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">CC -x assembler-with-cpp -E -P b.dts -o .b.dts.tmp</span></span><br></pre></td></tr></table></figure>
 
 <p>经过上述的预处理，.b.dts.tmp的内容如下：</p>
 <p><code>.b.dts.tmp</code></p>
-<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">/dts-v1/;
-/ &#123;
-	test:test &#123;
-		count = &lt;8>;
-		size = &lt;128>;
-	&#125;;
-&#125;;
-&amp;test &#123;
-	size = &lt;256>;
-	string = "hello";
-&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/dts-v1/;</span><br><span class="line">/ &#123;</span><br><span class="line">	test:test &#123;</span><br><span class="line">		count = &lt;8&gt;;</span><br><span class="line">		size = &lt;128&gt;;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;;</span><br><span class="line">&amp;test &#123;</span><br><span class="line">	size = &lt;256&gt;;</span><br><span class="line">	string = &quot;hello&quot;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>再重新编译<code>.b.dts.tmp</code>文件即可</p>
 

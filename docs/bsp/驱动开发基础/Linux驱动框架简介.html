@@ -26,8 +26,8 @@
 <meta property="og:site_name" content="cxcc BLOG">
 <meta property="og:description" content="Linux驱动编程[TOC] 一、Linux驱动模型​	Linux中的驱动模型遵循一个基本的逻辑：设备和驱动分离。其中设备是一个结构体，用于描述设备的硬件信息，例如LED的设备应当描述LED的引脚。驱动是另一个结构体，用于描述操作，例如LED的驱动应该包含LED的开或关的控制。只有当两个结构体绑定在一起时。驱动就会根据设备描述的信息操作设备。例如有两个LED灯需要控制，那么就应该有两个LED设备和">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-04-18T08:49:20.909Z">
-<meta property="article:modified_time" content="2024-04-18T08:49:20.909Z">
+<meta property="article:published_time" content="2024-02-22T12:35:47.485Z">
+<meta property="article:modified_time" content="2024-02-22T12:35:47.485Z">
 <meta property="article:author" content="cxcc">
 <meta name="twitter:card" content="summary">
 
@@ -179,62 +179,17 @@
 <p>​	在这个模型中设备和驱动在注册到系统之前都需要描述对应的总线。设备和驱动都是结构体，填充数据后通过注册方法挂载到总线上。</p>
 <p>​	设备和驱动是否合适需要通过总线驱动提供的match函数进行比对。因此总线可以决定总线上的设备和驱动的匹配方式。</p>
 <h3 id="2-设备树"><a href="#2-设备树" class="headerlink" title="2. 设备树"></a>2. 设备树</h3><p>​	设备树是一个文件，文件中描述了所有的硬件信息，包括处理器本身的信息和开发板的硬件信息。因此设备树在不同的开发板、不同的芯片上都是不同的。下面是uart的描述，关于设备树的细节参考设备树语法。设备树中包括了硬件的基本信息，包括设备寄存器的起始地址，使用的中断等。</p>
-<pre class="line-numbers language-json" data-language="json"><code class="language-json">uart0<span class="token operator">:</span> uart@<span class="token number">11040000</span> <span class="token punctuation">&#123;</span>
-    compatible = <span class="token string">"arm,pl011"</span><span class="token punctuation">,</span> <span class="token string">"arm,primecell"</span>;
-    reg = &lt;0x11040000 0x1000>;
-    interrupts = &lt;GIC_SPI <span class="token number">56</span> IRQ_TYPE_LEVEL_HIGH>;
-    clocks = &lt;&amp;clock SS928V100_UART0_CLK>;
-    clock-names = <span class="token string">"apb_pclk"</span>;
-    <span class="token comment">/* dmas = &lt;&amp;edmacv310_0 20 20>, &lt;&amp;edmacv310_0 21 21>; */</span>
-    <span class="token comment">/* dma-names = "rx","tx"; */</span>
-    status = <span class="token string">"disabled"</span>;
-<span class="token punctuation">&#125;</span>;  
-
-uart1<span class="token operator">:</span> uart@<span class="token number">11041000</span> <span class="token punctuation">&#123;</span>
-    compatible = <span class="token string">"arm,pl011"</span><span class="token punctuation">,</span> <span class="token string">"arm,primecell"</span>;
-    reg = &lt;0x11041000 0x1000>;
-    interrupts = &lt;GIC_SPI <span class="token number">57</span> IRQ_TYPE_LEVEL_HIGH>;
-    clocks = &lt;&amp;clock SS928V100_UART1_CLK>;
-    clock-names = <span class="token string">"apb_pclk"</span>;
-    <span class="token comment">/* dmas = &lt;&amp;edmacv310_0 22 22>, &lt;&amp;edmacv310_0 23 23>; */</span>
-    <span class="token comment">/* dma-names = "rx","tx"; */</span>
-    status = <span class="token string">"disabled"</span>;
-<span class="token punctuation">&#125;</span>;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">uart0<span class="punctuation">:</span> uart@<span class="number">11040000</span> <span class="punctuation">&#123;</span></span><br><span class="line">    compatible = <span class="string">&quot;arm,pl011&quot;</span><span class="punctuation">,</span> <span class="string">&quot;arm,primecell&quot;</span>;</span><br><span class="line">    reg = &lt;<span class="number">0x11040000</span> <span class="number">0x1000</span>&gt;;</span><br><span class="line">    interrupts = &lt;GIC_SPI <span class="number">56</span> IRQ_TYPE_LEVEL_HIGH&gt;;</span><br><span class="line">    clocks = &lt;&amp;clock SS928V100_UART0_CLK&gt;;</span><br><span class="line">    clock-names = <span class="string">&quot;apb_pclk&quot;</span>;</span><br><span class="line">    <span class="comment">/* dmas = &lt;&amp;edmacv310_0 20 20&gt;, &lt;&amp;edmacv310_0 21 21&gt;; */</span></span><br><span class="line">    <span class="comment">/* dma-names = &quot;rx&quot;,&quot;tx&quot;; */</span></span><br><span class="line">    status = <span class="string">&quot;disabled&quot;</span>;</span><br><span class="line"><span class="punctuation">&#125;</span>;  </span><br><span class="line"></span><br><span class="line">uart1<span class="punctuation">:</span> uart@<span class="number">11041000</span> <span class="punctuation">&#123;</span></span><br><span class="line">    compatible = <span class="string">&quot;arm,pl011&quot;</span><span class="punctuation">,</span> <span class="string">&quot;arm,primecell&quot;</span>;</span><br><span class="line">    reg = &lt;<span class="number">0x11041000</span> <span class="number">0x1000</span>&gt;;</span><br><span class="line">    interrupts = &lt;GIC_SPI <span class="number">57</span> IRQ_TYPE_LEVEL_HIGH&gt;;</span><br><span class="line">    clocks = &lt;&amp;clock SS928V100_UART1_CLK&gt;;</span><br><span class="line">    clock-names = <span class="string">&quot;apb_pclk&quot;</span>;</span><br><span class="line">    <span class="comment">/* dmas = &lt;&amp;edmacv310_0 22 22&gt;, &lt;&amp;edmacv310_0 23 23&gt;; */</span></span><br><span class="line">    <span class="comment">/* dma-names = &quot;rx&quot;,&quot;tx&quot;; */</span></span><br><span class="line">    status = <span class="string">&quot;disabled&quot;</span>;</span><br><span class="line"><span class="punctuation">&#125;</span>;</span><br></pre></td></tr></table></figure>
 
 <p>​	设备树并不是区别与总线模型的另一个模型，而是总线模型的补充。在原来的总线模型中只能通过C源文件中的设备结构体描述设备。这种方式导致每次修改设备信息都需要重新编译。设备树出现后通过设备树描述硬件设备，在系统启动时分析设备树并创建设备结构体。此时结构体中并没有设备的全部信息，但是of_node属性已经被填充，of_node代表当前设备对应的设备树节点。随后系统根据设备树节点的compatible属性与驱动的of_match_table中的compatible属性相匹配，匹配成功则将两者绑定并调用驱动的probe函数，将匹配到的设备传递给probe函数。probe函数通过of_node节点分析当前设备的其他属性并填充设备结构体，以保证后续的操作。</p>
 <h3 id="3-id-table"><a href="#3-id-table" class="headerlink" title="3. id_table"></a>3. id_table</h3><p>​	id_table模型通过id_table表进行驱动和设备的匹配，一般通过匹配id_table中的name属性确定是否匹配，id_table允许一个data属性，当前驱动可以同时驱动不同类型的设备时data属性可以用来描述不同设备间的不同。</p>
 <p>​	任何设备和驱动都有其所在的总线，当设备或驱动挂载成功后调用对应总线的match函数进行匹配，而设备树匹配和id_table匹配则是在match函数中实现的。因此具体的匹配顺序需要根据总线的match函数进行分析。</p>
 <h2 id="二、具体驱动结构简介"><a href="#二、具体驱动结构简介" class="headerlink" title="二、具体驱动结构简介"></a>二、具体驱动结构简介</h2><p>​	Linux驱动模型的核心结构是<strong>device</strong>结构体和<strong>device_driver</strong>结构体。device代表着系统中的设备，device_driver代表着系统中的驱动。其它设备或驱动都是由这两个结构体继承(C语言的方式实现面向对象)而来。</p>
 <p>​	以I2C驱动为例：</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">struct i2c_driver &#123;
-	&#x2F;* ... *&#x2F;
-    struct device_driver driver;&#x2F;&#x2F;i2c驱动的结构体中包含driver结构体
-    &#x2F;* ... *&#x2F;
-&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">i2c_driver</span> &#123;</span></span><br><span class="line">	<span class="comment">/* ... */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">device_driver</span> <span class="title">driver</span>;</span><span class="comment">//i2c驱动的结构体中包含driver结构体</span></span><br><span class="line">    <span class="comment">/* ... */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>​	I2C设备的匹配:</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">static int i2c_device_match(struct device *dev, struct device_driver *drv)
-&#123;
-    struct i2c_client   *client &#x3D; i2c_verify_client(dev);
-    struct i2c_driver   *driver;
-
-
-    &#x2F;* 通过设备树的compatible 属性匹配*&#x2F;
-    if (i2c_of_match_device(drv-&gt;of_match_table, client))
-        return 1;
-
-    &#x2F;* ACPI 方式匹配 *&#x2F;
-    if (acpi_driver_match_device(dev, drv))
-        return 1;
-    
-    driver &#x3D; to_i2c_driver(drv);
-
-    &#x2F;* id_table匹配 *&#x2F;
-    if (i2c_match_id(driver-&gt;id_table, client))
-        return 1;
-
-    return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">i2c_device_match</span><span class="params">(<span class="keyword">struct</span> device *dev, <span class="keyword">struct</span> device_driver *drv)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">i2c_client</span>   *<span class="title">client</span> =</span> i2c_verify_client(dev);</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">i2c_driver</span>   *<span class="title">driver</span>;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 通过设备树的compatible 属性匹配*/</span></span><br><span class="line">    <span class="keyword">if</span> (i2c_of_match_device(drv-&gt;of_match_table, client))</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* ACPI 方式匹配 */</span></span><br><span class="line">    <span class="keyword">if</span> (acpi_driver_match_device(dev, drv))</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    driver = to_i2c_driver(drv);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* id_table匹配 */</span></span><br><span class="line">    <span class="keyword">if</span> (i2c_match_id(driver-&gt;id_table, client))</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>​	如果以上三种方式都不能匹配到，则匹配失败。首先使用的设备树进行匹配，因此在i2c的设备驱动中，设备树中出现节点的compatible与驱动的compatible属性对应即可匹配成功。也可以使用id_table进行匹配。</p>
 <h2 id="附录一：Linux驱动的发展历程"><a href="#附录一：Linux驱动的发展历程" class="headerlink" title="附录一：Linux驱动的发展历程"></a>附录一：Linux驱动的发展历程</h2><p>(来自网络查询，未经证实)</p>
@@ -245,35 +200,10 @@ uart1<span class="token operator">:</span> uart@<span class="token number">11041
 <p><strong>以下文字是对ChatGPT问答的总结</strong></p>
 <p>Linux中最早期使用&#x2F;dev文件夹管理设备，对应的文件系统是devfs。devfs对每一个设备提供一个设备文件，应用层可以通过读写等方式控制外部设备。后续发展的过程中，Linux开始构建驱动模型，并通过&#x2F;sys(sysfs文件系统)下的文件描述设备。&#x2F;sys和&#x2F;dev的区别是，一个设备在&#x2F;dev下表现为一个设备文件，在&#x2F;sys表现为一个目录，目录中包括设备的属性状态等被列为单独的文件。</p>
 <p>下面是块设备文件sda在&#x2F;dev中对应的设备文件</p>
-<pre class="line-numbers language-none"><code class="language-none">brw-rw---- 1 root disk 8, 0 5月   5 08:59 sda<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brw-rw---- 1 root disk 8, 0 5月   5 08:59 sda</span><br></pre></td></tr></table></figure>
 
 <p>下面是块设备文件sda在&#x2F;sys中对应的文件夹</p>
-<pre class="line-numbers language-none"><code class="language-none">-r--r--r-- 1 root root 4096 5月   5 13:41 alignment_offset
-lrwxrwxrwx 1 root root    0 5月   5 13:41 bdi -&gt; ..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;virtual&#x2F;bdi&#x2F;8:0
--r--r--r-- 1 root root 4096 5月   5 13:41 capability
--r--r--r-- 1 root root 4096 5月   5 08:59 dev
-lrwxrwxrwx 1 root root    0 5月   5 09:01 device -&gt; ..&#x2F;..&#x2F;..&#x2F;2:0:0:0
--r--r--r-- 1 root root 4096 5月   5 13:41 discard_alignment
--r--r--r-- 1 root root 4096 5月   5 13:41 events
--r--r--r-- 1 root root 4096 5月   5 13:41 events_async
--rw-r--r-- 1 root root 4096 5月   5 13:41 events_poll_msecs
--r--r--r-- 1 root root 4096 5月   5 13:41 ext_range
--r--r--r-- 1 root root 4096 5月   5 13:41 hidden
-drwxr-xr-x 2 root root    0 5月   5 13:41 holders
--r--r--r-- 1 root root 4096 5月   5 13:41 inflight
-drwxr-xr-x 2 root root    0 5月   5 13:41 integrity
-drwxr-xr-x 3 root root    0 5月   5 13:41 mq
-drwxr-xr-x 2 root root    0 5月   5 13:41 power
-drwxr-xr-x 3 root root    0 5月   5 08:59 queue
--r--r--r-- 1 root root 4096 5月   5 13:41 range
--r--r--r-- 1 root root 4096 5月   5 08:59 removable
--r--r--r-- 1 root root 4096 5月   5 08:59 ro
--r--r--r-- 1 root root 4096 5月   5 08:59 size
-drwxr-xr-x 2 root root    0 5月   5 13:41 slaves
--r--r--r-- 1 root root 4096 5月   5 13:41 stat
-lrwxrwxrwx 1 root root    0 5月   5 08:59 subsystem -&gt; ..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;class&#x2F;block
-drwxr-xr-x 2 root root    0 5月   5 13:41 trace
--rw-r--r-- 1 root root 4096 5月   5 08:59 uevent<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">-r--r--r-- 1 root root 4096 5月   5 13:41 alignment_offset</span><br><span class="line">lrwxrwxrwx 1 root root    0 5月   5 13:41 bdi -&gt; ../../../../../../../../../virtual/bdi/8:0</span><br><span class="line">-r--r--r-- 1 root root 4096 5月   5 13:41 capability</span><br><span class="line">-r--r--r-- 1 root root 4096 5月   5 08:59 dev</span><br><span class="line">lrwxrwxrwx 1 root root    0 5月   5 09:01 device -&gt; ../../../2:0:0:0</span><br><span class="line">-r--r--r-- 1 root root 4096 5月   5 13:41 discard_alignment</span><br><span class="line">-r--r--r-- 1 root root 4096 5月   5 13:41 events</span><br><span class="line">-r--r--r-- 1 root root 4096 5月   5 13:41 events_async</span><br><span class="line">-rw-r--r-- 1 root root 4096 5月   5 13:41 events_poll_msecs</span><br><span class="line">-r--r--r-- 1 root root 4096 5月   5 13:41 ext_range</span><br><span class="line">-r--r--r-- 1 root root 4096 5月   5 13:41 hidden</span><br><span class="line">drwxr-xr-x 2 root root    0 5月   5 13:41 holders</span><br><span class="line">-r--r--r-- 1 root root 4096 5月   5 13:41 inflight</span><br><span class="line">drwxr-xr-x 2 root root    0 5月   5 13:41 integrity</span><br><span class="line">drwxr-xr-x 3 root root    0 5月   5 13:41 mq</span><br><span class="line">drwxr-xr-x 2 root root    0 5月   5 13:41 power</span><br><span class="line">drwxr-xr-x 3 root root    0 5月   5 08:59 queue</span><br><span class="line">-r--r--r-- 1 root root 4096 5月   5 13:41 range</span><br><span class="line">-r--r--r-- 1 root root 4096 5月   5 08:59 removable</span><br><span class="line">-r--r--r-- 1 root root 4096 5月   5 08:59 ro</span><br><span class="line">-r--r--r-- 1 root root 4096 5月   5 08:59 size</span><br><span class="line">drwxr-xr-x 2 root root    0 5月   5 13:41 slaves</span><br><span class="line">-r--r--r-- 1 root root 4096 5月   5 13:41 stat</span><br><span class="line">lrwxrwxrwx 1 root root    0 5月   5 08:59 subsystem -&gt; ../../../../../../../../../../class/block</span><br><span class="line">drwxr-xr-x 2 root root    0 5月   5 13:41 trace</span><br><span class="line">-rw-r--r-- 1 root root 4096 5月   5 08:59 uevent</span><br></pre></td></tr></table></figure>
 
 
 

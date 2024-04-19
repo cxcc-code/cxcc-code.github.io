@@ -19,15 +19,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"cxcc-code.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="wifi工具的使用一、工具移植一般Linux中进行wifi扫描、连接需要以下工具wpa_supplicant、Wireless Tools、hostapd。具体的移植参考《工具移植.md》 Wireless Tools：进行wifi网卡的基本配置，网络扫描 wpa_supplicant：进行网络连接 hostapd：创建wifi热点 二、工具使用# 在执行命令前需要先启动网卡 ifconfig w">
+    <meta name="description" content="wifi工具的使用一、工具移植一般Linux中进行wifi扫描、连接需要以下工具wpa_supplicant、Wireless Tools、hostapd。具体的移植参考《工具移植.md》 Wireless Tools：进行wifi网卡的基本配置，网络扫描 wpa_supplicant：进行网络连接 hostapd：创建wifi热点 二、工具使用12# 在执行命令前需要先启动网卡ifconfig">
 <meta property="og:type" content="website">
 <meta property="og:title" content="cxcc BLOG">
 <meta property="og:url" content="http://cxcc-code.github.io/docs/%E5%B7%A5%E5%85%B7%E7%A7%BB%E6%A4%8D/wifi%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8.html">
 <meta property="og:site_name" content="cxcc BLOG">
-<meta property="og:description" content="wifi工具的使用一、工具移植一般Linux中进行wifi扫描、连接需要以下工具wpa_supplicant、Wireless Tools、hostapd。具体的移植参考《工具移植.md》 Wireless Tools：进行wifi网卡的基本配置，网络扫描 wpa_supplicant：进行网络连接 hostapd：创建wifi热点 二、工具使用# 在执行命令前需要先启动网卡 ifconfig w">
+<meta property="og:description" content="wifi工具的使用一、工具移植一般Linux中进行wifi扫描、连接需要以下工具wpa_supplicant、Wireless Tools、hostapd。具体的移植参考《工具移植.md》 Wireless Tools：进行wifi网卡的基本配置，网络扫描 wpa_supplicant：进行网络连接 hostapd：创建wifi热点 二、工具使用12# 在执行命令前需要先启动网卡ifconfig">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-04-18T09:44:28.998Z">
-<meta property="article:modified_time" content="2024-04-18T09:44:28.998Z">
+<meta property="article:published_time" content="2024-02-22T12:35:47.490Z">
+<meta property="article:modified_time" content="2024-02-22T12:35:47.490Z">
 <meta property="article:author" content="cxcc">
 <meta name="twitter:card" content="summary">
 
@@ -173,149 +173,40 @@
 <p>Wireless Tools：进行wifi网卡的基本配置，网络扫描</p>
 <p>wpa_supplicant：进行网络连接</p>
 <p>hostapd：创建wifi热点</p>
-<h2 id="二、工具使用"><a href="#二、工具使用" class="headerlink" title="二、工具使用"></a>二、工具使用</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 在执行命令前需要先启动网卡</span>
-<span class="token function">ifconfig</span> wlan0 up<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="二、工具使用"><a href="#二、工具使用" class="headerlink" title="二、工具使用"></a>二、工具使用</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在执行命令前需要先启动网卡</span></span><br><span class="line">ifconfig wlan0 up</span><br></pre></td></tr></table></figure>
 
 <ol>
 <li><p>扫描附近的网络</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">iwlist wlan0 scanning<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iwlist wlan0 scanning</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>连接指定的网络</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建配置文件</span>
-<span class="token function">vi</span> /etc/wpa_supplicant/wpa_supplicant.conf
-<span class="token assign-left variable">network</span><span class="token operator">=</span><span class="token punctuation">&#123;</span>
-    <span class="token assign-left variable">ssid</span><span class="token operator">=</span><span class="token string">"YourWiFiNetwork"</span>
-    <span class="token assign-left variable">psk</span><span class="token operator">=</span><span class="token string">"YourWiFiPassword"</span>
-<span class="token punctuation">&#125;</span>
-<span class="token comment"># 连接wifi，在后台保持连接</span>
-<span class="token function">sudo</span> wpa_supplicant <span class="token parameter variable">-B</span> <span class="token parameter variable">-i</span> wlan0 <span class="token parameter variable">-c</span> /etc/wpa_supplicant/wpa_supplicant.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建配置文件</span></span><br><span class="line">vi /etc/wpa_supplicant/wpa_supplicant.conf</span><br><span class="line">network=&#123;</span><br><span class="line">    ssid=&quot;YourWiFiNetwork&quot;</span><br><span class="line">    psk=&quot;YourWiFiPassword&quot;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">连接wifi，在后台保持连接</span></span><br><span class="line">sudo wpa_supplicant -B -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>创建wifi热点</p>
 <ul>
 <li><p>创建配置文件&#x2F;etc&#x2F;hostapd.conf</p>
-<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">interface=wlan1
-ctrl_interface=/var/run/hostapd
-ssid=Ebaina-test
-channel=6
-driver=nl80211
-wpa=2
-wpa_passphrase=12345678
-wpa_key_mgmt=WPA-PSK
-beacon_int=100
-hw_mode=g
-ieee80211n=1
-wme_enabled=1
-ht_capab=[SHORT-GI-20][SHORT-GI-40][HT40+]
-wpa_pairwise=CCMP
-#rsn_pairwise=CCMP
-max_num_sta=8
-wpa_group_rekey=86400
-#ignore_broadcast_ssid=0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">interface=wlan1</span><br><span class="line">ctrl_interface=/var/run/hostapd</span><br><span class="line">ssid=Ebaina-test</span><br><span class="line">channel=6</span><br><span class="line">driver=nl80211</span><br><span class="line">wpa=2</span><br><span class="line">wpa_passphrase=12345678</span><br><span class="line">wpa_key_mgmt=WPA-PSK</span><br><span class="line">beacon_int=100</span><br><span class="line">hw_mode=g</span><br><span class="line">ieee80211n=1</span><br><span class="line">wme_enabled=1</span><br><span class="line">ht_capab=[SHORT-GI-20][SHORT-GI-40][HT40+]</span><br><span class="line">wpa_pairwise=CCMP</span><br><span class="line">#rsn_pairwise=CCMP</span><br><span class="line">max_num_sta=8</span><br><span class="line">wpa_group_rekey=86400</span><br><span class="line">#ignore_broadcast_ssid=0</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>启动热点，后台执行</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">hostapd ./hostapd.config <span class="token parameter variable">-ddd</span> <span class="token operator">&amp;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hostapd ./hostapd.config -ddd &amp;</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 <li><p>获取动态IP</p>
 <ul>
 <li><p>创建默认脚本&#x2F;usr&#x2F;share&#x2F;udhcpc&#x2F;default.script&#x2F;default.script</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/sh</span>
-<span class="token comment"># udhcpc script edited by Tim Riker &lt;Tim@Rikers.org></span>
-
-<span class="token assign-left variable">RESOLV_CONF</span><span class="token operator">=</span><span class="token string">"/etc/resolv.conf"</span>
-
-<span class="token punctuation">[</span> <span class="token parameter variable">-n</span> <span class="token string">"<span class="token variable">$1</span>"</span> <span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token punctuation">&#123;</span> <span class="token builtin class-name">echo</span> <span class="token string">"Error: should be called from udhcpc"</span><span class="token punctuation">;</span> <span class="token builtin class-name">exit</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
-
-<span class="token assign-left variable">NETMASK</span><span class="token operator">=</span><span class="token string">""</span>
-<span class="token keyword">if</span> <span class="token builtin class-name">command</span> <span class="token parameter variable">-v</span> <span class="token function">ip</span> <span class="token operator">></span>/dev/null<span class="token punctuation">;</span> <span class="token keyword">then</span>
-	<span class="token punctuation">[</span> <span class="token parameter variable">-n</span> <span class="token string">"<span class="token variable">$subnet</span>"</span> <span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token assign-left variable">NETMASK</span><span class="token operator">=</span><span class="token string">"/<span class="token variable">$subnet</span>"</span>
-<span class="token keyword">else</span>
-	<span class="token punctuation">[</span> <span class="token parameter variable">-n</span> <span class="token string">"<span class="token variable">$subnet</span>"</span> <span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token assign-left variable">NETMASK</span><span class="token operator">=</span><span class="token string">"netmask <span class="token variable">$subnet</span>"</span>
-<span class="token keyword">fi</span>
-<span class="token assign-left variable">BROADCAST</span><span class="token operator">=</span><span class="token string">"broadcast +"</span>
-<span class="token punctuation">[</span> <span class="token parameter variable">-n</span> <span class="token string">"<span class="token variable">$broadcast</span>"</span> <span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token assign-left variable">BROADCAST</span><span class="token operator">=</span><span class="token string">"broadcast <span class="token variable">$broadcast</span>"</span>
-
-<span class="token keyword">case</span> <span class="token string">"<span class="token variable">$1</span>"</span> <span class="token keyword">in</span>
-	deconfig<span class="token punctuation">)</span>
-		<span class="token builtin class-name">echo</span> <span class="token string">"Setting IP address 0.0.0.0 on <span class="token variable">$interface</span>"</span>
-		<span class="token keyword">if</span> <span class="token builtin class-name">command</span> <span class="token parameter variable">-v</span> <span class="token function">ip</span> <span class="token operator">></span>/dev/null<span class="token punctuation">;</span> <span class="token keyword">then</span>
-			<span class="token function">ip</span> addr flush dev <span class="token variable">$interface</span>
-		<span class="token keyword">else</span>
-			<span class="token function">ifconfig</span> <span class="token variable">$interface</span> <span class="token number">0.0</span>.0.0
-		<span class="token keyword">fi</span>
-		<span class="token punctuation">;</span><span class="token punctuation">;</span>
-
-	renew<span class="token operator">|</span>bound<span class="token punctuation">)</span>
-		<span class="token builtin class-name">echo</span> <span class="token string">"Setting IP address <span class="token variable">$ip</span> on <span class="token variable">$interface</span>"</span>
-		<span class="token keyword">if</span> <span class="token builtin class-name">command</span> <span class="token parameter variable">-v</span> <span class="token function">ip</span> <span class="token operator">></span>/dev/null<span class="token punctuation">;</span> <span class="token keyword">then</span>
-			<span class="token function">ip</span> addr <span class="token function">add</span> <span class="token variable">$ip</span><span class="token variable">$NETMASK</span> <span class="token variable">$BROADCAST</span> dev <span class="token variable">$interface</span>
-		<span class="token keyword">else</span>
-			<span class="token function">ifconfig</span> <span class="token variable">$interface</span> <span class="token variable">$ip</span> <span class="token variable">$NETMASK</span> <span class="token variable">$BROADCAST</span>
-		<span class="token keyword">fi</span>
-
-		<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token parameter variable">-n</span> <span class="token string">"<span class="token variable">$router</span>"</span> <span class="token punctuation">]</span> <span class="token punctuation">;</span> <span class="token keyword">then</span>
-			<span class="token builtin class-name">echo</span> <span class="token string">"Deleting routers"</span>
-			<span class="token keyword">while</span> route del default gw <span class="token number">0.0</span>.0.0 dev <span class="token variable">$interface</span> <span class="token punctuation">;</span> <span class="token keyword">do</span>
-				<span class="token builtin class-name">:</span>
-			<span class="token keyword">done</span>
-
-			<span class="token assign-left variable">metric</span><span class="token operator">=</span><span class="token number">0</span>
-			<span class="token keyword">for</span> <span class="token for-or-select variable">i</span> <span class="token keyword">in</span> <span class="token variable">$router</span> <span class="token punctuation">;</span> <span class="token keyword">do</span>
-				<span class="token builtin class-name">echo</span> <span class="token string">"Adding router <span class="token variable">$i</span>"</span>
-				<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token string">"<span class="token variable">$subnet</span>"</span> <span class="token operator">=</span> <span class="token string">"255.255.255.255"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
-	<span class="token comment"># special case for /32 subnets:</span>
-	<span class="token comment"># /32 instructs kernel to always use routing for all outgoing packets</span>
-	<span class="token comment"># (they can never be sent to local subnet - there is no local subnet for /32).</span>
-	<span class="token comment"># Used in datacenters, avoids the need for private ip-addresses between two hops.</span>
-					<span class="token function">ip</span> route <span class="token function">add</span> <span class="token variable">$i</span> dev <span class="token variable">$interface</span>
-				<span class="token keyword">fi</span>
-				route <span class="token function">add</span> default gw <span class="token variable">$i</span> dev <span class="token variable">$interface</span> metric <span class="token variable"><span class="token variable">$((</span>metric<span class="token operator">++</span><span class="token variable">))</span></span>
-			<span class="token keyword">done</span>
-		<span class="token keyword">fi</span>
-
-		<span class="token builtin class-name">echo</span> <span class="token string">"Recreating <span class="token variable">$RESOLV_CONF</span>"</span>
-		<span class="token comment"># If the file is a symlink somewhere (like /etc/resolv.conf</span>
-		<span class="token comment"># pointing to /run/resolv.conf), make sure things work.</span>
-		<span class="token keyword">if</span> <span class="token builtin class-name">test</span> <span class="token parameter variable">-L</span> <span class="token string">"<span class="token variable">$RESOLV_CONF</span>"</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
-			<span class="token comment"># If it's a dangling symlink, try to create the target.</span>
-			<span class="token builtin class-name">test</span> <span class="token parameter variable">-e</span> <span class="token string">"<span class="token variable">$RESOLV_CONF</span>"</span> <span class="token operator">||</span> <span class="token function">touch</span> <span class="token string">"<span class="token variable">$RESOLV_CONF</span>"</span>
-		<span class="token keyword">fi</span>
-		<span class="token assign-left variable">realconf</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>readlink <span class="token parameter variable">-f</span> <span class="token string">"<span class="token variable">$RESOLV_CONF</span>"</span> <span class="token operator"><span class="token file-descriptor important">2</span>></span>/dev/null <span class="token operator">||</span> <span class="token builtin class-name">echo</span> <span class="token string">"<span class="token variable">$RESOLV_CONF</span>"</span><span class="token variable">)</span></span>
-		<span class="token assign-left variable">tmpfile</span><span class="token operator">=</span><span class="token string">"<span class="token variable">$realconf</span>-<span class="token variable">$$</span>"</span>
-		<span class="token operator">></span> <span class="token string">"<span class="token variable">$tmpfile</span>"</span>
-		<span class="token punctuation">[</span> <span class="token parameter variable">-n</span> <span class="token string">"<span class="token variable">$domain</span>"</span> <span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token builtin class-name">echo</span> <span class="token string">"search <span class="token variable">$domain</span>"</span> <span class="token operator">>></span> <span class="token string">"<span class="token variable">$tmpfile</span>"</span>
-		<span class="token keyword">for</span> <span class="token for-or-select variable">i</span> <span class="token keyword">in</span> <span class="token variable">$dns</span> <span class="token punctuation">;</span> <span class="token keyword">do</span>
-			<span class="token builtin class-name">echo</span> <span class="token string">" Adding DNS server <span class="token variable">$i</span>"</span>
-			<span class="token builtin class-name">echo</span> <span class="token string">"nameserver <span class="token variable">$i</span>"</span> <span class="token operator">>></span> <span class="token string">"<span class="token variable">$tmpfile</span>"</span>
-		<span class="token keyword">done</span>
-		<span class="token function">mv</span> <span class="token string">"<span class="token variable">$tmpfile</span>"</span> <span class="token string">"<span class="token variable">$realconf</span>"</span>
-		<span class="token punctuation">;</span><span class="token punctuation">;</span>
-<span class="token keyword">esac</span>
-
-<span class="token builtin class-name">exit</span> <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/sh</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">udhcpc script edited by Tim Riker &lt;Tim@Rikers.org&gt;</span></span><br><span class="line"></span><br><span class="line">RESOLV_CONF=&quot;/etc/resolv.conf&quot;</span><br><span class="line"></span><br><span class="line">[ -n &quot;$1&quot; ] || &#123; echo &quot;Error: should be called from udhcpc&quot;; exit 1; &#125;</span><br><span class="line"></span><br><span class="line">NETMASK=&quot;&quot;</span><br><span class="line">if command -v ip &gt;/dev/null; then</span><br><span class="line">	[ -n &quot;$subnet&quot; ] &amp;&amp; NETMASK=&quot;/$subnet&quot;</span><br><span class="line">else</span><br><span class="line">	[ -n &quot;$subnet&quot; ] &amp;&amp; NETMASK=&quot;netmask $subnet&quot;</span><br><span class="line">fi</span><br><span class="line">BROADCAST=&quot;broadcast +&quot;</span><br><span class="line">[ -n &quot;$broadcast&quot; ] &amp;&amp; BROADCAST=&quot;broadcast $broadcast&quot;</span><br><span class="line"></span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">	deconfig)</span><br><span class="line">		echo &quot;Setting IP address 0.0.0.0 on $interface&quot;</span><br><span class="line">		if command -v ip &gt;/dev/null; then</span><br><span class="line">			ip addr flush dev $interface</span><br><span class="line">		else</span><br><span class="line">			ifconfig $interface 0.0.0.0</span><br><span class="line">		fi</span><br><span class="line">		;;</span><br><span class="line"></span><br><span class="line">	renew|bound)</span><br><span class="line">		echo &quot;Setting IP address $ip on $interface&quot;</span><br><span class="line">		if command -v ip &gt;/dev/null; then</span><br><span class="line">			ip addr add $ip$NETMASK $BROADCAST dev $interface</span><br><span class="line">		else</span><br><span class="line">			ifconfig $interface $ip $NETMASK $BROADCAST</span><br><span class="line">		fi</span><br><span class="line"></span><br><span class="line">		if [ -n &quot;$router&quot; ] ; then</span><br><span class="line">			echo &quot;Deleting routers&quot;</span><br><span class="line">			while route del default gw 0.0.0.0 dev $interface ; do</span><br><span class="line">				:</span><br><span class="line">			done</span><br><span class="line"></span><br><span class="line">			metric=0</span><br><span class="line">			for i in $router ; do</span><br><span class="line">				echo &quot;Adding router $i&quot;</span><br><span class="line">				if [ &quot;$subnet&quot; = &quot;255.255.255.255&quot; ]; then</span><br><span class="line"><span class="meta prompt_">	# </span><span class="language-bash">special <span class="keyword">case</span> <span class="keyword">for</span> /32 subnets:</span></span><br><span class="line"><span class="meta prompt_">	# </span><span class="language-bash">/32 instructs kernel to always use routing <span class="keyword">for</span> all outgoing packets</span></span><br><span class="line"><span class="meta prompt_">	# </span><span class="language-bash">(they can never be sent to <span class="built_in">local</span> subnet - there is no <span class="built_in">local</span> subnet <span class="keyword">for</span> /32).</span></span><br><span class="line"><span class="meta prompt_">	# </span><span class="language-bash">Used <span class="keyword">in</span> datacenters, avoids the need <span class="keyword">for</span> private ip-addresses between two hops.</span></span><br><span class="line">					ip route add $i dev $interface</span><br><span class="line">				fi</span><br><span class="line">				route add default gw $i dev $interface metric $((metric++))</span><br><span class="line">			done</span><br><span class="line">		fi</span><br><span class="line"></span><br><span class="line">		echo &quot;Recreating $RESOLV_CONF&quot;</span><br><span class="line"><span class="meta prompt_">		# </span><span class="language-bash">If the file is a symlink somewhere (like /etc/resolv.conf</span></span><br><span class="line"><span class="meta prompt_">		# </span><span class="language-bash">pointing to /run/resolv.conf), make sure things work.</span></span><br><span class="line">		if test -L &quot;$RESOLV_CONF&quot;; then</span><br><span class="line"><span class="meta prompt_">			# </span><span class="language-bash">If it<span class="string">&#x27;s a dangling symlink, try to create the target.</span></span></span><br><span class="line">			test -e &quot;$RESOLV_CONF&quot; || touch &quot;$RESOLV_CONF&quot;</span><br><span class="line">		fi</span><br><span class="line">		realconf=$(readlink -f &quot;$RESOLV_CONF&quot; 2&gt;/dev/null || echo &quot;$RESOLV_CONF&quot;)</span><br><span class="line">		tmpfile=&quot;$realconf-$$&quot;</span><br><span class="line"><span class="meta prompt_">		&gt; </span><span class="language-bash"><span class="string">&quot;$tmpfile&quot;</span></span></span><br><span class="line">		[ -n &quot;$domain&quot; ] &amp;&amp; echo &quot;search $domain&quot; &gt;&gt; &quot;$tmpfile&quot;</span><br><span class="line">		for i in $dns ; do</span><br><span class="line">			echo &quot; Adding DNS server $i&quot;</span><br><span class="line">			echo &quot;nameserver $i&quot; &gt;&gt; &quot;$tmpfile&quot;</span><br><span class="line">		done</span><br><span class="line">		mv &quot;$tmpfile&quot; &quot;$realconf&quot;</span><br><span class="line">		;;</span><br><span class="line">esac</span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>获取动态IP</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">udhcpc <span class="token parameter variable">-i</span> wlan0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">udhcpc -i wlan0</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 <li><p>允许其它设备从热点获取动态IP（开启DHCP服务）</p>
 <ul>
 <li><p>创建配置文件&#x2F;etc&#x2F;udhcpd.conf</p>
-<pre class="line-numbers language-txt" data-language="txt"><code class="language-txt">start           192.168.43.50   
-end             192.168.43.100  
-interface       wlan1          
-
-#Examles
-opt     dns     192.168.43.2 192.168.43.10
-option  subnet   255.255.255.0
-opt     router   192.168.43.1
-opt     wins     192.168.43.10
-option  dns      129.219.13.81  
-option  domain   local
-option  lease   864000 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">start           192.168.43.50   </span><br><span class="line">end             192.168.43.100  </span><br><span class="line">interface       wlan1          </span><br><span class="line"></span><br><span class="line">#Examles</span><br><span class="line">opt     dns     192.168.43.2 192.168.43.10</span><br><span class="line">option  subnet   255.255.255.0</span><br><span class="line">opt     router   192.168.43.1</span><br><span class="line">opt     wins     192.168.43.10</span><br><span class="line">option  dns      129.219.13.81  </span><br><span class="line">option  domain   local</span><br><span class="line">option  lease   864000 </span><br></pre></td></tr></table></figure>
 </li>
 <li><p>启动DHCP服务</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">udhcpd <span class="token parameter variable">-S</span> /etc/udhcpd.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">udhcpd -S /etc/udhcpd.conf</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 </ol>

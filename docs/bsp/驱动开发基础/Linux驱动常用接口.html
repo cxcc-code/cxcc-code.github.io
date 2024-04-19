@@ -19,15 +19,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"cxcc-code.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="[TOC] 驱动编写注册驱动模块&#x2F;&#x2F;fun的参数列表为空，返回值为int module_init(fun_init); module_exit(fun_exit);  &#x2F;&#x2F;其它声明 &#x2F;&#x2F;[必须]开源声明 MODULE_LICENSE(&quot;GPL&quot;); &#x2F;&#x2F;作者 MODULE_AUTHOR(&quot;">
+    <meta name="description" content="[TOC] 驱动编写注册驱动模块123&#x2F;&#x2F;fun的参数列表为空，返回值为intmodule_init(fun_init);module_exit(fun_exit);  1234567&#x2F;&#x2F;其它声明&#x2F;&#x2F;[必须]开源声明MODULE_LICENSE(&quot;GPL&quot;);&#x2F;&#x2F;作者MODULE_AUTHOR(&quot;cxcc&quot;);&#x2F;&#x2F;描述MODULE_DESCRIPTION(&amp;">
 <meta property="og:type" content="website">
 <meta property="og:title" content="cxcc BLOG">
 <meta property="og:url" content="http://cxcc-code.github.io/docs/bsp/%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80/Linux%E9%A9%B1%E5%8A%A8%E5%B8%B8%E7%94%A8%E6%8E%A5%E5%8F%A3.html">
 <meta property="og:site_name" content="cxcc BLOG">
-<meta property="og:description" content="[TOC] 驱动编写注册驱动模块&#x2F;&#x2F;fun的参数列表为空，返回值为int module_init(fun_init); module_exit(fun_exit);  &#x2F;&#x2F;其它声明 &#x2F;&#x2F;[必须]开源声明 MODULE_LICENSE(&quot;GPL&quot;); &#x2F;&#x2F;作者 MODULE_AUTHOR(&quot;">
+<meta property="og:description" content="[TOC] 驱动编写注册驱动模块123&#x2F;&#x2F;fun的参数列表为空，返回值为intmodule_init(fun_init);module_exit(fun_exit);  1234567&#x2F;&#x2F;其它声明&#x2F;&#x2F;[必须]开源声明MODULE_LICENSE(&quot;GPL&quot;);&#x2F;&#x2F;作者MODULE_AUTHOR(&quot;cxcc&quot;);&#x2F;&#x2F;描述MODULE_DESCRIPTION(&amp;">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-04-18T08:49:20.908Z">
-<meta property="article:modified_time" content="2024-04-18T08:49:20.908Z">
+<meta property="article:published_time" content="2024-02-22T12:35:47.484Z">
+<meta property="article:modified_time" content="2024-02-22T12:35:47.484Z">
 <meta property="article:author" content="cxcc">
 <meta name="twitter:card" content="summary">
 
@@ -171,233 +171,59 @@
       
       <div class="post-body">
           <p>[TOC]</p>
-<h1 id="驱动编写"><a href="#驱动编写" class="headerlink" title="驱动编写"></a>驱动编写</h1><h2 id="注册驱动模块"><a href="#注册驱动模块" class="headerlink" title="注册驱动模块"></a>注册驱动模块</h2><pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;&#x2F;fun的参数列表为空，返回值为int
-module_init(fun_init);
-module_exit(fun_exit);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h1 id="驱动编写"><a href="#驱动编写" class="headerlink" title="驱动编写"></a>驱动编写</h1><h2 id="注册驱动模块"><a href="#注册驱动模块" class="headerlink" title="注册驱动模块"></a>注册驱动模块</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//fun的参数列表为空，返回值为int</span></span><br><span class="line">module_init(fun_init);</span><br><span class="line">module_exit(fun_exit);</span><br></pre></td></tr></table></figure>
 
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;&#x2F;其它声明
-&#x2F;&#x2F;[必须]开源声明
-MODULE_LICENSE(&quot;GPL&quot;);
-&#x2F;&#x2F;作者
-MODULE_AUTHOR(&quot;cxcc&quot;);
-&#x2F;&#x2F;描述
-MODULE_DESCRIPTION(&quot;read and write test module&quot;);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//其它声明</span></span><br><span class="line"><span class="comment">//[必须]开源声明</span></span><br><span class="line">MODULE_LICENSE(<span class="string">&quot;GPL&quot;</span>);</span><br><span class="line"><span class="comment">//作者</span></span><br><span class="line">MODULE_AUTHOR(<span class="string">&quot;cxcc&quot;</span>);</span><br><span class="line"><span class="comment">//描述</span></span><br><span class="line">MODULE_DESCRIPTION(<span class="string">&quot;read and write test module&quot;</span>);</span><br></pre></td></tr></table></figure>
 
-<h2 id="输出操作"><a href="#输出操作" class="headerlink" title="输出操作"></a>输出操作</h2><pre class="line-numbers language-C" data-language="C"><code class="language-C">printk(输出等级 &quot;fmt&quot;,...);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="输出操作"><a href="#输出操作" class="headerlink" title="输出操作"></a>输出操作</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printk(输出等级 <span class="string">&quot;fmt&quot;</span>,...);</span><br></pre></td></tr></table></figure>
 
 <p>输出等级</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">#define KERN_EMERG  KERN_SOH &quot;0&quot;    &#x2F;* system is unusable *&#x2F;
-#define KERN_ALERT  KERN_SOH &quot;1&quot;    &#x2F;* action must be taken immediately *&#x2F;
-#define KERN_CRIT   KERN_SOH &quot;2&quot;    &#x2F;* critical conditions *&#x2F;
-#define KERN_ERR    KERN_SOH &quot;3&quot;    &#x2F;* error conditions *&#x2F;
-#define KERN_WARNING    KERN_SOH &quot;4&quot;    &#x2F;* warning conditions *&#x2F;
-#define KERN_NOTICE KERN_SOH &quot;5&quot;    &#x2F;* normal but significant condition *&#x2F;
-#define KERN_INFO   KERN_SOH &quot;6&quot;    &#x2F;* informational *&#x2F;
-#define KERN_DEBUG  KERN_SOH &quot;7&quot;    &#x2F;* debug-level messages *&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> KERN_EMERG  KERN_SOH <span class="string">&quot;0&quot;</span>    <span class="comment">/* system is unusable */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> KERN_ALERT  KERN_SOH <span class="string">&quot;1&quot;</span>    <span class="comment">/* action must be taken immediately */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> KERN_CRIT   KERN_SOH <span class="string">&quot;2&quot;</span>    <span class="comment">/* critical conditions */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> KERN_ERR    KERN_SOH <span class="string">&quot;3&quot;</span>    <span class="comment">/* error conditions */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> KERN_WARNING    KERN_SOH <span class="string">&quot;4&quot;</span>    <span class="comment">/* warning conditions */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> KERN_NOTICE KERN_SOH <span class="string">&quot;5&quot;</span>    <span class="comment">/* normal but significant condition */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> KERN_INFO   KERN_SOH <span class="string">&quot;6&quot;</span>    <span class="comment">/* informational */</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> KERN_DEBUG  KERN_SOH <span class="string">&quot;7&quot;</span>    <span class="comment">/* debug-level messages */</span></span></span><br></pre></td></tr></table></figure>
 
 <p>如果输出等级高于控制台等级，就会在<strong>控制台</strong>输出该消息，否则只能在dmesg中查看</p>
-<h2 id="cdev操作"><a href="#cdev操作" class="headerlink" title="cdev操作"></a>cdev操作</h2><pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;&#x2F;将设备添加到系统中
-&#x2F;&#x2F;参数:
-&#x2F;&#x2F;	p:要添加到系统中的cdev
-&#x2F;&#x2F;	dev:设备号
-&#x2F;&#x2F;	count:添加到系统中的设备个数
-int cdev_add(struct cdev *p, dev_t dev,unsigned count)；
-&#x2F;&#x2F;将设备从系统中删除
-&#x2F;&#x2F;参数:
-&#x2F;&#x2F;	p:设备cdev
-void cdev_del(struct cdev *p);
-&#x2F;&#x2F;关联cdev与操作接口
-&#x2F;&#x2F;参数:
-&#x2F;&#x2F;	cdev:设备信息结构体
-&#x2F;&#x2F;	fops:操作接口
-void cdev_init(struct cdev *cdev, const struct file_operations *fops)；
-&#x2F;&#x2F;调用函数直接返回一个可用cdev首地址
-struct cdev *cdev_alloc(void);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="cdev操作"><a href="#cdev操作" class="headerlink" title="cdev操作"></a>cdev操作</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将设备添加到系统中</span></span><br><span class="line"><span class="comment">//参数:</span></span><br><span class="line"><span class="comment">//	p:要添加到系统中的cdev</span></span><br><span class="line"><span class="comment">//	dev:设备号</span></span><br><span class="line"><span class="comment">//	count:添加到系统中的设备个数</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">cdev_add</span><span class="params">(<span class="keyword">struct</span> cdev *p, <span class="type">dev_t</span> dev,<span class="type">unsigned</span> count)</span>；</span><br><span class="line"><span class="comment">//将设备从系统中删除</span></span><br><span class="line"><span class="comment">//参数:</span></span><br><span class="line"><span class="comment">//	p:设备cdev</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">cdev_del</span><span class="params">(<span class="keyword">struct</span> cdev *p)</span>;</span><br><span class="line"><span class="comment">//关联cdev与操作接口</span></span><br><span class="line"><span class="comment">//参数:</span></span><br><span class="line"><span class="comment">//	cdev:设备信息结构体</span></span><br><span class="line"><span class="comment">//	fops:操作接口</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">cdev_init</span><span class="params">(<span class="keyword">struct</span> cdev *cdev, <span class="type">const</span> <span class="keyword">struct</span> file_operations *fops)</span>；</span><br><span class="line"><span class="comment">//调用函数直接返回一个可用cdev首地址</span></span><br><span class="line"><span class="keyword">struct</span> cdev *<span class="title function_">cdev_alloc</span><span class="params">(<span class="type">void</span>)</span>;</span><br></pre></td></tr></table></figure>
 
 <h2 id="创建设备"><a href="#创建设备" class="headerlink" title="创建设备"></a>创建设备</h2><p>手动</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#使用mknod 创建设备</span>
-<span class="token comment">#设备类型使用c表示字符设备,使用b表示块设备</span>
-<span class="token function">sudo</span> <span class="token function">mknod</span> <span class="token punctuation">[</span>设备路径<span class="token punctuation">]</span>	<span class="token punctuation">[</span>设备类型<span class="token punctuation">(</span>c/b<span class="token punctuation">)</span><span class="token punctuation">]</span>	<span class="token punctuation">[</span>主设备号<span class="token punctuation">]</span>	<span class="token punctuation">[</span>次设备号<span class="token punctuation">]</span>
-<span class="token comment">#例如:创建字符设备/dev/rw_dev0 设备号为[504:0]</span>
-<span class="token function">sudo</span> <span class="token function">mknod</span> /dev/rw_dev0 c <span class="token number">504</span> <span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#使用mknod 创建设备</span></span><br><span class="line"><span class="comment">#设备类型使用c表示字符设备,使用b表示块设备</span></span><br><span class="line">sudo <span class="built_in">mknod</span> [设备路径]	[设备类型(c/b)]	[主设备号]	[次设备号]</span><br><span class="line"><span class="comment">#例如:创建字符设备/dev/rw_dev0 设备号为[504:0]</span></span><br><span class="line">sudo <span class="built_in">mknod</span> /dev/rw_dev0 c 504 0</span><br></pre></td></tr></table></figure>
 
 <p>自动</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;&#x2F;注册设备class
-&#x2F;&#x2F;该函数为宏函数，下面列出的不是函数声明，仅是以函数声明的形式列出输入和输出的类型
-&#x2F;&#x2F;参数:
-&#x2F;&#x2F;	owner:一般使用THIS_MOUDLE
-&#x2F;&#x2F;	name:模块名字符串
-&#x2F;&#x2F;返回值:
-&#x2F;&#x2F;	设备class
-struct class * class_create(struct module *owner,const char* name);
-&#x2F;&#x2F;注销设备class
-&#x2F;&#x2F;参数:
-&#x2F;&#x2F;	cls:设备class
-void class_destroy(struct class *cls);
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//注册设备class</span></span><br><span class="line"><span class="comment">//该函数为宏函数，下面列出的不是函数声明，仅是以函数声明的形式列出输入和输出的类型</span></span><br><span class="line"><span class="comment">//参数:</span></span><br><span class="line"><span class="comment">//	owner:一般使用THIS_MOUDLE</span></span><br><span class="line"><span class="comment">//	name:模块名字符串</span></span><br><span class="line"><span class="comment">//返回值:</span></span><br><span class="line"><span class="comment">//	设备class</span></span><br><span class="line"><span class="keyword">struct</span> class * <span class="title function_">class_create</span><span class="params">(<span class="keyword">struct</span> module *owner,<span class="type">const</span> <span class="type">char</span>* name)</span>;</span><br><span class="line"><span class="comment">//注销设备class</span></span><br><span class="line"><span class="comment">//参数:</span></span><br><span class="line"><span class="comment">//	cls:设备class</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">class_destroy</span><span class="params">(<span class="keyword">struct</span> class *cls)</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//创建设备文件</span></span><br><span class="line"><span class="comment">//参数:</span></span><br><span class="line"><span class="comment">//	class:设备class</span></span><br><span class="line"><span class="comment">//	parent:设备的父节点,若没有则置空(NULL)</span></span><br><span class="line"><span class="comment">//	devt:设备号</span></span><br><span class="line"><span class="comment">//	drvdata:传递参数使用(暂时不会用)</span></span><br><span class="line"><span class="comment">//	fmt:设备名,该参数和后续的参数可以像print一样使用，即可以使用占位符进行格式化输出</span></span><br><span class="line"><span class="keyword">struct</span> device *<span class="title function_">device_create</span><span class="params">(</span></span><br><span class="line"><span class="params">    	<span class="keyword">struct</span> class *class, </span></span><br><span class="line"><span class="params">    	<span class="keyword">struct</span> device *parent,</span></span><br><span class="line"><span class="params">    	<span class="type">dev_t</span> devt, </span></span><br><span class="line"><span class="params">    	<span class="type">void</span> *drvdata, </span></span><br><span class="line"><span class="params">    	<span class="type">const</span> <span class="type">char</span> *fmt, ...)</span>；</span><br><span class="line"><span class="comment">//删除设备</span></span><br><span class="line"><span class="comment">//参数:</span></span><br><span class="line"><span class="comment">//	class:设备class</span></span><br><span class="line"><span class="comment">//	devt:设备号</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">device_destroy</span><span class="params">(<span class="keyword">struct</span> class *class, <span class="type">dev_t</span> devt)</span></span><br></pre></td></tr></table></figure>
 
+<h2 id="设备号操作"><a href="#设备号操作" class="headerlink" title="设备号操作"></a>设备号操作</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//静态申请设备号</span></span><br><span class="line"><span class="comment">//参数:</span></span><br><span class="line"><span class="comment">//	from:要申请的设备号</span></span><br><span class="line"><span class="comment">//	count:要申请的次设备号的个数(申请出的次设备号连续，起始值是第一个参数中的次设备号)</span></span><br><span class="line"><span class="comment">//	name:驱动名(参考其他书写的是设备名称，但是这个名称和实际的设备名称好像并没有什么关系)</span></span><br><span class="line"><span class="comment">//       在/proc/devices目录中可查</span></span><br><span class="line"><span class="comment">//返回值:返回0表示申请成功，否则返回错误码</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">register_chrdev_region</span><span class="params">(<span class="type">dev_t</span> from, <span class="type">unsigned</span> count, <span class="type">const</span> <span class="type">char</span> *name)</span>;</span><br><span class="line"><span class="comment">//动态申请设备号</span></span><br><span class="line"><span class="comment">//参数:</span></span><br><span class="line"><span class="comment">//	dev:[output]要存放设备号的结构体地址</span></span><br><span class="line"><span class="comment">//	baseminor:起始设备号</span></span><br><span class="line"><span class="comment">//  count:要申请的次设备号的个数(申请出的次设备号连续)</span></span><br><span class="line"><span class="comment">//	name:驱动名(参考其他书写的是设备名称，但是这个名称和实际的设备名称好像并没有什么关系)</span></span><br><span class="line"><span class="comment">//       在/proc/devices目录中可查</span></span><br><span class="line"><span class="comment">//返回值:返回0表示申请成功，否则返回错误码</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">alloc_chrdev_region</span><span class="params">(<span class="type">dev_t</span> *dev, <span class="type">unsigned</span> baseminor, <span class="type">unsigned</span> count, <span class="type">const</span> <span class="type">char</span>* name)</span>;</span><br><span class="line"><span class="comment">//释放设备号</span></span><br><span class="line"><span class="comment">//参数:</span></span><br><span class="line"><span class="comment">//	from:要释放的设备号</span></span><br><span class="line"><span class="comment">//	count:子设备号个数</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">unregister_chrdev_region</span><span class="params">(<span class="type">dev_t</span> from, <span class="type">unsigned</span> count)</span>;</span><br></pre></td></tr></table></figure>
 
-&#x2F;&#x2F;创建设备文件
-&#x2F;&#x2F;参数:
-&#x2F;&#x2F;	class:设备class
-&#x2F;&#x2F;	parent:设备的父节点,若没有则置空(NULL)
-&#x2F;&#x2F;	devt:设备号
-&#x2F;&#x2F;	drvdata:传递参数使用(暂时不会用)
-&#x2F;&#x2F;	fmt:设备名,该参数和后续的参数可以像print一样使用，即可以使用占位符进行格式化输出
-struct device *device_create(
-    	struct class *class, 
-    	struct device *parent,
-    	dev_t devt, 
-    	void *drvdata, 
-    	const char *fmt, ...)；
-&#x2F;&#x2F;删除设备
-&#x2F;&#x2F;参数:
-&#x2F;&#x2F;	class:设备class
-&#x2F;&#x2F;	devt:设备号
-void device_destroy(struct class *class, dev_t devt)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="数据拷贝"><a href="#数据拷贝" class="headerlink" title="数据拷贝"></a>数据拷贝</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//__user 标识是用户的缓冲区</span></span><br><span class="line"><span class="comment">//n 拷贝的数据长度</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//从用户内存拷贝到内核内存</span></span><br><span class="line"><span class="type">static</span> <span class="keyword">inline</span> <span class="type">long</span> <span class="title function_">copy_from_user</span><span class="params">(<span class="type">void</span> *to, <span class="type">const</span> <span class="type">void</span> __user * from, <span class="type">unsigned</span> <span class="type">long</span> n)</span>;</span><br><span class="line"><span class="comment">//从内核内存拷贝到用户内存</span></span><br><span class="line"><span class="type">static</span> <span class="keyword">inline</span> <span class="type">long</span> <span class="title function_">copy_to_user</span><span class="params">(<span class="type">void</span> __user *to, <span class="type">const</span> <span class="type">void</span> *from, <span class="type">unsigned</span> <span class="type">long</span> n)</span>;</span><br></pre></td></tr></table></figure>
 
-<h2 id="设备号操作"><a href="#设备号操作" class="headerlink" title="设备号操作"></a>设备号操作</h2><pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;&#x2F;静态申请设备号
-&#x2F;&#x2F;参数:
-&#x2F;&#x2F;	from:要申请的设备号
-&#x2F;&#x2F;	count:要申请的次设备号的个数(申请出的次设备号连续，起始值是第一个参数中的次设备号)
-&#x2F;&#x2F;	name:驱动名(参考其他书写的是设备名称，但是这个名称和实际的设备名称好像并没有什么关系)
-&#x2F;&#x2F;       在&#x2F;proc&#x2F;devices目录中可查
-&#x2F;&#x2F;返回值:返回0表示申请成功，否则返回错误码
-int register_chrdev_region(dev_t from, unsigned count, const char *name);
-&#x2F;&#x2F;动态申请设备号
-&#x2F;&#x2F;参数:
-&#x2F;&#x2F;	dev:[output]要存放设备号的结构体地址
-&#x2F;&#x2F;	baseminor:起始设备号
-&#x2F;&#x2F;  count:要申请的次设备号的个数(申请出的次设备号连续)
-&#x2F;&#x2F;	name:驱动名(参考其他书写的是设备名称，但是这个名称和实际的设备名称好像并没有什么关系)
-&#x2F;&#x2F;       在&#x2F;proc&#x2F;devices目录中可查
-&#x2F;&#x2F;返回值:返回0表示申请成功，否则返回错误码
-int alloc_chrdev_region(dev_t *dev, unsigned baseminor, unsigned count, const char* name);
-&#x2F;&#x2F;释放设备号
-&#x2F;&#x2F;参数:
-&#x2F;&#x2F;	from:要释放的设备号
-&#x2F;&#x2F;	count:子设备号个数
-void unregister_chrdev_region(dev_t from, unsigned count);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="符号表导出"><a href="#符号表导出" class="headerlink" title="符号表导出"></a>符号表导出</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//导出一个符号，供其他模块调用</span></span><br><span class="line">EXPORT_SYMBOL(name)</span><br><span class="line">EXPORT_SYMBOL_GPL(name) </span><br></pre></td></tr></table></figure>
 
-<h2 id="数据拷贝"><a href="#数据拷贝" class="headerlink" title="数据拷贝"></a>数据拷贝</h2><pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;&#x2F;__user 标识是用户的缓冲区
-&#x2F;&#x2F;n 拷贝的数据长度
+<h2 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//参数名，类型，参数文件的权限（如果是0则不创建参数文件）（）</span></span><br><span class="line">module_param(name, type, perm)</span><br></pre></td></tr></table></figure>
 
-&#x2F;&#x2F;从用户内存拷贝到内核内存
-static inline long copy_from_user(void *to, const void __user * from, unsigned long n);
-&#x2F;&#x2F;从内核内存拷贝到用户内存
-static inline long copy_to_user(void __user *to, const void *from, unsigned long n);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="符号表导出"><a href="#符号表导出" class="headerlink" title="符号表导出"></a>符号表导出</h2><pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;&#x2F;导出一个符号，供其他模块调用
-EXPORT_SYMBOL(name)
-EXPORT_SYMBOL_GPL(name) <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h2><pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;&#x2F;参数名，类型，参数文件的权限（如果是0则不创建参数文件）（）
-module_param(name, type, perm)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<h2 id="地址映射"><a href="#地址映射" class="headerlink" title="地址映射"></a>地址映射</h2><pre class="line-numbers language-C" data-language="C"><code class="language-C">void __iomem* imremap(phys_addr_t offset,unsigned long size);
-void iounmap(void __iomem* addr)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="地址映射"><a href="#地址映射" class="headerlink" title="地址映射"></a>地址映射</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> __iomem* <span class="title function_">imremap</span><span class="params">(<span class="type">phys_addr_t</span> offset,<span class="type">unsigned</span> <span class="type">long</span> size)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">iounmap</span><span class="params">(<span class="type">void</span> __iomem* addr)</span></span><br></pre></td></tr></table></figure>
 
 <p>读写</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;&#x2F;b是1bit,是4bit,c是映射后的虚拟地址
-readb(c)
-writeb(v,c)
-readl(c)
-writel(v,c)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//b是1bit,是4bit,c是映射后的虚拟地址</span></span><br><span class="line">readb(c)</span><br><span class="line">writeb(v,c)</span><br><span class="line">readl(c)</span><br><span class="line">writel(v,c)</span><br></pre></td></tr></table></figure>
 
-<h2 id="GPIO子系统"><a href="#GPIO子系统" class="headerlink" title="GPIO子系统"></a>GPIO子系统</h2><pre class="line-numbers language-C" data-language="C"><code class="language-C">&#96;&#96;&#96;
-
-
-
-## IRQ子系统
-
-&#96;&#96;&#96;C
-&#x2F;&#x2F;irq:软件中断号，通过gpio_to_irq获取
-&#x2F;&#x2F;handle:中断处理函数
-request_irq(unsigned int irq,irq_handler_t handler,unsigned long flags,const char*name,void *dev)
-free_irq<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="GPIO子系统"><a href="#GPIO子系统" class="headerlink" title="GPIO子系统"></a>GPIO子系统</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## IRQ子系统</span><br><span class="line"></span><br><span class="line">```C</span><br><span class="line"><span class="comment">//irq:软件中断号，通过gpio_to_irq获取</span></span><br><span class="line"><span class="comment">//handle:中断处理函数</span></span><br><span class="line">request_irq(<span class="type">unsigned</span> <span class="type">int</span> irq,<span class="type">irq_handler_t</span> handler,<span class="type">unsigned</span> <span class="type">long</span> flags,<span class="type">const</span> <span class="type">char</span>*name,<span class="type">void</span> *dev)</span><br><span class="line">free_irq</span><br></pre></td></tr></table></figure>
 
 <h2 id="中断底半部"><a href="#中断底半部" class="headerlink" title="中断底半部"></a>中断底半部</h2><h3 id="软件中断"><a href="#软件中断" class="headerlink" title="软件中断"></a>软件中断</h3><p>​	处于中断状态，独占CPU，不参与调度，能被IRQ打断。没有内核接口不可用（除非修改内核，导出接口）</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;&#x2F;注册一个软中断
-open_softirq
-&#x2F;&#x2F;触发软中断
-raise_softirq<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//注册一个软中断</span></span><br><span class="line">open_softirq</span><br><span class="line"><span class="comment">//触发软中断</span></span><br><span class="line">raise_softirq</span><br></pre></td></tr></table></figure>
 
 <h3 id="tasklet"><a href="#tasklet" class="headerlink" title="tasklet"></a>tasklet</h3><p>​	基于软中断实现，特性和软中断相同。</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;&#x2F;初始化
-tasklet_init
-&#x2F;&#x2F;调度
-tasklet_schedule<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//初始化</span></span><br><span class="line">tasklet_init</span><br><span class="line"><span class="comment">//调度</span></span><br><span class="line">tasklet_schedule</span><br></pre></td></tr></table></figure>
 
 <h3 id="工作队列"><a href="#工作队列" class="headerlink" title="工作队列"></a>工作队列</h3><p>​	进程模式，参与进程调度</p>
 <p>​	&lt;linux&#x2F;workqueue.h&gt;</p>
 <p>方法一：</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;&#x2F;初始化work
-INIT_WORK(_work,_func)
-&#x2F;&#x2F;调度work
-schedule_work()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//初始化work</span></span><br><span class="line">INIT_WORK(_work,_func)</span><br><span class="line"><span class="comment">//调度work</span></span><br><span class="line">schedule_work()</span><br></pre></td></tr></table></figure>
 
 <p>方法二：</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;&#x2F;创建工作队列
-create_workqueue()
-&#x2F;&#x2F;销毁工作队列
-destory_workqueue()
-&#x2F;&#x2F;添加工作到工作队列
-queue_work<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建工作队列</span></span><br><span class="line">create_workqueue()</span><br><span class="line"><span class="comment">//销毁工作队列</span></span><br><span class="line">destory_workqueue()</span><br><span class="line"><span class="comment">//添加工作到工作队列</span></span><br><span class="line">queue_work</span><br></pre></td></tr></table></figure>
 
-<h2 id="内核定时器"><a href="#内核定时器" class="headerlink" title="内核定时器"></a>内核定时器</h2><pre class="line-numbers language-C" data-language="C"><code class="language-C">struct timer_list
-&#123;
-    unsigned long expires;&#x2F;&#x2F;定时时间   jiffies计数器，系统启动开始计时，计数频率对应的宏：HZ
-    void(*function)(unsigned long );&#x2F;&#x2F;处理函数
-&#125;
-&#x2F;&#x2F; expires &#x3D; jiffies + x*HZ   (x秒的定时)
-
-&#x2F;&#x2F;定义定时器
-DEFINE_TIMER(_name,_function,expires,_data)
-&#x2F;&#x2F;初始化定时器
-init_timer()
-&#x2F;&#x2F;添加定时器到内核
-add_timer
-&#x2F;&#x2F;删除定时器
-del_timer
-&#x2F;&#x2F;修改定时器定时时间
-mod_timer<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="内核定时器"><a href="#内核定时器" class="headerlink" title="内核定时器"></a>内核定时器</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">timer_list</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> expires;<span class="comment">//定时时间   jiffies计数器，系统启动开始计时，计数频率对应的宏：HZ</span></span><br><span class="line">    <span class="type">void</span>(*function)(<span class="type">unsigned</span> <span class="type">long</span> );<span class="comment">//处理函数</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// expires = jiffies + x*HZ   (x秒的定时)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//定义定时器</span></span><br><span class="line">DEFINE_TIMER(_name,_function,expires,_data)</span><br><span class="line"><span class="comment">//初始化定时器</span></span><br><span class="line">init_timer()</span><br><span class="line"><span class="comment">//添加定时器到内核</span></span><br><span class="line">add_timer</span><br><span class="line"><span class="comment">//删除定时器</span></span><br><span class="line">del_timer</span><br><span class="line"><span class="comment">//修改定时器定时时间</span></span><br><span class="line">mod_timer</span><br></pre></td></tr></table></figure>
 
 <h2 id="Kfifo"><a href="#Kfifo" class="headerlink" title="Kfifo"></a>Kfifo</h2><p>&lt;linux&#x2F;kfifo.h&gt;</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">struct kfifo&#123;
-	unsigned char*buffer;
-    unsigned int size;
-    unsigned int in;
-    unsigned int out;
-&#125;
-&#x2F;**
- * gfp_mask:
- * 		GFP_KERNEL:在分配空间时可以参与内核调度（常用）
- *		GFP_ATOMIC:原子性操作，在分配空间时不允许被打断
- *&#x2F;
-kfifo_alloc(fifo,size,gfp_mask)
-kfifo_free()
-    
-kfifo_in
-kfifo_out
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">kfifo</span>&#123;</span></span><br><span class="line">	<span class="type">unsigned</span> <span class="type">char</span>*buffer;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> size;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> in;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> out;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * gfp_mask:</span></span><br><span class="line"><span class="comment"> * 		GFP_KERNEL:在分配空间时可以参与内核调度（常用）</span></span><br><span class="line"><span class="comment"> *		GFP_ATOMIC:原子性操作，在分配空间时不允许被打断</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">kfifo_alloc(fifo,size,gfp_mask)</span><br><span class="line">kfifo_free()</span><br><span class="line">    </span><br><span class="line">kfifo_in</span><br><span class="line">kfifo_out</span><br><span class="line"></span><br><span class="line"><span class="comment">//存储数据的长度</span></span><br><span class="line">kfifo_len</span><br><span class="line"><span class="comment">//fifo大小</span></span><br><span class="line">kfifo_size</span><br><span class="line"><span class="comment">//是否为空</span></span><br><span class="line">kfifo_is_empty</span><br><span class="line"><span class="comment">//是否满</span></span><br><span class="line">kfifo_is_full</span><br></pre></td></tr></table></figure>
 
-&#x2F;&#x2F;存储数据的长度
-kfifo_len
-&#x2F;&#x2F;fifo大小
-kfifo_size
-&#x2F;&#x2F;是否为空
-kfifo_is_empty
-&#x2F;&#x2F;是否满
-kfifo_is_full<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="内存申请"><a href="#内存申请" class="headerlink" title="内存申请"></a>内存申请</h2><pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;**
- * gfp_mask:GFP_KERNEL,GFP_ATOMIC
- *&#x2F;
-&#x2F;&#x2F;分配出的内存在物理内存空间和虚拟内存空间上均连续，因此分配的大小不能太大，否则可能在物理空间中找不到，导致失败
-kmalloc(size,gfp_mask)
-kfree()
-    
-&#x2F;&#x2F;虚拟内存空间上连续，在物理内存空间不一定连续
-vmalloc(size)
-vfree()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="内存申请"><a href="#内存申请" class="headerlink" title="内存申请"></a>内存申请</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * gfp_mask:GFP_KERNEL,GFP_ATOMIC</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">//分配出的内存在物理内存空间和虚拟内存空间上均连续，因此分配的大小不能太大，否则可能在物理空间中找不到，导致失败</span></span><br><span class="line">kmalloc(size,gfp_mask)</span><br><span class="line">kfree()</span><br><span class="line">    </span><br><span class="line"><span class="comment">//虚拟内存空间上连续，在物理内存空间不一定连续</span></span><br><span class="line">vmalloc(size)</span><br><span class="line">vfree()</span><br></pre></td></tr></table></figure>
 
 <h2 id="并发竟态"><a href="#并发竟态" class="headerlink" title="并发竟态"></a>并发竟态</h2><blockquote>
 <p>同步：程序执行的顺序性</p>
@@ -406,26 +232,12 @@ vfree()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></s
 <blockquote>
 <ol>
 <li><p>互斥锁</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;&#x2F;&lt;linux&#x2F;mutex.h&gt;
-&#x2F;&#x2F;互斥锁初始化
-mutex_init(mutex)
-&#x2F;&#x2F;上锁(上锁失败，阻塞)
-mutex_lock()
-&#x2F;&#x2F;尝试上锁(上锁失败返回错误)
-mutex_trylock
-&#x2F;&#x2F;解锁
-mutex_unlock()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//&lt;linux/mutex.h&gt;</span></span><br><span class="line"><span class="comment">//互斥锁初始化</span></span><br><span class="line">mutex_init(mutex)</span><br><span class="line"><span class="comment">//上锁(上锁失败，阻塞)</span></span><br><span class="line">mutex_lock()</span><br><span class="line"><span class="comment">//尝试上锁(上锁失败返回错误)</span></span><br><span class="line">mutex_trylock</span><br><span class="line"><span class="comment">//解锁</span></span><br><span class="line">mutex_unlock()</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>自旋锁</p>
 <p>上锁成功：停止进程调度器</p>
 <p>上锁失败：进程自旋，不休眠，100%占用CPU（其他进程在临界区内主动释放CPU）</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;&#x2F;&lt;linux&#x2F;spinlock.h&gt;
-&#x2F;&#x2F;初始化
-spin_lock_init()
-&#x2F;&#x2F;
-spin_lock
-spin_trylock
-spin_unlock<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//&lt;linux/spinlock.h&gt;</span></span><br><span class="line"><span class="comment">//初始化</span></span><br><span class="line">spin_lock_init()</span><br><span class="line"><span class="comment">//</span></span><br><span class="line">spin_lock</span><br><span class="line">spin_trylock</span><br><span class="line">spin_unlock</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>原子操作</p>
 <p>不会被打断的操作（ATOMIC）一般是由汇编编写，方法一般在体系架构相关的代码中</p>
@@ -433,40 +245,11 @@ spin_unlock<span aria-hidden="true" class="line-numbers-rows"><span></span><span
 </li>
 <li><p>信号量</p>
 <p>semaphore</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;&#x2F;初始化
-sema_init
-&#x2F;&#x2F;减操作,不可被中断
-down
-&#x2F;&#x2F;加操作
-up
-down_trylock
-&#x2F;&#x2F;减操作，可被其他系统信号中断，例如Ctrl+C
-down_interruptible<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//初始化</span></span><br><span class="line">sema_init</span><br><span class="line"><span class="comment">//减操作,不可被中断</span></span><br><span class="line">down</span><br><span class="line"><span class="comment">//加操作</span></span><br><span class="line">up</span><br><span class="line">down_trylock</span><br><span class="line"><span class="comment">//减操作，可被其他系统信号中断，例如Ctrl+C</span></span><br><span class="line">down_interruptible</span><br></pre></td></tr></table></figure></li>
 </ol>
 </blockquote>
 <h2 id="IO模型"><a href="#IO模型" class="headerlink" title="IO模型"></a>IO模型</h2><h3 id="阻塞"><a href="#阻塞" class="headerlink" title="阻塞"></a>阻塞</h3><p>注意，在等待队列的一般是由于缓冲区无数据导致的读取等待。因此应该在有进程向缓冲区写数据的时候唤醒，或者从硬件读取到数据时唤醒</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;&#x2F;&lt;linux&#x2F;wait.h&gt;
-
-
-&#x2F;&#x2F;wq  等待队列头
-&#x2F;&#x2F;condition  条件（0:条件不满足，1：条件满足）
-wait_event(wq,condition)
-&#x2F;&#x2F;可中断的
-wait_event_interrupttible(wq,condition)
-
-&#x2F;&#x2F;初始化等待队列头
-init_waitqueue_head()
-&#x2F;&#x2F;初始化等待队列项
-&#x2F;&#x2F;@q:队列
-&#x2F;&#x2F;@task:进程信息，CURRENT
-init_waitqueue_entry(q,task)
-&#x2F;&#x2F;添加到等待队列
-add_wait_queue()
-&#x2F;&#x2F;切换进程状态(sched.h)
-&#x2F;&#x2F;@state_value:进程状态码，例如:TASK_RUNNING
-set_current_state(state_value)
-&#x2F;&#x2F;进程切换
-schedule<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//&lt;linux/wait.h&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//wq  等待队列头</span></span><br><span class="line"><span class="comment">//condition  条件（0:条件不满足，1：条件满足）</span></span><br><span class="line">wait_event(wq,condition)</span><br><span class="line"><span class="comment">//可中断的</span></span><br><span class="line">wait_event_interrupttible(wq,condition)</span><br><span class="line"></span><br><span class="line"><span class="comment">//初始化等待队列头</span></span><br><span class="line">init_waitqueue_head()</span><br><span class="line"><span class="comment">//初始化等待队列项</span></span><br><span class="line"><span class="comment">//@q:队列</span></span><br><span class="line"><span class="comment">//@task:进程信息，CURRENT</span></span><br><span class="line">init_waitqueue_entry(q,task)</span><br><span class="line"><span class="comment">//添加到等待队列</span></span><br><span class="line">add_wait_queue()</span><br><span class="line"><span class="comment">//切换进程状态(sched.h)</span></span><br><span class="line"><span class="comment">//@state_value:进程状态码，例如:TASK_RUNNING</span></span><br><span class="line">set_current_state(state_value)</span><br><span class="line"><span class="comment">//进程切换</span></span><br><span class="line">schedule</span><br></pre></td></tr></table></figure>
 
 <ol>
 <li>初始化等待队列头</li>
@@ -475,12 +258,7 @@ schedule<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
 <li>切换进程的状态</li>
 <li>调度执行其他进行</li>
 </ol>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;&#x2F;唤醒
-wake_up
-wake_up_interruptible
-    
-&#x2F;&#x2F;从等待队列移除
-remove_wait_queue<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//唤醒</span></span><br><span class="line">wake_up</span><br><span class="line">wake_up_interruptible</span><br><span class="line">    </span><br><span class="line"><span class="comment">//从等待队列移除</span></span><br><span class="line">remove_wait_queue</span><br></pre></td></tr></table></figure>
 
 <ol>
 <li>切换进程状态（TASK_RUNNING）</li>
@@ -493,13 +271,10 @@ remove_wait_queue<span aria-hidden="true" class="line-numbers-rows"><span></span
 <p>或者使用fcntl   F_GETL  F_SETL</p>
 <h3 id="IO多路复用（select-poll-epoll）"><a href="#IO多路复用（select-poll-epoll）" class="headerlink" title="IO多路复用（select&#x2F;poll&#x2F;epoll）"></a>IO多路复用（select&#x2F;poll&#x2F;epoll）</h3><p>应用层</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_33497944/article/details/117013217">(153条消息) c语言select函数作用,linux c语言 select函数使用方法_謝晓东的博客-CSDN博客</a></p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">int select()<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">select</span><span class="params">()</span></span><br></pre></td></tr></table></figure>
 
 <p>驱动层实现file_optional-&gt;poll</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;**
- * @return (0:条件不满足,返回非0:条件满足，常用POLLIN,POLLOUT)
- *&#x2F;
-int (*poll)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @return (0:条件不满足,返回非0:条件满足，常用POLLIN,POLLOUT)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">int</span> (*poll)</span><br></pre></td></tr></table></figure>
 
 
 
@@ -520,33 +295,17 @@ int (*poll)<span aria-hidden="true" class="line-numbers-rows"><span></span><span
 </ol>
 </li>
 </ol>
-<h1 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h1><h2 id="open"><a href="#open" class="headerlink" title="open"></a>open</h2><pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;&#x2F;inode:【输入】描述了上层设备文件节点的结构体
-&#x2F;&#x2F;file:【输出】文件指针
-int open(struct inode * in, struct file * fp)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h1 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h1><h2 id="open"><a href="#open" class="headerlink" title="open"></a>open</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//inode:【输入】描述了上层设备文件节点的结构体</span></span><br><span class="line"><span class="comment">//file:【输出】文件指针</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">open</span><span class="params">(<span class="keyword">struct</span> inode * in, <span class="keyword">struct</span> file * fp)</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="ioctl"><a href="#ioctl" class="headerlink" title="ioctl"></a>ioctl</h2><pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;&#x2F;应用层接口
-&#x2F;&#x2F;fd:文件
-&#x2F;&#x2F;request:请求号
-&#x2F;&#x2F;...:参数
-int ioctl(int fd,unsigned long request,...)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="ioctl"><a href="#ioctl" class="headerlink" title="ioctl"></a>ioctl</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//应用层接口</span></span><br><span class="line"><span class="comment">//fd:文件</span></span><br><span class="line"><span class="comment">//request:请求号</span></span><br><span class="line"><span class="comment">//...:参数</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">ioctl</span><span class="params">(<span class="type">int</span> fd,<span class="type">unsigned</span> <span class="type">long</span> request,...)</span></span><br></pre></td></tr></table></figure>
 
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">&#x2F;&#x2F;驱动层接口
-&#x2F;&#x2F;file:文件
-&#x2F;&#x2F;cmd:
-long (*unlocked_ioctl) (struct file *, unsigned int cmd, unsigned long args);
-long (*compat_ioctl) (struct file *, unsigned int, unsigned long);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//驱动层接口</span></span><br><span class="line"><span class="comment">//file:文件</span></span><br><span class="line"><span class="comment">//cmd:</span></span><br><span class="line"><span class="type">long</span> (*unlocked_ioctl) (<span class="keyword">struct</span> file *, <span class="type">unsigned</span> <span class="type">int</span> cmd, <span class="type">unsigned</span> <span class="type">long</span> args);</span><br><span class="line"><span class="type">long</span> (*compat_ioctl) (<span class="keyword">struct</span> file *, <span class="type">unsigned</span> <span class="type">int</span>, <span class="type">unsigned</span> <span class="type">long</span>);</span><br></pre></td></tr></table></figure>
 
 <p>cmd的构造方法</p>
-<pre class="line-numbers language-C" data-language="C"><code class="language-C">_IO
-_IOW
-_IOR
-_IOWR<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">_IO</span><br><span class="line">_IOW</span><br><span class="line">_IOR</span><br><span class="line">_IOWR</span><br></pre></td></tr></table></figure>
 
 <p>cmd中提取参数</p>
-<pre class="line-numbers language-none"><code class="language-none">_IOC_DIR
-_IOC_TYPE
-_IOC_NR
-_IOC_SIZE<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">_IOC_DIR</span><br><span class="line">_IOC_TYPE</span><br><span class="line">_IOC_NR</span><br><span class="line">_IOC_SIZE</span><br></pre></td></tr></table></figure>
 
 
       </div>
